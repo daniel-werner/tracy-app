@@ -373,25 +373,25 @@ window.app = window.app || {};
      * @private
      */
     function bindEvents() {
-        page.addEventListener('pagebeforeshow', onPageBeforeShow);
-        mapBtn.addEventListener('click', onMapBtnClick);
-        manualBtn.addEventListener('click', onManualBtnClick);
-        window.addEventListener(
-            'model.geolocation.current.position.changed',
-            onModelGeolocationCurrentPositionChanged
-        );
-        window.addEventListener(
-            'model.geolocation.destination.reached',
-            onModelGeolocationDestinationReached
-        );
-        window.addEventListener(
-            'model.compass.rotation.changed',
-            onModelCompassRotationChanged
-        );
-        window.addEventListener(
-            'model.geolocation.position.lost',
-            onModelGeolocationPositionLost
-        );
+        //page.addEventListener('pagebeforeshow', onPageBeforeShow);
+        //mapBtn.addEventListener('click', onMapBtnClick);
+        //manualBtn.addEventListener('click', onManualBtnClick);
+        //window.addEventListener(
+        //    'model.geolocation.current.position.changed',
+        //    onModelGeolocationCurrentPositionChanged
+        //);
+        //window.addEventListener(
+        //    'model.geolocation.destination.reached',
+        //    onModelGeolocationDestinationReached
+        //);
+        //window.addEventListener(
+        //    'model.compass.rotation.changed',
+        //    onModelCompassRotationChanged
+        //);
+        //window.addEventListener(
+        //    'model.geolocation.position.lost',
+        //    onModelGeolocationPositionLost
+        //);
     }
 
     /**

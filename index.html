@@ -16,64 +16,57 @@
 <body>
     <div class="ui-page waiting" id="waiting">
         <div class="ui-content">
-            <div class="waiting-message" id="waiting-message"></div>
+        		<div class="intro">
+        		    	<div class="app-title">TRACY</div>
+        			<div class="workout-icon tracy-cycling"></div>
+        			<div class="workout-icon tracy-running"></div>
+		        <div class="waiting-message" id="waiting-message">
+	        		</div>
+        		</div>
         </div>
     </div>
 
     <div class="ui-page destination" id="destination">
-        <div class="ui-header ui-header-fixed">
-            <a class="ui-header-btn ui-header-btn-left ui-header-btn-icon" id="destination-mode-btn"></a>
-            <h2>Set destination</h2>
-        </div>
-        <div class="ui-content">
-            <div class="map" id="map"></div>
-            <div class="manual" id="manual">
-                <img class="path-background">
-                <div class="start">
-                    <div class="text header">YOU START FROM:</div>
-                    <div class="text label latitude">Latitude</div>
-                    <div class="text value latitude" id="latitude-start"></div>
-                    <div class="text label longitude">Longitude</div>
-                    <div class="text value longitude" id="longitude-start"></div>
-                </div>
-                <div class="end">
-                    <div class="text header">YOUR DESTINATION IS:</div>
-                    <div class="text label latitude" id="latitude-destination-label">Latitude</div>
-                    <div class="text value latitude">
-                        <input type="number" class="input" id="latitude-destination" step="0.1" data-role="none" placeholder="Required">
-                        <div class="input-dot" id="latitude-destination-dot"></div>
-                    </div>
-                    <div class="text label longitude" id="longitude-destination-label">Longitude</div>
-                    <div class="text value longitude">
-                        <input type="number" class="input" id="longitude-destination" step="0.1" data-role="none" placeholder="Required">
-                        <div class="input-dot" id="longitude-destination-dot"></div>
-                    </div>
-                </div>
+            <div class="ui-header">
+                <div class="status-indicator gps-status"></div>
+                <div class="status-indicator network-status"></div>
             </div>
-            <div class="shadow header-shadow"></div>
-            <div class="shadow footer-shadow"></div>
-        </div>
-        <div class="ui-footer ui-footer-fixed">
-            <button id="destination-start-btn">START NAVIGATION</button>
-        </div>
+    		<div class="ui-content">
+                <hr>
+        		<a href="#navigation" class="workout-icon tracy-cycling">
+        			START CYCLING
+        		</a>
+                <hr>
+        		<a href="#navigation" class="workout-icon tracy-running">
+        			START RUNNING
+        		</a>
+    		</div>
     </div>
 
     <div class="ui-page navigation" id="navigation">
-        <div class="ui-header ui-header-fixed">
-            <a class="ui-header-btn ui-header-btn-left ui-header-btn-icon btn-icon-map" id="navigation-map-btn"></a>
-            <a class="ui-header-btn ui-header-btn-right ui-header-btn-icon btn-icon-manual" id="navigation-manual-btn"></a>
+        <div class="ui-header">
+            <div class="status-indicator gps-status-active"></div>
+            <span class="workout-paused">PAUSED</span>
+            <div class="status-indicator network-status"></div>
         </div>
         <div class="ui-content">
-            <div class="progress progress-path-mask" id="progress-path-mask">
-                <div class="progress progress-path" id="progress-path"></div>
+            <hr>
+            <div class="workout-item-big ">
+                Speed:
+                <div class="workout-data workout-speed">20.2</div>
+                <div>km/h</div>
             </div>
-            <div class="progress progress-path-dots"></div>
-            <div class="progress progress-path-indicator" id="progress-path-indicator"></div>
-            <div class="compass" id="compass"></div>
-            <div class="compass-shadow"></div>
-            <div class="arrow" id="arrow"></div>
-            <div class="distance-label">DISTANCE LEFT</div>
-            <div class="distance-value"><span id="navigation-distance-value"></span> <span id="navigation-distance-unit"></span></div>
+            <hr>
+            <div class="workout-item-big">
+                Distance:
+                <div class="workout-data workout-distance">25.2</div>
+                <div>km</div>
+            </div>
+            <hr>
+            <div class="workout-item-small">
+                <span class="workout-data workout-hr">126</span>
+                <span class="workout-data workout-altitude">130</span>
+            </div>
         </div>
     </div>
 
@@ -95,9 +88,9 @@
         <div class="ui-popup-content popup-content-padding">
             Are you sure you want to close the application?
         </div>
-        <div class="ui-popup-footer ui-grid-col-2">
-            <a class="ui-btn no" data-rel="back" data-inline="true">No</a>
-            <a class="ui-btn yes" data-rel="back" data-inline="true" id="close-popup-yes-btn">Yes</a>
+        <div class="ui-popup-footer ui-grid-row">
+            <a class="ui-btn no" data-rel="back" data-inline="false">No</a>
+            <a class="ui-btn yes" data-rel="back" data-inline="false" id="close-popup-yes-btn">Yes</a>
         </div>
     </div>
 

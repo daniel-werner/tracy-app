@@ -1,9 +1,36 @@
-.ui-page.waiting .ui-content {
+.ui-mobile, .ui-mobile .ui-page{
     background-color: black;
-    background-image: url('../images/map-marked-alt-solid.svg');
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    background-size: 70% 70%;
+    background-image: none;
+    color: #FFFFFF;
+}
+
+
+.ui-page.waiting .app-title{
+	margin: 10px 0 0 0;
+	color: #FFF;
+	font-size: 40px;
+	text-align: center;
+}
+
+.workout-icon{
+    display: block;
+    text-decoration: none;
+	padding: 0px 0px;
+	background-repeat: no-repeat;
+	background-position: 50% 100%;
+	background-size: 100% 80%;
+	width: 100%;
+	height: 150px;
+	text-align: center;
+	color: #FFF;
+}
+
+.tracy-cycling{
+	background-image: url('../images/bicycle-solid.svg');
+}
+
+.tracy-running{
+	background-image: url('../images/walking-solid.svg');
 }
 
 .ui-page.finish .ui-content {
@@ -15,7 +42,7 @@
 .ui-page.destination .ui-content,
 .ui-page.navigation .ui-content,
 .ui-page.finish .ui-content {
-    top: 0 !important;
+    /*top: 0 !important;*/
     height: 100% !important;
 }
 
@@ -23,11 +50,89 @@
     -webkit-mask-image: url(../images/close_button.png);
 }
 
+.ui-header{
+    text-align: center;
+    min-height: 30px;
+    padding: 10px 0 0 0;
+}
+
+.workout-item-big{
+    width: 100%;
+    text-align: center;
+    height: 160px;
+}
+
+hr{
+    margin: 5px;
+}
+
+.workout-paused{
+    display: none;
+    font-size: 17px;
+    animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.workout-item-big .workout-data{
+    font-size: 85px;
+    color: #AFFD58;
+}
+
+.workout-item-small{
+    text-align: center;
+    width: 100%;
+}
+
+.workout-item-small .workout-data{
+    margin: 0 5px;
+    padding: 0 20px 0 30px;
+}
+
+.workout-item-small .workout-hr{
+    background: transparent url('../images/heart-solid.svg') no-repeat;
+}
+
+.workout-item-small .workout-altitude{
+    background: transparent url('../images/altitude-icon.svg') no-repeat;
+}
+
 .finish-flag {
     width: 100%;
     content: url('../images/finish_flag.png');
     position: absolute;
     top: 96px;
+}
+
+.status-indicator{
+    margin: 0px 10px 0 10px;
+    width: 20px;
+    height: 20px;
+}
+
+.gps-status {
+    float: left;
+    background: transparent url('../images/gps-indicator-active.svg') no-repeat;
+    animation: blinker 2s linear infinite;
+}
+
+.gps-status-active {
+    float: left;
+    background: transparent url('../images/gps-indicator-active.svg') no-repeat;
+}
+
+.network-status{
+    float: right;
+    background: transparent url('../images/network-indicator.svg') no-repeat;
+}
+
+.network-status-active{
+    float: right;
+    background: transparent url('../images/network-indicator-active.svg') no-repeat;
 }
 
 .ui-page.destination.map .ui-content {
@@ -56,20 +161,6 @@
     opacity: .5;
 }
 
-.ui-page.destination .ui-header .ui-header-btn::after,
-.ui-page.navigation .ui-header .ui-header-btn.btn-icon-map::after {
-    -webkit-mask-image: url(../images/map_button.png);
-}
-
-.ui-page.destination.map .ui-header .ui-header-btn::after,
-.ui-page.navigation .ui-header .ui-header-btn.btn-icon-manual::after {
-    -webkit-mask-image: url(../images/manual_button.png);
-}
-
-.ui-page.destination.map .ui-header {
-    background-color: rgb(34, 182, 195);
-    position: fixed;
-}
 
 .ui-page.destination .ui-header,
 .ui-page.navigation .ui-header,
@@ -78,44 +169,20 @@
     position: absolute;
 }
 
-.ui-page.destination .ui-content {
-    background-image: url('../images/manual_background.png');
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-}
-
-.ui-page.destination .ui-content.keyboard-on {
-    background-position: 0 -220px;
-}
-
-.ui-page.destination.map .shadow {
-    position: absolute;
-    width: 100%;
-    background-repeat: no-repeat;
-    background-size: 100%;
-}
-
-.ui-page.destination.map .header-shadow {
-    top: 0;
-    height: 27px;
-    pointer-events: none;
-    background-image: url('../images/map_header_shadow.png');
-}
-
-.ui-page.destination.map .footer-shadow {
-    bottom: 0;
-    height: 66px;
-    background-image: url('../images/map_footer_shadow.png');
-}
-
 .waiting-message {
     width: 100%;
     text-align: center;
     color: #fff;
-    position: absolute;
-    bottom: 79px;
-    font-size: 17px;
-    line-height: 19px;
+    font-size: 15px;
+    line-height: 17px;
+    height: 50px;
+    margin-top: 30px;
+    padding-left: 30px;
+    background-image: url('../images/map-marked-alt-solid.svg');
+    background-repeat: no-repeat;
+    background-position: 0% 0%;
+    background-size: 30% 50%;
+    animation: blinker 2s linear infinite;
 }
 
 .waiting-message.lost {
@@ -303,71 +370,6 @@
     background-color: rgb(217, 112, 0);
 }
 
-.ui-page.navigation .ui-content {
-    background-image: url('../images/navigation_background.png');
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-}
-
-.navigation .compass,
-.navigation .arrow {
-    position: absolute;
-    width: 100%;
-    height: 100vw;
-    top: 75px;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-}
-
-.navigation .compass-shadow {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-image: url('../images/navigation_compass_shadow.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-}
-
-.navigation .progress {
-    position: absolute;
-    width: 470px;
-    height: 470px;
-    top: 20px;
-    left: -55px;
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-}
-
-.navigation .progress-path {
-    top: 0;
-    left: 0;
-    background-image: url('../images/navigation_progress_path.png');
-}
-
-.navigation .progress-path-mask {
-    -webkit-mask-image: url('../images/navigation_progress_path_mask.png');
-    -webkit-mask-size: 100%;
-}
-
-.navigation .progress-path-dots {
-    background-image: url('../images/navigation_progress_path_points.png');
-}
-
-.navigation .progress-path-indicator {
-    background-image: url('../images/navigation_progress_path_indicator.png');
-}
-
-.navigation .compass {
-    background-image: url('../images/navigation_compass.png');
-    -webkit-transition: all 0.7s ease-out;
-}
-
-.navigation .arrow {
-    background-image: url('../images/navigation_direction_indicator.png');
-    -webkit-transition: all 0.7s ease-out;
-}
 
 .distance-label {
     position: absolute;
@@ -410,8 +412,14 @@
     color: rgb(42, 204, 217);
 }
 
+.ui-btn{
+    border-radius: 0 !important;
+    margin: 5px;
+}
+
 .ui-btn.yes:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
-    background-color: rgb(42, 204, 217);
+    background-color: #AFFD58;
+    color: black;
 }
 
 .ui-btn.yes:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item)::before {
@@ -419,7 +427,9 @@
 }
 
 .ui-btn.no:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
-    background-color: rgb(49, 160, 169);
+    background-color: transparent;
+    border: 2px solid #AFFD58;
+    color: #AFFD58;
 }
 
 .ui-btn.no:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item)::before {

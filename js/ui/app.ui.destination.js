@@ -450,8 +450,8 @@ window.app = window.app || {};
             ));
         }
 
-        latitudeStart.innerText = latitude;
-        longitudeStart.innerText = longitude;
+        //latitudeStart.innerText = latitude;
+        //longitudeStart.innerText = longitude;
     }
 
     /**
@@ -877,6 +877,7 @@ window.app = window.app || {};
      */
     function bindEvents() {
         page.addEventListener('pagebeforeshow', onPageBeforeShow);
+        /*
         modeBtn.addEventListener('click', onModeBtnClick);
         startBtn.addEventListener('click', onStartBtnClick);
         latitudeDestination.addEventListener(
@@ -923,7 +924,7 @@ window.app = window.app || {};
             'model.geolocation.position.lost',
             onModelGeolocationPositionLost
         );
-        window.addEventListener('softkeyboardchange', onSoftKeyboardChange);
+        window.addEventListener('softkeyboardchange', onSoftKeyboardChange);*/
     }
 
     /**
