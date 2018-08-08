@@ -83,7 +83,7 @@ window.app = window.app || {};
          * @private
          * @type {object}
          */
-        uiWaiting = null,
+        uiIntro = null,
 
         /**
          * UI destination module reference.
@@ -91,7 +91,7 @@ window.app = window.app || {};
          * @private
          * @type {object}
          */
-        uiDestination = null,
+        uiMain = null,
 
         /**
          * UI navigation module reference.
@@ -99,15 +99,7 @@ window.app = window.app || {};
          * @private
          * @type {object}
          */
-        uiNavigation = null,
-
-        /**
-         * Ui finish module reference.
-         *
-         * @private
-         * @type {object}
-         */
-        uiFinish = null,
+        uiWorkout = null,
 
         /**
          * Close popup element.
@@ -123,30 +115,27 @@ window.app = window.app || {};
          * @private
          * @type {HTMLElement}
          */
-        closePopupYesBtn = null;
+        closePopupYesBtn = null,
+
+        /**
+         * Gps status indicator.
+         *
+         * @private
+         * @type {HTMLElement}
+         */
+        gpsStatusIndicators = null,
+
+        /**
+         * Network status indicator.
+         *
+         * @private
+         * @type {HTMLElement}
+         */
+        networkStatusIndicators = null;
 
     // create namespace for the module
     app.ui = app.ui || {};
     ui = app.ui;
-
-    /**
-     * Adds script element to the body element,
-     * which is responsible for access to the google maps API.
-     *
-     * @private
-     */
-    function addGoogleServiceScriptElement() {
-        var script = null;
-
-        if (!document.getElementById('google-service') &&
-                modelNetwork.isNetworkAvailable()) {
-            script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = 'http://maps.google.com/maps/api/js?key=' + API_KEY;
-            script.id = 'google-service';
-            document.body.appendChild(script);
-        }
-    }
 
     /**
      * Handles model.network.initialized event.
@@ -154,8 +143,8 @@ window.app = window.app || {};
      * @private
      */
     function onModelNetworkInitialized() {
-        addGoogleServiceScriptElement();
         modelGeolocation.init();
+        onModelNetworkTypeChanged();
     }
 
     /**
@@ -164,7 +153,48 @@ window.app = window.app || {};
      * @private
      */
     function onModelNetworkTypeChanged() {
-        addGoogleServiceScriptElement();
+        if( modelNetwork.isNetworkAvailable() ) {
+            for (var i = 0; i < networkStatusIndicators.length; ++i) {
+                var networkStatusIndicator = networkStatusIndicators[i];
+                if (!networkStatusIndicator.classList.contains('network-status-active')) {
+                    networkStatusIndicator.classList.add('network-status-active');
+                }
+                else {
+                    if (networkStatusIndicator.classList.contains('network-status-active')) {
+                        networkStatusIndicator.classList.remove('network-status-active');
+                    }
+                }
+            };
+        }
+    }
+
+    /**
+     * Handles model.geolocation.position.available event.
+     *
+     * @private
+     */
+    function onModelGeolocationPositionAvailable() {
+        for (var i = 0; i < gpsStatusIndicators.length; ++i) {
+            var gpsStatusIndicator = gpsStatusIndicators[i];
+            if (!gpsStatusIndicator.classList.contains('gps-status-active')) {
+                gpsStatusIndicator.classList.add('gps-status-active');
+            }
+        };
+    }
+
+    /**
+     * Handles model.geolocation.position.unavailable
+     * and model.geolocation.position.lost events.
+     *
+     * @private
+     */
+    function onModelGeolocationPositionUnAvailable() {
+        for (var i = 0; i < gpsStatusIndicators.length; ++i) {
+            var gpsStatusIndicator = gpsStatusIndicators[i];
+            if (gpsStatusIndicator.classList.contains('gps-status-active')) {
+                gpsStatusIndicator.classList.remove('gps-status-active');
+            }
+        }
     }
 
     /**
@@ -191,6 +221,21 @@ window.app = window.app || {};
             'model.network.type.changed',
             onModelNetworkTypeChanged
         );
+
+        window.addEventListener(
+            'model.geolocation.position.available',
+            onModelGeolocationPositionAvailable
+        );
+
+        window.addEventListener(
+            'model.geolocation.position.unavailable',
+            onModelGeolocationPositionUnAvailable
+        );
+
+        window.addEventListener(
+            'model.geolocation.position.lost',
+            onModelGeolocationPositionUnAvailable
+        );
     }
 
     /**
@@ -216,20 +261,18 @@ window.app = window.app || {};
     ui.init = function init() {
         modelGeolocation = app.model.geolocation;
         modelNetwork = app.model.network;
-        modelCompass = app.model.compass;
-        uiWaiting = app.ui.waiting;
-        uiDestination = app.ui.destination;
-        uiNavigation = app.ui.navigation;
-        uiFinish = app.ui.finish;
+        uiIntro = app.ui.intro;
+        uiMain = app.ui.main;
+        uiWorkout = app.ui.workout;
         closePopup = document.getElementById('close-popup');
         closePopupYesBtn = closePopup.querySelector('#close-popup-yes-btn');
+        gpsStatusIndicators = document.querySelectorAll('.gps-status');
+        networkStatusIndicators = document.querySelectorAll('.network-status');
         bindEvents();
-        //uiWaiting.init();
-        //uiDestination.init();
-        //uiNavigation.init();
-        uiFinish.init();
+        uiIntro.init();
+        uiMain.init();
+        uiWorkout.init();
         modelNetwork.init();
-        modelCompass.init();
     };
 
 })(window.app);

@@ -111,12 +111,13 @@ hr{
 .gps-status {
     float: left;
     background: transparent url('../images/gps-indicator-active.svg') no-repeat;
-    animation: blinker 2s linear infinite;
+    -webkit-animation: blinker 2s linear infinite;
 }
 
 .gps-status-active {
     float: left;
     background: transparent url('../images/gps-indicator-active.svg') no-repeat;
+    -webkit-animation: none;
 }
 
 .network-status{
@@ -149,56 +150,9 @@ hr{
     background-repeat: no-repeat;
     background-position: 0% 0%;
     background-size: 30% 50%;
-    animation: blinker 2s linear infinite;
+    -webkit-animation: blinker 2s linear infinite;
 }
 
-
-
-.end .value.longitude {
-    top: 265px;
-}
-
-.ui-content.keyboard-on .end .value.longitude {
-    top: 190px;
-}
-
-.end .value .input {
-    -webkit-appearance: none;
-    border: 0;
-    background: none;
-    font-size: 30px;
-    color: #fff;
-    float: left;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    text-align: center;
-    letter-spacing: .26em;
-}
-
-.end .input.invalid,
-.end .label.invalid,
-.end .input.invalid::-webkit-input-placeholder {
-    color: rgb(0, 110, 120);
-}
-
-.ui-content.keyboard-on .end .input-dot.focused {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    bottom: -9px;
-    background-image: url('../images/caret_indicator.png');
-    background-repeat: no-repeat;
-    background-size: 100%;
-}
-
-.ui-btn:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
-    /*background-color: rgb(249, 129, 0);*/
-}
-
-.ui-btn:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item)::before {
-    /*background-color: rgb(217, 112, 0);*/
-}
 
 .ui-popup,
 .ui-popup .ui-popup-content,

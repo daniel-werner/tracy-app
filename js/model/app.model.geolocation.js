@@ -190,8 +190,6 @@ window.app = window.app || {};
      * @fires model.geolocation.position.lost
      */
     function onGetCurrentPositionError(error) {
-    		console.warn(error.code);
-    		console.warn(error.message);
         commonEvents.dispatchEvent('model.geolocation.position.unavailable');
         checkingCounter += 1;
         if (checkingCounter === GEO_CHECKING_COUNTER) {
@@ -211,8 +209,7 @@ window.app = window.app || {};
             geolocation.getCurrentPosition(
                 onGetCurrentPositionSuccess,
                 onGetCurrentPositionError,
-                {enableHighAccuracy: false,
-                	timeout: GEO_CHECKING_INTERVAL}
+                {timeout: GEO_CHECKING_INTERVAL}
             );
         } catch (error) {
             console.warn('Couldn\'t get geolocation position.', error);

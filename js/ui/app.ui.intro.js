@@ -86,7 +86,7 @@ window.app = window.app || {};
          * @private
          * @type {object}
          */
-        uiDestination = null,
+        uiMain = null,
 
         /**
          * Page element.
@@ -126,7 +126,7 @@ window.app = window.app || {};
             if (isConnectionLost) {
                 tau.back();
             } else {
-                uiDestination.show();
+                uiMain.show();
             }
         }
     }
@@ -194,7 +194,8 @@ window.app = window.app || {};
      * @public
      */
     uiIntro.init = function init() {
-        uiDestination = app.ui.destination;
+        uiMain = app.ui.main;
+        uiIntro = app.ui.intro;
         page = document.getElementById(PAGE_ID);
         waitingMessage = page.querySelector('#waiting-message');
         setWaitingMessage();

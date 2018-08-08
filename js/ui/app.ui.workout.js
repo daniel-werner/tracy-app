@@ -418,7 +418,6 @@ window.app = window.app || {};
     uiWorkout.init = function init() {
         commonCalculations = app.common.calculations;
         modelGeolocation = app.model.geolocation;
-        modelCompass = app.model.compass;
         page = document.getElementById(PAGE_ID);
         arrow = page.querySelector('#arrow');
         compass = page.querySelector('#compass');
