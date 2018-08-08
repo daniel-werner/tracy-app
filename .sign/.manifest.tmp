@@ -9,7 +9,7 @@
 .idea/modules.xml__DEL__NmuBMCuDj49WGhKF7qvZbTkc+oQFmKIY00j1pqcBS0w=
 .idea/tracy-app.iml__DEL__6cAE1b7tuNhQGqVFYJa9XRgYDzCBzS9W6BlsRGWYOKI=
 .idea/vcs.xml__DEL__VXaPH4T7EX8dD8OD4YC10KpeXmWEyMSimVwVtCN/CXI=
-.idea/workspace.xml__DEL__WRonxsscYK8QKdlmP+6IRSWEzbtfEuV5etPSmpElTvU=
+.idea/workspace.xml__DEL__ML1PBwbRAoh/jZRlYS60SjlZDbWYlkc397NjXgdgB/c=
 LICENSE__DEL__4MgxDO1qtqkNbp2kpE43dDCr46aEt2K04p9rWN6Cvyw=
 README.md__DEL__cCJKqFqLBN1w7PSUat1G/TNJfhSy4VPqcaXkvSsgGk0=
 config.xml__DEL__gcXA8ZnklhIh18LXa+0S0Ae6d/DDJoUUUoEolf5YZjE=
@@ -54,12 +54,12 @@ js/common/app.common.calculations.js__DEL__nYe0yoGdLC7JmKUTjyWW1IyySrdtVOZnO64Wx
 js/common/app.common.events.js__DEL__kWMKIKnl3ygs5E7JKwtH6esR+WTnAEYcNhPF898RJgI=
 js/main.js__DEL__w1nM4fGtFaoLC3nYKx+3P5twAWunve6foHDsA5kJReY=
 js/model/app.model.battery.js__DEL__rcNYCITaTg3wTW94omizsKeDvSgMAhHtDgFIesJ7qG0=
-js/model/app.model.geolocation.js__DEL__Mp259e76mfEI5ZO7n8hlGARW0MFvWIhL+gDO5oqNeiI=
+js/model/app.model.geolocation.js__DEL__HSSgV4hA9dn46aai7LLbbqARY0v/a2o82B03Wmhq7sw=
 js/model/app.model.network.js__DEL__/2A6yMVu/uyocL0ETzBVEWyAgymlUuQ2Yb7VKqIZvqk=
 js/ui/app.ui.intro.js__DEL__TIn/ZieNO3ZC+kiHkMSfIcVaR9GYsxO2vv9F8qxRb6Q=
-js/ui/app.ui.js__DEL__BYHuUO0YjKVl7DJRNHvog/oY6LEvens7r82T1DTJB0Q=
-js/ui/app.ui.main.js__DEL__/m4f5q9t5oYHZzDTBH6IMeL272WjXjavzCB+b0z5/ao=
-js/ui/app.ui.workout.js__DEL__llBfx6d+ja6/CxVfKvNtKa15wwIJcB1uttqEScd4eAI=
+js/ui/app.ui.js__DEL__PeB5thp9RR6mNXS5a+enpqWpgX+ZoBtyagFT2rzZLyU=
+js/ui/app.ui.main.js__DEL__MSadEJX9vl4N9jvcDGlyy5Feto9LnU7JW0KBSGUXIFo=
+js/ui/app.ui.workout.js__DEL__36WnwktUU2SQbEzbitxLj5uiaKeKquCnWYQgGAcVAEg=
 lib/.DS_Store__DEL__bi/kseBGWViEVrWU8z9xr4GxM6iHnHFQnJ0tsCnnLnQ=
 lib/tau/.DS_Store__DEL__98jXANwAQnTFJAH4cfMU7Dxk6vD4tXJdYzWoDI4AQHQ=
 lib/tau/LICENSE.Flora__DEL__R4988xI3tkQMAcLGLOROY5Wp8YTDrI0X90uMvrydtQw=
@@ -249,4 +249,4 @@ lib/tau/mobile/theme/default/tau.support-2.3.template__DEL__y2hyxtTU0P1NWPjdrqHJ
 lib/tau/mobile/theme/default/tau.template__DEL__CXxJ9mkg6Uf6qGPS9Kp6TJE+Dn2W+oSR+/Y9ZckgjH0=
 lib/tau/mobile/theme/default/theme.js__DEL__aNZtpUArjN9hVFK2UODcVp+5c8SU8CuZsqL0ekosf5A=
 lib/tau/mobile/theme/default/theme.min.js__DEL__IpLU+Mb1c63YvBGZWU3+8zcx7kVp3y5gE4iRP2Jt9Y4=
-author-signature.xml__DEL__hWszDyl7ejKC5YSBuqRZzw0zHnoCJ/M65Jsc2jVDYzA=
+author-signature.xml__DEL__ojQG0hUjOPNPuq0vUAXEjQn6vKSs9kn5M5DFW36QDD0=

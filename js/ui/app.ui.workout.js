@@ -61,78 +61,6 @@ window.app = window.app || {};
         page = null,
 
         /**
-         * Arrow element.
-         *
-         * @private
-         * @type {HTMLElement}
-         */
-        arrow = null,
-
-        /**
-         * Compass element.
-         *
-         * @private
-         * @type {HTMLElement}
-         */
-        compass = null,
-
-        /**
-         * Map button element.
-         *
-         * @private
-         * @type {HTMLElement}
-         */
-        mapBtn = null,
-
-        /**
-         * Manual button element.
-         *
-         * @private
-         * @type {HTMLElement}
-         */
-        manualBtn = null,
-
-        /**
-         * Distance value element.
-         *
-         * @private
-         * @type {HTMLElement}
-         */
-        distanceValue = null,
-
-        /**
-         * Distance unit element.
-         *
-         * @private
-         * @type {HTMLElement}
-         */
-        distanceUnit = null,
-
-        /**
-         * Progress path element.
-         *
-         * @private
-         * @type {HTMLElement}
-         */
-        progressPath = null,
-
-        /**
-         * Progress path mask element.
-         *
-         * @private
-         * @type {HTMLElement}
-         */
-        progressPathMask = null,
-
-        /**
-         * Progress path indicator element.
-         *
-         * @private
-         * @type {HTMLElement}
-         */
-        progressPathIndicator = null,
-
-        /**
          * Common calculations module reference.
          *
          * @private
@@ -147,14 +75,6 @@ window.app = window.app || {};
          * @type {object}
          */
         modelGeolocation = null,
-
-        /**
-         * Compass model module reference.
-         *
-         * @private
-         * @type {object}
-         */
-        modelCompass = null,
 
         /**
          * Ui waiting module reference.
@@ -189,14 +109,6 @@ window.app = window.app || {};
         uiWorkout = null,
 
         /**
-         * Destination position object.
-         *
-         * @private
-         * @type {object}
-         */
-        destinationPosition = null,
-
-        /**
          * Total distance.
          *
          * @private
@@ -209,70 +121,6 @@ window.app = window.app || {};
     app.ui.workout = app.ui.workout || {};
     uiWorkout = app.ui.workout;
 
-    /**
-     * Updates arrow rotation.
-     *
-     * @private
-     * @param {object} currentPosition
-     */
-    function updateArrowRotation(currentPosition) {
-        var angle = commonCalculations.calculateAngle(
-                currentPosition,
-                destinationPosition
-            ),
-            rotation = angle + modelCompass.getRotation();
-
-        arrow.style['-webkit-transform'] = 'rotate(' + rotation + 'deg)';
-    }
-
-    /**
-     * Updates compass rotation.
-     *
-     * @private
-     */
-    function updateCompassRotation() {
-        compass.style['-webkit-transform'] =
-            'rotate(' + modelCompass.getRotation() + 'deg)';
-    }
-
-    /**
-     * Updates distance value.
-     *
-     * @private
-     * @param {object} currentPosition
-     */
-    function updateDistanceValue(currentPosition) {
-        var distance = commonCalculations.calculateDistance(
-            currentPosition, destinationPosition
-        );
-
-        distanceValue.innerText = distance.formatted;
-        distanceUnit.innerText = distance.unit;
-    }
-
-    /**
-     * Updates navigation path.
-     *
-     * @private
-     * @param {object} currentPosition
-     */
-    function updateNavigationPath(currentPosition) {
-        var distance = commonCalculations.calculateDistance(
-                currentPosition, destinationPosition
-            ).raw,
-            angle = commonCalculations.calculatePathAngle(
-                distance <= totalDistance ? distance : totalDistance,
-                totalDistance,
-                PATH_ANGLE
-            );
-
-        progressPath.style['-webkit-transform'] =
-            'rotate(' + (-angle) + 'deg)';
-        progressPathMask.style['-webkit-transform'] =
-            'rotate(' + angle + 'deg)';
-        progressPathIndicator.style['-webkit-transform'] =
-            'rotate(' + (angle - PATH_ANGLE) + 'deg)';
-    }
 
     /**
      * Updates UI.
@@ -282,10 +130,6 @@ window.app = window.app || {};
     function updateUI() {
         var currentPosition = modelGeolocation.getCurrentPosition();
 
-        updateCompassRotation();
-        updateArrowRotation(currentPosition);
-        updateDistanceValue(currentPosition);
-        updateNavigationPath(currentPosition);
     }
 
     /**
@@ -295,28 +139,6 @@ window.app = window.app || {};
      */
     function onPageBeforeShow() {
         updateUI();
-    }
-
-    /**
-     * Handles click event on map button.
-     *
-     * @private
-     */
-    function onMapBtnClick() {
-        uiDestination.show({
-            mapMode: true
-        });
-    }
-
-    /**
-     * Handles click event on manual button.
-     *
-     * @private
-     */
-    function onManualBtnClick() {
-        uiDestination.show({
-            mapMode: false
-        });
     }
 
     /**
@@ -334,64 +156,16 @@ window.app = window.app || {};
     }
 
     /**
-     * Handles model.geolocation.destination.reached event.
-     *
-     * @private
-     */
-    function onModelGeolocationDestinationReached() {
-        if (tau.activePage.id === PAGE_ID) {
-            uiFinish.show();
-        }
-    }
-
-    /**
-     * Handles model.compass.rotation.changed event.
-     *
-     * @private
-     */
-    function onModelCompassRotationChanged() {
-        if (tau.activePage.id === PAGE_ID) {
-            updateCompassRotation();
-            updateArrowRotation(modelGeolocation.getCurrentPosition());
-        }
-    }
-
-    /**
-     * Handles model.geolocation.position.lost event.
-     *
-     * @private
-     */
-    function onModelGeolocationPositionLost() {
-        if (tau.activePage.id === PAGE_ID) {
-            uiWaiting.show();
-        }
-    }
-
-    /**
      * Registers event listeners.
      *
      * @private
      */
     function bindEvents() {
-        //page.addEventListener('pagebeforeshow', onPageBeforeShow);
-        //mapBtn.addEventListener('click', onMapBtnClick);
-        //manualBtn.addEventListener('click', onManualBtnClick);
-        //window.addEventListener(
-        //    'model.geolocation.current.position.changed',
-        //    onModelGeolocationCurrentPositionChanged
-        //);
-        //window.addEventListener(
-        //    'model.geolocation.destination.reached',
-        //    onModelGeolocationDestinationReached
-        //);
-        //window.addEventListener(
-        //    'model.compass.rotation.changed',
-        //    onModelCompassRotationChanged
-        //);
-        //window.addEventListener(
-        //    'model.geolocation.position.lost',
-        //    onModelGeolocationPositionLost
-        //);
+        page.addEventListener('pagebeforeshow', onPageBeforeShow);
+        window.addEventListener(
+            'model.geolocation.current.position.changed',
+            onModelGeolocationCurrentPositionChanged
+        );
     }
 
     /**
@@ -401,11 +175,6 @@ window.app = window.app || {};
      * @public
      */
     uiWorkout.show = function show() {
-        destinationPosition = modelGeolocation.getDestinationPosition();
-        totalDistance = commonCalculations.calculateDistance(
-            modelGeolocation.getCurrentPosition(),
-            destinationPosition
-        ).raw;
         tau.changePage('#' + PAGE_ID);
     };
 
@@ -419,15 +188,6 @@ window.app = window.app || {};
         commonCalculations = app.common.calculations;
         modelGeolocation = app.model.geolocation;
         page = document.getElementById(PAGE_ID);
-        arrow = page.querySelector('#arrow');
-        compass = page.querySelector('#compass');
-        distanceValue = page.querySelector('#navigation-distance-value');
-        distanceUnit = page.querySelector('#navigation-distance-unit');
-        progressPath = page.querySelector('#progress-path');
-        progressPathMask = page.querySelector('#progress-path-mask');
-        progressPathIndicator = page.querySelector('#progress-path-indicator');
-        mapBtn = page.querySelector('#navigation-map-btn');
-        manualBtn = page.querySelector('#navigation-manual-btn');
         bindEvents();
     };
 

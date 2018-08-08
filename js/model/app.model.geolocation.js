@@ -51,14 +51,6 @@ window.app = window.app || {};
         GEO_CHECKING_COUNTER = 5,
 
         /**
-         * Destination threshold (in meters).
-         *
-         * @private
-         * @const {number}
-         */
-        DESTINATION_THRESHOLD = 50,
-
-        /**
          * Geolocation model module reference.
          *
          * @private
@@ -99,14 +91,6 @@ window.app = window.app || {};
         currentPosition = null,
 
         /**
-         * Destination position data.
-         *
-         * @private
-         * @type {object}
-         */
-        destinationPosition = {},
-
-        /**
          * Stores information about number of checking interval occurrences.
          *
          * @private
@@ -136,27 +120,6 @@ window.app = window.app || {};
     }
 
     /**
-     * Returns true if destination is reached, false otherwise.
-     *
-     * @private
-     * @returns {boolean}
-     */
-    function isDestinationReached() {
-        var distanceLeft = 0;
-
-        if (!destinationPosition) {
-            return false;
-        }
-
-        distanceLeft = commonCalculations.calculateDistance({
-            latitude: currentPosition.coords.latitude,
-            longitude: currentPosition.coords.longitude
-        }, destinationPosition).raw;
-
-        return distanceLeft < DESTINATION_THRESHOLD;
-    }
-
-    /**
      * Performs action on get current position success.
      *
      * @private
@@ -171,11 +134,6 @@ window.app = window.app || {};
             commonEvents.dispatchEvent(
                 'model.geolocation.current.position.changed'
             );
-            if (isDestinationReached()) {
-                commonEvents.dispatchEvent(
-                    'model.geolocation.destination.reached'
-                );
-            }
         }
         commonEvents.dispatchEvent('model.geolocation.position.available');
         checkingCounter = 0;
@@ -230,103 +188,6 @@ window.app = window.app || {};
         };
     };
 
-    /**
-     * Sets destination position.
-     *
-     * @memberof app.model.geolocation
-     * @public
-     * @param {object} position
-     * @fires model.geolocation.destination.position.changed
-     */
-    modelGeolocation.setDestinationPosition =
-        function setDestinationPosition(position) {
-            if (position) {
-                destinationPosition = position;
-            } else {
-                destinationPosition = {};
-            }
-            commonEvents.dispatchEvent(
-                'model.geolocation.destination.position.changed'
-            );
-        };
-
-    /**
-     * Sets destination latitude.
-     *
-     * @memberof app.model.geolocation
-     * @public
-     * @param {number} latitude
-     * @fires model.geolocation.destination.position.changed
-     */
-    modelGeolocation.setDestinationLatitude =
-        function setDestinationLatitude(latitude) {
-            if (latitude) {
-                destinationPosition.latitude = latitude;
-            } else {
-                // latitude is set to undefined
-                delete destinationPosition.latitude;
-            }
-            commonEvents.dispatchEvent(
-                'model.geolocation.destination.position.changed'
-            );
-        };
-
-    /**
-     * Sets destination longitude.
-     *
-     * @memberof app.model.geolocation
-     * @public
-     * @param {number} longitude
-     * @fires model.geolocation.destination.position.changed
-     */
-    modelGeolocation.setDestinationLongitude =
-        function setDestinationLongitude(longitude) {
-            if (longitude) {
-                destinationPosition.longitude = longitude;
-            } else {
-                // longitude is set to undefined
-                delete destinationPosition.longitude;
-            }
-            commonEvents.dispatchEvent(
-                'model.geolocation.destination.position.changed'
-            );
-        };
-
-    /**
-     * Returns destination position.
-     *
-     * @memberof app.model.geolocation
-     * @public
-     * @returns {object}
-     */
-    modelGeolocation.getDestinationPosition =
-        function getDestinationPosition() {
-            return destinationPosition;
-        };
-
-    /**
-     * Returns destination latitude.
-     *
-     * @memberof app.model.geolocation
-     * @public
-     * @returns number
-     */
-    modelGeolocation.getDestinationLatitude =
-        function getDestinationLatitude() {
-            return destinationPosition.latitude;
-        };
-
-    /**
-     * Returns destination longitude.
-     *
-     * @memberof app.model.geolocation
-     * @public
-     * @returns number
-     */
-    modelGeolocation.getDestinationLongitude =
-        function getDestinationLongitude() {
-            return destinationPosition.longitude;
-        };
 
     /**
      * Initializes the geolocation model module.

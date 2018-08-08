@@ -143,7 +143,6 @@ window.app = window.app || {};
      * @private
      */
     function onModelNetworkInitialized() {
-        modelGeolocation.init();
         onModelNetworkTypeChanged();
     }
 
@@ -273,6 +272,7 @@ window.app = window.app || {};
         uiMain.init();
         uiWorkout.init();
         modelNetwork.init();
+        modelGeolocation.init();
     };
 
 })(window.app);
