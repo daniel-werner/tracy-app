@@ -29,7 +29,7 @@
 // make sure that "app" namespace is created
 window.app = window.app || {};
 
-(function defineAppUiWaiting(app) {
+(function defineAppUiIntro(app) {
     'use strict';
 
     /**
@@ -38,7 +38,7 @@ window.app = window.app || {};
      * @private
      * @const {string}
      */
-    var PAGE_ID = 'waiting',
+    var PAGE_ID = 'intro',
 
         /**
          * Lost connection message string.
@@ -78,7 +78,7 @@ window.app = window.app || {};
          * @private
          * @type {object}
          */
-        uiWaiting = null,
+        uiIntro = null,
 
         /**
          * UI destination module reference.
@@ -113,8 +113,8 @@ window.app = window.app || {};
 
     // create namespace for the module
     app.ui = app.ui || {};
-    app.ui.waiting = app.ui.waiting || {};
-    uiWaiting = app.ui.waiting;
+    app.ui.intro = app.ui.intro || {};
+    uiIntro = app.ui.intro;
 
     /**
      * Handles model.geolocation.position.available event.
@@ -182,7 +182,7 @@ window.app = window.app || {};
      * @memberof app.ui.waiting
      * @public
      */
-    uiWaiting.show = function show() {
+    uiIntro.show = function show() {
         isConnectionLost = true;
         tau.changePage('#' + PAGE_ID);
     };
@@ -193,7 +193,7 @@ window.app = window.app || {};
      * @memberof app.ui.waiting
      * @public
      */
-    uiWaiting.init = function init() {
+    uiIntro.init = function init() {
         uiDestination = app.ui.destination;
         page = document.getElementById(PAGE_ID);
         waitingMessage = page.querySelector('#waiting-message');

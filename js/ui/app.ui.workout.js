@@ -33,7 +33,7 @@
 // make sure that "app" namespace is created
 window.app = window.app || {};
 
-(function defineAppUiNavigation(app) {
+(function defineAppUiWorkout(app) {
     'use strict';
 
     /**
@@ -42,7 +42,7 @@ window.app = window.app || {};
      * @private
      * @const {string}
      */
-    var PAGE_ID = 'navigation',
+    var PAGE_ID = 'workout',
 
         /**
          * Navigation path angle.
@@ -186,7 +186,7 @@ window.app = window.app || {};
          * @private
          * @type {object}
          */
-        uiNavigation = null,
+        uiWorkout = null,
 
         /**
          * Destination position object.
@@ -206,8 +206,8 @@ window.app = window.app || {};
 
     // create namespace for the module
     app.ui = app.ui || {};
-    app.ui.navigation = app.ui.navigation || {};
-    uiNavigation = app.ui.navigation;
+    app.ui.workout = app.ui.workout || {};
+    uiWorkout = app.ui.workout;
 
     /**
      * Updates arrow rotation.
@@ -400,7 +400,7 @@ window.app = window.app || {};
      * @memberof app.ui.navigation
      * @public
      */
-    uiNavigation.show = function show() {
+    uiWorkout.show = function show() {
         destinationPosition = modelGeolocation.getDestinationPosition();
         totalDistance = commonCalculations.calculateDistance(
             modelGeolocation.getCurrentPosition(),
@@ -415,13 +415,10 @@ window.app = window.app || {};
      * @memberof app.ui.navigation
      * @public
      */
-    uiNavigation.init = function init() {
+    uiWorkout.init = function init() {
         commonCalculations = app.common.calculations;
         modelGeolocation = app.model.geolocation;
         modelCompass = app.model.compass;
-        uiWaiting = app.ui.waiting;
-        uiDestination = app.ui.destination;
-        uiFinish = app.ui.finish;
         page = document.getElementById(PAGE_ID);
         arrow = page.querySelector('#arrow');
         compass = page.querySelector('#compass');

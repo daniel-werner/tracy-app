@@ -4,8 +4,7 @@
     color: #FFFFFF;
 }
 
-
-.ui-page.waiting .app-title{
+.ui-page.intro .app-title{
 	margin: 10px 0 0 0;
 	color: #FFF;
 	font-size: 40px;
@@ -20,7 +19,7 @@
 	background-position: 50% 100%;
 	background-size: 100% 80%;
 	width: 100%;
-	height: 150px;
+	height: 170px;
 	text-align: center;
 	color: #FFF;
 }
@@ -39,15 +38,11 @@
     background-size: 100% auto;
 }
 
-.ui-page.destination .ui-content,
+.ui-page.main .ui-content,
 .ui-page.navigation .ui-content,
 .ui-page.finish .ui-content {
     /*top: 0 !important;*/
     height: 100% !important;
-}
-
-.ui-page.finish .ui-header .ui-header-btn::after {
-    -webkit-mask-image: url(../images/close_button.png);
 }
 
 .ui-header{
@@ -56,10 +51,15 @@
     padding: 10px 0 0 0;
 }
 
+.workout{
+    font-size: 26px;
+}
+
 .workout-item-big{
     width: 100%;
     text-align: center;
-    height: 160px;
+    height: 170px;
+    font-weight: bold;
 }
 
 hr{
@@ -81,6 +81,7 @@ hr{
 .workout-item-big .workout-data{
     font-size: 85px;
     color: #AFFD58;
+    line-height: 70px;
 }
 
 .workout-item-small{
@@ -90,7 +91,7 @@ hr{
 
 .workout-item-small .workout-data{
     margin: 0 5px;
-    padding: 0 20px 0 30px;
+    padding: 0 10px 0 32px;
 }
 
 .workout-item-small .workout-hr{
@@ -99,13 +100,6 @@ hr{
 
 .workout-item-small .workout-altitude{
     background: transparent url('../images/altitude-icon.svg') no-repeat;
-}
-
-.finish-flag {
-    width: 100%;
-    content: url('../images/finish_flag.png');
-    position: absolute;
-    top: 96px;
 }
 
 .status-indicator{
@@ -135,35 +129,8 @@ hr{
     background: transparent url('../images/network-indicator-active.svg') no-repeat;
 }
 
-.ui-page.destination.map .ui-content {
-    top: 55px !important;
-    height: calc(100% - 55px) !important;
-}
-
-.ui-page.destination .map {
-    visibility: hidden;
-}
-
-.ui-page.destination.map .map {
-    visibility: visible;
-}
-
-.ui-page.destination .manual {
-    visibility: visible;
-}
-
-.ui-page.destination.map .manual {
-    visibility: hidden;
-}
-
-.ui-btn.ui-state-disabled {
-    color: #fff;
-    opacity: .5;
-}
-
-
-.ui-page.destination .ui-header,
-.ui-page.navigation .ui-header,
+.ui-page.main .ui-header,
+.ui-page.workout .ui-header,
 .ui-page.finish .ui-header {
     background-color: transparent;
     position: absolute;
@@ -185,144 +152,7 @@ hr{
     animation: blinker 2s linear infinite;
 }
 
-.waiting-message.lost {
-    color: rgb(29, 126, 130);
-}
 
-.map {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.manual {
-    position: absolute;
-    top: 55px;
-    left: 0;
-    width: 100%;
-    bottom: 76px;
-}
-
-.start {
-    height: 167px;
-    color: rgb(31, 157, 168);
-}
-
-.start .text {
-    position: absolute;
-    height: 20px;
-    line-height: 20px;
-    font-size: 20px;
-}
-
-.start .header {
-    width: 100%;
-    text-align: center;
-    top: 12px;
-}
-
-.start .label {
-    left: 19px;
-    width: 119px;
-    text-align: left;
-}
-
-.start .label.latitude {
-    top: 62px;
-}
-
-.start .label.longitude {
-    top: 102px;
-}
-
-.start .value {
-    right: 19px;
-    width: 119px;
-    text-align: right;
-}
-
-.start .value.latitude {
-    top: 62px;
-}
-
-.start .value.longitude {
-    top: 102px;
-}
-
-.path-background {
-    width: 100%;
-    content: url('../images/manual_background_path.png');
-    position: absolute;
-    top: 128px;
-    z-index: -1;
-}
-
-.ui-content.keyboard-on .path-background {
-    display: none;
-}
-
-.end {
-    position: relative;
-    height: 316px;
-    color: #fff;
-}
-
-.ui-content.keyboard-on .start {
-    display: none;
-}
-
-.ui-content.keyboard-on .end {
-    height: 100%;
-}
-
-.end .text {
-    position: absolute;
-    height: 20px;
-    width: 100%;
-    line-height: 20px;
-    text-align: center;
-    font-size: 20px;
-}
-
-.end .header {
-    top: 106px;
-}
-
-.ui-content.keyboard-on .end .header {
-    top: 24px;
-}
-
-.end .text.latitude {
-    top: 152px;
-}
-
-.ui-content.keyboard-on .end .text.latitude {
-    top: 71px;
-}
-
-.end .text.longitude {
-    top: 240px;
-}
-
-.ui-content.keyboard-on .end .text.longitude {
-    top: 161px;
-}
-
-.end .value {
-    position: absolute;
-    height: 36px;
-    width: 100%;
-}
-
-.end .value.latitude {
-    top: 177px;
-}
-
-.ui-content.keyboard-on .end .value.latitude {
-    top: 97px;
-}
 
 .end .value.longitude {
     top: 265px;
@@ -363,58 +193,34 @@ hr{
 }
 
 .ui-btn:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
-    background-color: rgb(249, 129, 0);
+    /*background-color: rgb(249, 129, 0);*/
 }
 
 .ui-btn:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item)::before {
-    background-color: rgb(217, 112, 0);
+    /*background-color: rgb(217, 112, 0);*/
 }
 
-
-.distance-label {
-    position: absolute;
-    width: 100%;
-    height: 17px;
-    top: 568px;
-    line-height: 17px;
-    font-size: 15px;
-    text-align: center;
-    color: #fff;
-}
-
-.distance-value {
-    position: absolute;
-    width: 100%;
-    height: 50px;
-    top: 510px;
-    line-height: 50px;
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
-    color: rgb(29, 126, 130);
-}
-
-.navigation .ui-scrollview-view {
-    overflow: hidden !important;
-}
-
-.finish .message {
-    position: absolute;
-    top: 439px;
-    color: #fff;
-    font-size: 15px;
-    line-height: 17px;
-    text-align: center;
-    width: 100%;
-}
-
-.ui-popup .ui-popup-header {
-    color: rgb(42, 204, 217);
+.ui-popup,
+.ui-popup .ui-popup-content,
+.ui-popup .ui-popup-header,
+.ui-popup .ui-popup-footer
+{
+    background: black !important;
+    color: white !important;
+    font-family: Tizen, Verdana;
 }
 
 .ui-btn{
     border-radius: 0 !important;
-    margin: 5px;
+    margin: 5px !important;
+}
+
+.ui-popup .ui-popup-footer{
+    height: 140px;
+}
+
+.ui-popup-overlay{
+    background: none !important;
 }
 
 .ui-btn.yes:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
@@ -422,16 +228,8 @@ hr{
     color: black;
 }
 
-.ui-btn.yes:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item)::before {
-    background-color: rgb(40, 182, 193);
-}
-
 .ui-btn.no:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item) {
     background-color: transparent;
-    border: 2px solid #AFFD58;
     color: #AFFD58;
-}
-
-.ui-btn.no:not(.ui-btn-circle):not(.ui-btn-nobg):not(.ui-floatingactions-item)::before {
-    background-color: rgb(37, 130, 137);
+    border: 2px solid #AFFD58;
 }

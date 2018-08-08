@@ -32,7 +32,7 @@
 // make sure that "app" namespace is created
 window.app = window.app || {};
 
-(function defineAppUiDestination(app) {
+(function defineAppUiMain(app) {
     'use strict';
 
     /**
@@ -41,7 +41,7 @@ window.app = window.app || {};
      * @private
      * @const {string}
      */
-    var PAGE_ID = 'destination',
+    var PAGE_ID = 'main',
 
         /**
          * The URL string to the start google maps marker icon.
@@ -298,7 +298,7 @@ window.app = window.app || {};
          * @private
          * @type {object}
          */
-        uiDestination = null,
+        uiMain = null,
 
         /**
          * The reference to the google.maps.Map object.
@@ -334,8 +334,8 @@ window.app = window.app || {};
 
     // create namespace for the module
     app.ui = app.ui || {};
-    app.ui.destination = app.ui.destination || {};
-    uiDestination = app.ui.destination;
+    app.ui.main = app.ui.main || {};
+    uiMain = app.ui.main;
 
     /**
      * Disables start navigation button.
@@ -934,7 +934,7 @@ window.app = window.app || {};
      * @public
      * @param {object} data
      */
-    uiDestination.show = function show(data) {
+    uiMain.show = function show(data) {
         var isGoogleService = modelNetwork.isGoogleService();
 
         if (data && isGoogleService) {
@@ -955,7 +955,7 @@ window.app = window.app || {};
      * @public
      * @returns {boolean}
      */
-    uiDestination.isMapModeActive = function isMapModeActive() {
+    uiMain.isMapModeActive = function isMapModeActive() {
         return isMapMode;
     };
 
@@ -965,7 +965,7 @@ window.app = window.app || {};
      * @memberof app.ui.destination
      * @public
      */
-    uiDestination.init = function init() {
+    uiMain.init = function init() {
         modelGeolocation = app.model.geolocation;
         modelNetwork = app.model.network;
         uiNavigation = app.ui.navigation;
