@@ -24,6 +24,10 @@
 	color: #FFF;
 }
 
+.ui-page.intro .workout-icon{
+    height: 150px;
+}
+
 .tracy-cycling{
 	background-image: url('../images/bicycle-solid.svg');
 }
