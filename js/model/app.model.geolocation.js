@@ -137,7 +137,7 @@ window.app = window.app || {};
         }
         commonEvents.dispatchEvent('model.geolocation.position.available');
         checkingCounter = 0;
-        setTimeout(getGeoPosition, GEO_CHECKING_INTERVAL);
+        //setTimeout(getGeoPosition, GEO_CHECKING_INTERVAL);
     }
 
     /**
@@ -153,7 +153,9 @@ window.app = window.app || {};
         if (checkingCounter === GEO_CHECKING_COUNTER) {
             commonEvents.dispatchEvent('model.geolocation.position.lost');
         }
-        setTimeout(getGeoPosition, GEO_CHECKING_INTERVAL);
+
+        console.warn(error);
+        //setTimeout(getGeoPosition, GEO_CHECKING_INTERVAL);
     }
 
     /**
@@ -164,10 +166,14 @@ window.app = window.app || {};
      */
     function getGeoPosition() {
         try {
-            geolocation.getCurrentPosition(
+            geolocation.watchPosition(
                 onGetCurrentPositionSuccess,
                 onGetCurrentPositionError,
-                {timeout: GEO_CHECKING_INTERVAL}
+                {
+                    maximumAge :GEO_CHECKING_INTERVAL,
+                    enableHighAccuracy: true,
+                    timeout: GEO_CHECKING_INTERVAL
+                }
             );
         } catch (error) {
             console.warn('Couldn\'t get geolocation position.', error);
@@ -182,10 +188,11 @@ window.app = window.app || {};
      * @returns {object}
      */
     modelGeolocation.getCurrentPosition = function getCurrentPosition() {
-        return {
-            latitude: currentPosition.coords.latitude,
-            longitude: currentPosition.coords.longitude
-        };
+        return currentPosition;
+        //return {
+        //    latitude: currentPosition.coords.latitude,
+        //    longitude: currentPosition.coords.longitude
+        //};
     };
 
 

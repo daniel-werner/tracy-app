@@ -75,7 +75,7 @@ window.app = window.app || {};
          * @private
          * @type {object}
          */
-        modelCompass = null,
+        modelWorkout = null,
 
         /**
          * UI waiting module reference.
@@ -260,6 +260,7 @@ window.app = window.app || {};
     ui.init = function init() {
         modelGeolocation = app.model.geolocation;
         modelNetwork = app.model.network;
+        modelWorkout = app.model.workout;
         uiIntro = app.ui.intro;
         uiMain = app.ui.main;
         uiWorkout = app.ui.workout;
@@ -273,6 +274,7 @@ window.app = window.app || {};
         uiWorkout.init();
         modelNetwork.init();
         modelGeolocation.init();
+        modelWorkout.init();
     };
 
 })(window.app);

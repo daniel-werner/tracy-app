@@ -96,7 +96,7 @@ window.app = window.app || {};
      * @private
      */
     function onBatteryChecked() {
-        ui.init();
+        //ui.init();
     }
 
     /**
@@ -124,6 +124,7 @@ window.app = window.app || {};
         bindEvents();
         modelBattery.listenBatteryLowState();
         modelBattery.checkBatteryLowState();
+        ui.init();
     };
 
     window.addEventListener('load', app.init);
