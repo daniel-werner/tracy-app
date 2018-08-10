@@ -39,7 +39,7 @@ window.app = window.app || {};
      * @private
      * @const {number}
      */
-    var GEO_CHECKING_INTERVAL = 2000,
+    var GEO_CHECKING_INTERVAL = 1000,
 
         /**
          * Geolocation checking counter.
@@ -189,10 +189,6 @@ window.app = window.app || {};
      */
     modelGeolocation.getCurrentPosition = function getCurrentPosition() {
         return currentPosition;
-        //return {
-        //    latitude: currentPosition.coords.latitude,
-        //    longitude: currentPosition.coords.longitude
-        //};
     };
 
 

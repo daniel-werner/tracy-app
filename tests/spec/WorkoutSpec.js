@@ -1,42 +1,75 @@
-describe("Workout", function() {
-  var app = window.app || {};
+describe("Workout", function () {
+    var app = window.app || {};
 
-  beforeEach(function() {
+    var env = jasmine.getEnv();
+    env.randomizeTests(false);
 
-  });
+    beforeEach(function (done) {
+        var xmlhttp = new XMLHttpRequest(),
+            _this = this;
+
+        xmlhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                _this.waypoints = JSON.parse(this.responseText);
+                done();
+            }
+        };
+
+        xmlhttp.open("GET", "tests/spec/455.json", true);
+        xmlhttp.send();
+
+        this.modelWorkout = app.model.workout;
+        this.modelGeolocation = app.model.geolocation;
+
+        this.modelWorkout.init();
+
+    });
 
 
-  it('Start workout', function(){
-    var modelGeolocation = app.model.geolocation,
-        modelWorkout = app.model.workout,
-        commonEvents = app.common.events;
+    it('should start and pause workout', function (done) {
+        var _this = this;
 
+        navigator.geolocation.delay = 1;
+        navigator.geolocation.repeat = false;
+        navigator.geolocation.waypoints = this.waypoints;
 
-    navigator.geolocation.waypoints = [
-      {
-        coords: {
-          latitude: 52.5168,
-          longitude: 13.3889,
-          accuracy: 1500,
-          altitude: 100
+        expect(typeof this.modelWorkout === 'object').toBeTruthy();
+        this.modelGeolocation.init();
+
+        console.log(this.modelWorkout.WORKOUT_TYPE_RUNNING);
+        this.modelWorkout.start(this.modelWorkout.WORKOUT_TYPE_RUNNING);
+
+        window.addEventListener(
+            'model.workout.paused',
+            function(){
+                var workout = _this.modelWorkout.getWorkout();
+                expect(workout.points.length).toEqual(421);
+            }
+        );
+
+        setTimeout( function(){
+            _this.modelWorkout.togglePause();
+            done();
         },
-        timestamp: new Date().getTime()
-      }, {
-        coords: {
-          latitude: 53.5162,
-          longitude: 13.3890,
-          accuracy: 1334,
-          altitude: 110
-        },
-        timestamp: new Date().getTime()
-      }
-    ];
+        3000);
+    });
 
-    modelGeolocation.init();
-    modelWorkout.init();
+    it('should save the workout', function (done) {
+        window.addEventListener(
+            'model.workout.save.successful',
+            function(e){
+                expect(e.detail).toBeTruthy();
+                done();
+            },
+            'model.workout.save.failed',
+            function(e){
+                expect(e.detail).toBeTruthy();
+                done();
+            }
+        );
 
-    expect(typeof modelWorkout === 'object').toBeTruthy();
+        this.modelWorkout.save();
 
-  })
+    });
 
 });

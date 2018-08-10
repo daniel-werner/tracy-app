@@ -23,10 +23,8 @@ window.app = window.app || {};
      * @private
      * @const {number}
      */
-    var WORKOUT_TYPE_RUNNING = 1,
-        WORKOUT_TYPE_CYCLING = 2,
 
-        type = null,
+       var type = null,
 
         /**
          * Workout model module reference.
@@ -58,13 +56,55 @@ window.app = window.app || {};
          * @private
          * @type {object}
          */
-        commonCalculations = app.common.calculations;
+        commonCalculations = app.common.calculations,
 
+
+        /**
+         * Started flag.
+         *
+         * @private
+         * @type boolean
+         */
+        active = false,
+
+        /**
+         * Count the segments (pause and resume).
+         *
+         * @private
+         * @type int
+         */
+        segmentIndex = 0,
+
+        /**
+         * Workout data.
+         *
+         * @private
+         * @type {object}
+         */
+        workout = {
+            type: null,
+            status: null,
+            points: [{
+                segment_index: 0,
+                lat: null,
+                lng: null,
+                heart_rate: null,
+                elevation: null,
+                time: null
+            }]
+        };
 
     // create namespace for the module
     app.model = app.model || {};
     app.model.workout = app.model.workout || {};
     modelWorkout = app.model.workout;
+
+    modelWorkout.WORKOUT_TYPE_RUNNING = 1;
+    modelWorkout.WORKOUT_TYPE_CYCLING = 2;
+
+    modelWorkout.WORKOUT_STATUS_UNSAVED = 0;
+    modelWorkout.WORKOUT_STATUS_SAVED = 1;
+    modelWorkout.WORKOUT_STATUS_SYNCED = 2;
 
 
     /**
@@ -73,7 +113,18 @@ window.app = window.app || {};
      * @private
      */
     function onModelGeolocationPositionAvailable() {
-        console.log(modelGeolocation.getCurrentPosition());
+        var currentPosition = modelGeolocation.getCurrentPosition();
+        if(active){
+            workout.points.push({
+                segment_index: segmentIndex,
+                lat: currentPosition.coords.latitude,
+                lng: currentPosition.coords.longitude,
+                heart_rate: null,
+                elevation: currentPosition.coords.altitude,
+                time: currentPosition.timestamp
+            });
+
+        }
     }
 
     /**
@@ -98,5 +149,74 @@ window.app = window.app || {};
     modelWorkout.init = function init() {
         bindEvents();
     };
+
+    modelWorkout.start = function start(type) {
+        segmentIndex = 0;
+        workout.type = type;
+        workout.status = modelWorkout.WORKOUT_STATUS_UNSAVED;
+        workout.points = [];
+
+        active = true;
+    };
+
+    /**
+     *
+     * @fires model.workout.paused
+     */
+    modelWorkout.togglePause = function togglePause(){
+        if(!active){
+            segmentIndex++;
+        }
+
+        active ^= true;
+        commonEvents.dispatchEvent('model.workout.paused');
+    };
+
+    modelWorkout.save = function save(){
+        workout.status = modelWorkout.WORKOUT_STATUS_SAVED;
+
+        var tizenDB = {};
+        var objStore = null;
+
+        var indexedDB = window.webkitIndexedDB || window.indexedDB;
+
+        var request = indexedDB.open('TizenIndexedDB');
+
+        request.onsuccess = function(e) {
+            tizenDB.db = e.target.result;
+
+            var trans = tizenDB.db.transaction('tizenStore', 'readwrite');
+            var tizenStore = trans.objectStore('tizenStore');
+
+            console.log(workout);
+            var request = tizenStore.put(workout);
+            request.onsuccess = function(e) {
+                tizenDB.db.objectStoreId = request.result;
+                commonEvents.dispatchEvent('model.workout.save.successful', true);
+            };
+            request.onerror = function(e) {
+                commonEvents.dispatchEvent('model.workout.save.failed');
+            };
+        };
+
+        request.onupgradeneeded = function(e) {
+            tizenDB.db = e.target.result;
+            try {
+                 objStore = tizenDB.db.createObjectStore('tizenStore', {autoIncrement: true});
+
+            }
+            catch(e){
+                console.error(e);
+            }
+        };
+
+
+
+        return false;
+    };
+
+    modelWorkout.getWorkout = function getWorkout() {
+        return workout;
+    }
 
 })(window.app);
