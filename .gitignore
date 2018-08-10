@@ -2,3 +2,4 @@
 *.DS_Store
 *.wgt
 .idea
+tests/spec/455.json
