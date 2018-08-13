@@ -36,7 +36,6 @@ describe("Workout", function () {
         expect(typeof this.modelWorkout === 'object').toBeTruthy();
         this.modelGeolocation.init();
 
-        console.log(this.modelWorkout.WORKOUT_TYPE_RUNNING);
         this.modelWorkout.start(this.modelWorkout.WORKOUT_TYPE_RUNNING);
 
         window.addEventListener(
@@ -70,6 +69,31 @@ describe("Workout", function () {
 
         this.modelWorkout.save();
 
+    });
+
+    it('should start the workout and update UI', function (done) {
+        var _this = this;
+
+        navigator.geolocation.delay = 1000;
+        navigator.geolocation.repeat = false;
+        navigator.geolocation.waypoints = this.waypoints;
+
+        this.modelGeolocation.init();
+        expect(typeof this.modelWorkout === 'object').toBeTruthy();
+        this.modelWorkout.start(this.modelWorkout.WORKOUT_TYPE_RUNNING);
+
+        window.addEventListener(
+            'model.workout.updateui',
+            function(e){
+                var data = e.detail;
+                console.log(data);
+            }
+        );
+
+        setTimeout( function(){
+                done();
+            },
+            4000);
     });
 
 });

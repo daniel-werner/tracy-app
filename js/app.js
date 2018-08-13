@@ -41,6 +41,14 @@ window.app = window.app || {};
      */
     var modelBattery = app.model.battery,
 
+    /**
+     * Workout model module reference.
+     *
+     * @private
+     * @type {object}
+     */
+     modelWorkout = app.model.workout,
+
         /**
          * UI module reference.
          *

@@ -74,7 +74,7 @@ window.app = window.app || {};
          * @private
          * @type {object}
          */
-        modelGeolocation = null,
+        modelWorkout = null,
 
         /**
          * Ui waiting module reference.
@@ -114,7 +114,21 @@ window.app = window.app || {};
          * @private
          * @type {number}
          */
-        totalDistance = 0;
+        totalDistance = 0,
+
+        workoutStatus = null,
+        workoutSpeed = null,
+        workoutDistance = null,
+        workoutHr = null,
+        workoutAltitude = null,
+
+        pausePopup = null,
+        pausePopupFinishButton = null,
+        pausePopupResumeButton = null,
+
+        savePopup = null,
+        savePopupDiscardButton = null,
+        savePopupSaveButton = null;
 
     // create namespace for the module
     app.ui = app.ui || {};
@@ -127,9 +141,12 @@ window.app = window.app || {};
      *
      * @private
      */
-    function updateUI() {
-        var currentPosition = modelGeolocation.getCurrentPosition();
-
+    function updateUI(data) {
+        //console.log(data);
+        workoutSpeed.innerText = Math.round( data.speed * 10 ) / 10;
+        workoutDistance.innerText = Math.round( data.distance * 10 ) / 10;
+        workoutHr.innerText = Math.round(data.heartRate);
+        workoutAltitude.innerText = Math.round(data.altitude);
     }
 
     /**
@@ -138,7 +155,17 @@ window.app = window.app || {};
      * @private
      */
     function onPageBeforeShow() {
-        updateUI();
+        modelWorkout.start();
+        updateUI(
+            {
+                speed: 0,
+                distance: 0,
+                heartRate: 0,
+                altitude: 0
+            }
+        );
+
+        workoutStatus.style.display = 'none';
     }
 
     /**
@@ -149,10 +176,93 @@ window.app = window.app || {};
      *
      * @private
      */
-    function onModelGeolocationCurrentPositionChanged() {
+    function onModelWorkoutUpdateUI(e) {
         if (tau.activePage.id === PAGE_ID) {
-            updateUI();
+            updateUI(e.detail);
         }
+    }
+
+    /**
+     * Handles tizenhwkey event.
+     *
+     * Closes application if the back device button is pressed.
+     *
+     * @private
+     * @param {Event} e
+     */
+    function onHwKeyEvent(e) {
+        if (e.keyName === 'back') {
+            modelWorkout.togglePause();
+            e.stopPropagation();
+        }
+    }
+
+    /**
+     * Handles model.geolocation.current.position.changed event.
+     *
+     * Updates navigation page ui
+     * according to the values provided by the geolocation model module.
+     *
+     * @private
+     */
+    function onModelWorkoutPaused(e) {
+        if (tau.activePage.id === PAGE_ID) {
+            workoutStatus.style.display = 'inline';
+            tau.openPopup(pausePopup);
+        }
+    }
+
+    /**
+     * Handles model.geolocation.current.position.changed event.
+     *
+     * Updates navigation page ui
+     * according to the values provided by the geolocation model module.
+     *
+     * @private
+     */
+    function onModelWorkoutResumed(e) {
+        if (tau.activePage.id === PAGE_ID) {
+            workoutStatus.style.display = 'none';
+            tau.closePopup(pausePopup);
+        }
+    }
+
+    /**
+     * Handles click event on close popup yes button click.
+     *
+     * @private
+     */
+    function onPausePopupFinishBtnClick() {
+        tau.openPopup(savePopup);
+        //modelWorkout.save();
+    }
+
+    /**
+     * Handles click event on close popup yes button click.
+     *
+     * @private
+     */
+    function onPausePopupResumeBtnClick() {
+        modelWorkout.togglePause();
+    }
+
+    /**
+     * Handles click event on close popup yes button click.
+     *
+     * @private
+     */
+    function onSavePopupSaveBtnClick() {
+        modelWorkout.save();
+        tau.changePage('#main');
+    }
+
+    /**
+     * Handles click event on close popup yes button click.
+     *
+     * @private
+     */
+    function onSavePopupDiscardBtnClick() {
+        tau.changePage('#main');
     }
 
     /**
@@ -162,10 +272,28 @@ window.app = window.app || {};
      */
     function bindEvents() {
         page.addEventListener('pagebeforeshow', onPageBeforeShow);
+        document.addEventListener('tizenhwkey', onHwKeyEvent);
         window.addEventListener(
-            'model.geolocation.current.position.changed',
-            onModelGeolocationCurrentPositionChanged
+            'model.workout.updateui',
+            onModelWorkoutUpdateUI
         );
+
+        window.addEventListener(
+            'model.workout.paused',
+            onModelWorkoutPaused
+        );
+
+        window.addEventListener(
+            'model.workout.resumed',
+            onModelWorkoutResumed
+        );
+
+        pausePopupFinishButton.addEventListener('click', onPausePopupFinishBtnClick);
+        pausePopupResumeButton.addEventListener('click', onPausePopupResumeBtnClick);
+
+        savePopupSaveButton.addEventListener('click', onSavePopupSaveBtnClick);
+        savePopupDiscardButton.addEventListener('click', onSavePopupDiscardBtnClick);
+
     }
 
     /**
@@ -186,8 +314,36 @@ window.app = window.app || {};
      */
     uiWorkout.init = function init() {
         commonCalculations = app.common.calculations;
-        modelGeolocation = app.model.geolocation;
+        modelWorkout = app.model.workout;
         page = document.getElementById(PAGE_ID);
+        workoutStatus = page.querySelector('.workout-status');
+        workoutSpeed = page.querySelector('.workout-speed');
+        workoutDistance = page.querySelector('.workout-distance');
+        workoutHr = page.querySelector('.workout-hr');
+        workoutAltitude = page.querySelector('.workout-altitude');
+        pausePopup = document.getElementById('pause-popup'),
+        pausePopupFinishButton = pausePopup.querySelector('#pause-popup-yes-btn'),
+        pausePopupResumeButton = pausePopup.querySelector('#pause-popup-no-btn'),
+        savePopup = document.getElementById('save-popup'),
+        savePopupSaveButton = savePopup.querySelector('#save-popup-yes-btn'),
+        savePopupDiscardButton = savePopup.querySelector('#save-popup-no-btn');
+
+        // Mocked geolocation data
+        //var xmlhttp = new XMLHttpRequest();
+        //
+        //xmlhttp.onreadystatechange = function () {
+        //    if (this.readyState == 4 && this.status == 200) {
+        //        navigator.geolocation.waypoints = JSON.parse(this.responseText);
+        //    }
+        //};
+        //
+        //xmlhttp.open("GET", "tests/spec/455.json", true);
+        //xmlhttp.send();
+
+        //navigator.geolocation.delay = 1000;
+        //navigator.geolocation.repeat = false;
+
+
         bindEvents();
     };
 

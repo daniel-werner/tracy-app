@@ -26,6 +26,9 @@ window.app = window.app || {};
 
        var type = null,
 
+        MPS_TO_KMH = 3.6, // 3600/1000
+        SEC_PER_METER_TO_MIN_PER_KM = 16.67, // 1000/60
+
         /**
          * Workout model module reference.
          *
@@ -84,6 +87,7 @@ window.app = window.app || {};
         workout = {
             type: null,
             status: null,
+            distance: 0,
             points: [{
                 segment_index: 0,
                 lat: null,
@@ -111,6 +115,46 @@ window.app = window.app || {};
      * Handles model.geolocation.position.available event.
      *
      * @private
+     * @fires model.workout.updateui
+     */
+    function updateUI(){
+        if( workout.points.length > 1) {
+            var currentPosition = workout.points[workout.points.length - 1],
+                lastPosition = workout.points[workout.points.length - 2],
+                distance = commonCalculations.calculateDistance(
+                    {latitude: lastPosition.lat, longitude: lastPosition.lng},
+                    {latitude: currentPosition.lat, longitude: currentPosition.lng}
+                );
+
+            if( distance.raw > 0.1 ){
+                var timediff = currentPosition.time - lastPosition.time,
+                speed = timediff ? MPS_TO_KMH * distance.raw / timediff : 0,
+                pace = SEC_PER_METER_TO_MIN_PER_KM * timediff / distance.raw,
+                heartRate = currentPosition.heart_rate,
+                altitude = currentPosition.elevation;
+
+                workout.distance += distance.raw;
+
+                var data = {
+                    distance: workout.distance / 1000,
+                    speed: speed,
+                    pace: pace,
+                    heartRate: heartRate,
+                    altitude: altitude
+                };
+
+
+                commonEvents.dispatchEvent('model.workout.updateui', data);
+            }
+
+        }
+
+    }
+
+    /**
+     * Handles model.geolocation.position.available event.
+     *
+     * @private
      */
     function onModelGeolocationPositionAvailable() {
         var currentPosition = modelGeolocation.getCurrentPosition();
@@ -124,6 +168,7 @@ window.app = window.app || {};
                 time: currentPosition.timestamp
             });
 
+            updateUI();
         }
     }
 
@@ -166,16 +211,20 @@ window.app = window.app || {};
     modelWorkout.togglePause = function togglePause(){
         if(!active){
             segmentIndex++;
+            commonEvents.dispatchEvent('model.workout.resumed');
+        }
+        else{
+            commonEvents.dispatchEvent('model.workout.paused');
         }
 
         active ^= true;
-        commonEvents.dispatchEvent('model.workout.paused');
+
     };
 
     modelWorkout.save = function save(){
         workout.status = modelWorkout.WORKOUT_STATUS_SAVED;
 
-        var tizenDB = {};
+        var tracyDB = {};
         var objStore = null;
 
         var indexedDB = window.webkitIndexedDB || window.indexedDB;
@@ -183,15 +232,15 @@ window.app = window.app || {};
         var request = indexedDB.open('TizenIndexedDB');
 
         request.onsuccess = function(e) {
-            tizenDB.db = e.target.result;
+            tracyDB.db = e.target.result;
 
-            var trans = tizenDB.db.transaction('tizenStore', 'readwrite');
+            var trans = tracyDB.db.transaction('tizenStore', 'readwrite');
             var tizenStore = trans.objectStore('tizenStore');
 
-            console.log(workout);
             var request = tizenStore.put(workout);
             request.onsuccess = function(e) {
-                tizenDB.db.objectStoreId = request.result;
+                tracyDB.db.objectStoreId = request.result;
+                console.log('saved');
                 commonEvents.dispatchEvent('model.workout.save.successful', true);
             };
             request.onerror = function(e) {
@@ -200,9 +249,9 @@ window.app = window.app || {};
         };
 
         request.onupgradeneeded = function(e) {
-            tizenDB.db = e.target.result;
+            tracyDB.db = e.target.result;
             try {
-                 objStore = tizenDB.db.createObjectStore('tizenStore', {autoIncrement: true});
+                 objStore = tracyDB.db.createObjectStore('tizenStore', {autoIncrement: true});
 
             }
             catch(e){
@@ -210,6 +259,9 @@ window.app = window.app || {};
             }
         };
 
+        request.onerror = function(e) {
+            commonEvents.dispatchEvent('model.workout.save.failed');
+        };
 
 
         return false;

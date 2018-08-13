@@ -45,7 +45,7 @@
     <div class="ui-page workout" id="workout">
         <div class="ui-header">
             <div class="status-indicator gps-status"></div>
-            <span class="workout-paused">PAUSED</span>
+            <span class="workout-status workout-paused">PAUSED</span>
             <div class="status-indicator network-status"></div>
         </div>
         <div class="ui-content">
@@ -90,14 +90,14 @@
         </div>
     </div>
 
-    <div id="finish-popup" class="ui-popup">
+    <div id="pause-popup" class="ui-popup">
         <div class="ui-popup-header">Finish workout</div>
         <div class="ui-popup-content popup-content-padding">
             Do you want to finish the workout?
         </div>
         <div class="ui-popup-footer ">
-            <a class="ui-btn no ui-grid-row" data-rel="back" data-inline="false">Resume</a>
-            <a class="ui-btn yes ui-grid-row" data-rel="back" data-inline="false" id="finish-popup-yes-btn">Finish</a>
+            <a class="ui-btn no ui-grid-row" data-rel="" data-inline="false" id="pause-popup-no-btn">Resume</a>
+            <a class="ui-btn yes ui-grid-row" data-inline="false" id="pause-popup-yes-btn">Finish</a>
         </div>
     </div>
 
@@ -107,12 +107,13 @@
             Do you want to save the workout?
         </div>
         <div class="ui-popup-footer ">
-            <a class="ui-btn no ui-grid-row" data-rel="back" data-inline="false">Discard</a>
-            <a class="ui-btn yes ui-grid-row" data-rel="back" data-inline="false" id="save-popup-yes-btn">Save</a>
+            <a class="ui-btn no ui-grid-row"  data-inline="false" id="save-popup-no-btn">Discard</a>
+            <a class="ui-btn yes ui-grid-row" data-inline="false" id="save-popup-yes-btn">Save</a>
         </div>
     </div>
 
     <script src="lib/tau/mobile/js/tau.min.js"></script>
+    <script src="tests/lib/geomock/geomock.js"></script>
     <script src="js/common/app.common.events.js"></script>
     <script src="js/common/app.common.calculations.js"></script>
     <script src="js/model/app.model.battery.js"></script>
