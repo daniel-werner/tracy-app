@@ -20,7 +20,9 @@ describe("Workout", function () {
 
         this.modelWorkout = app.model.workout;
         this.modelGeolocation = app.model.geolocation;
+        this.modelSync = app.model.sync;
 
+        this.modelSync.init();
         this.modelWorkout.init();
 
     });
@@ -94,6 +96,10 @@ describe("Workout", function () {
                 done();
             },
             4000);
+    });
+
+    it('should login', function () {
+        this.modelSync.login();
     });
 
 });
