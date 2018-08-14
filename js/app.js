@@ -133,6 +133,11 @@ window.app = window.app || {};
         modelBattery.listenBatteryLowState();
         modelBattery.checkBatteryLowState();
         ui.init();
+        if(typeof tizen !== 'undefined'){
+            tizen.power.request('CPU', 'CPU_AWAKE');
+            tizen.power.request('SCREEN', 'SCREEN_NORMAL');
+        }
+
     };
 
     window.addEventListener('load', app.init);
