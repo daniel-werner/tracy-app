@@ -116,16 +116,31 @@ window.app = window.app || {};
          */
         totalDistance = 0,
 
+        /**
+         * HTML elements to update during workout
+         *
+         * @type {HTMLElement}
+         */
         workoutStatus = null,
         workoutSpeed = null,
         workoutDistance = null,
         workoutHr = null,
         workoutAltitude = null,
 
+        /**
+         * Popup shown when the workout is paused
+         *
+         * @type {HTMLElement}
+         */
         pausePopup = null,
         pausePopupFinishButton = null,
         pausePopupResumeButton = null,
 
+        /**
+         * Popup shown when the workout is finished
+         *
+         * @type {HTMLElement}
+         */
         savePopup = null,
         savePopupDiscardButton = null,
         savePopupSaveButton = null;
@@ -169,10 +184,10 @@ window.app = window.app || {};
     }
 
     /**
-     * Handles model.geolocation.current.position.changed event.
+     * Handles model.workout.uidateui event.
      *
-     * Updates navigation page ui
-     * according to the values provided by the geolocation model module.
+     * Updates workout page ui
+     * according to the values provided by the workout model module.
      *
      * @private
      */
@@ -198,10 +213,8 @@ window.app = window.app || {};
     }
 
     /**
-     * Handles model.geolocation.current.position.changed event.
+     * Handles model.workout.paused event.
      *
-     * Updates navigation page ui
-     * according to the values provided by the geolocation model module.
      *
      * @private
      */
@@ -213,10 +226,8 @@ window.app = window.app || {};
     }
 
     /**
-     * Handles model.geolocation.current.position.changed event.
+     * Handles model.workout.resumed event.
      *
-     * Updates navigation page ui
-     * according to the values provided by the geolocation model module.
      *
      * @private
      */
@@ -228,7 +239,7 @@ window.app = window.app || {};
     }
 
     /**
-     * Handles click event on close popup yes button click.
+     * Handles click event on pause popup finish button click.
      *
      * @private
      */
@@ -238,7 +249,7 @@ window.app = window.app || {};
     }
 
     /**
-     * Handles click event on close popup yes button click.
+     * Handles click event on pause popup resume button click.
      *
      * @private
      */
@@ -247,7 +258,7 @@ window.app = window.app || {};
     }
 
     /**
-     * Handles click event on close popup yes button click.
+     * Handles click event on save popup save button click.
      *
      * @private
      */
@@ -257,7 +268,7 @@ window.app = window.app || {};
     }
 
     /**
-     * Handles click event on close popup yes button click.
+     * Handles click event on save popup discard button click.
      *
      * @private
      */

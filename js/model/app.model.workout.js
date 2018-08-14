@@ -224,44 +224,66 @@ window.app = window.app || {};
     modelWorkout.save = function save(){
         workout.status = modelWorkout.WORKOUT_STATUS_SAVED;
 
-        var tracyDB = {};
-        var objStore = null;
-
-        var indexedDB = window.webkitIndexedDB || window.indexedDB;
-
-        var request = indexedDB.open('TizenIndexedDB');
-
-        request.onsuccess = function(e) {
-            tracyDB.db = e.target.result;
-
-            var trans = tracyDB.db.transaction('tizenStore', 'readwrite');
-            var tizenStore = trans.objectStore('tizenStore');
-
-            var request = tizenStore.put(workout);
-            request.onsuccess = function(e) {
-                tracyDB.db.objectStoreId = request.result;
-                console.log('saved');
-                commonEvents.dispatchEvent('model.workout.save.successful', true);
-            };
-            request.onerror = function(e) {
-                commonEvents.dispatchEvent('model.workout.save.failed');
-            };
-        };
-
-        request.onupgradeneeded = function(e) {
-            tracyDB.db = e.target.result;
-            try {
-                 objStore = tracyDB.db.createObjectStore('tizenStore', {autoIncrement: true});
-
+        var workoutDB = new IDBStore({
+            dbVersion: 1,
+            storeName: 'workouts',
+            keyPath: 'id',
+            autoIncrement: true,
+            onStoreReady: function(){
+                console.log('Store ready!');
+                workoutDB.put(workout, onsuccess, onerror);
             }
-            catch(e){
-                console.error(e);
-            }
-        };
+        });
 
-        request.onerror = function(e) {
+        var onsuccess = function(id){
+            console.log('Successfully inserted! insertId is: ' + id);
+            commonEvents.dispatchEvent('model.workout.save.successful', true);
+        };
+        var onerror = function(error){
+            console.log('Workout save failed!', error);
             commonEvents.dispatchEvent('model.workout.save.failed');
         };
+
+
+
+        //var tracyDB = {};
+        //var objStore = null;
+        //
+        //var indexedDB = window.webkitIndexedDB || window.indexedDB;
+        //
+        //var request = indexedDB.open('TizenIndexedDB');
+        //
+        //request.onsuccess = function(e) {
+        //    tracyDB.db = e.target.result;
+        //
+        //    var trans = tracyDB.db.transaction('tizenStore', 'readwrite');
+        //    var tizenStore = trans.objectStore('tizenStore');
+        //
+        //    var request = tizenStore.put(workout);
+        //    request.onsuccess = function(e) {
+        //        tracyDB.db.objectStoreId = request.result;
+        //        console.log('saved');
+        //        commonEvents.dispatchEvent('model.workout.save.successful', true);
+        //    };
+        //    request.onerror = function(e) {
+        //        commonEvents.dispatchEvent('model.workout.save.failed');
+        //    };
+        //};
+        //
+        //request.onupgradeneeded = function(e) {
+        //    tracyDB.db = e.target.result;
+        //    try {
+        //         objStore = tracyDB.db.createObjectStore('tizenStore', {autoIncrement: true});
+        //
+        //    }
+        //    catch(e){
+        //        console.error(e);
+        //    }
+        //};
+        //
+        //request.onerror = function(e) {
+        //    commonEvents.dispatchEvent('model.workout.save.failed');
+        //};
 
 
         return false;
