@@ -96,7 +96,10 @@ window.app = window.app || {};
                 elevation: null,
                 time: null
             }]
-        };
+        },
+
+        workoutDB = null,
+        isDBready = false;
 
     // create namespace for the module
     app.model = app.model || {};
@@ -183,6 +186,20 @@ window.app = window.app || {};
             onModelGeolocationPositionAvailable
         );
     }
+
+    function initDatabase() {
+        workoutDB = new IDBStore({
+            dbVersion: 1,
+            storeName: 'workouts',
+            keyPath: 'id',
+            autoIncrement: true,
+            onStoreReady: function(){
+                commonEvents.dispatchEvent('model.workout.dbready');
+                isDBready = true;
+
+            }
+        });
+    }
     /**
      * Initializes the workout model module.
      *
@@ -193,12 +210,14 @@ window.app = window.app || {};
      */
     modelWorkout.init = function init() {
         bindEvents();
+        initDatabase();
     };
 
     modelWorkout.start = function start(type) {
         segmentIndex = 0;
         workout.type = type;
         workout.status = modelWorkout.WORKOUT_STATUS_UNSAVED;
+        workout.distance = 0;
         workout.points = [];
 
         active = true;
@@ -224,17 +243,6 @@ window.app = window.app || {};
     modelWorkout.save = function save(){
         workout.status = modelWorkout.WORKOUT_STATUS_SAVED;
 
-        var workoutDB = new IDBStore({
-            dbVersion: 1,
-            storeName: 'workouts',
-            keyPath: 'id',
-            autoIncrement: true,
-            onStoreReady: function(){
-                console.log('Store ready!');
-                workoutDB.put(workout, onsuccess, onerror);
-            }
-        });
-
         var onsuccess = function(id){
             console.log('Successfully inserted! insertId is: ' + id);
             commonEvents.dispatchEvent('model.workout.save.successful', true);
@@ -244,53 +252,42 @@ window.app = window.app || {};
             commonEvents.dispatchEvent('model.workout.save.failed');
         };
 
-
-
-        //var tracyDB = {};
-        //var objStore = null;
-        //
-        //var indexedDB = window.webkitIndexedDB || window.indexedDB;
-        //
-        //var request = indexedDB.open('TizenIndexedDB');
-        //
-        //request.onsuccess = function(e) {
-        //    tracyDB.db = e.target.result;
-        //
-        //    var trans = tracyDB.db.transaction('tizenStore', 'readwrite');
-        //    var tizenStore = trans.objectStore('tizenStore');
-        //
-        //    var request = tizenStore.put(workout);
-        //    request.onsuccess = function(e) {
-        //        tracyDB.db.objectStoreId = request.result;
-        //        console.log('saved');
-        //        commonEvents.dispatchEvent('model.workout.save.successful', true);
-        //    };
-        //    request.onerror = function(e) {
-        //        commonEvents.dispatchEvent('model.workout.save.failed');
-        //    };
-        //};
-        //
-        //request.onupgradeneeded = function(e) {
-        //    tracyDB.db = e.target.result;
-        //    try {
-        //         objStore = tracyDB.db.createObjectStore('tizenStore', {autoIncrement: true});
-        //
-        //    }
-        //    catch(e){
-        //        console.error(e);
-        //    }
-        //};
-        //
-        //request.onerror = function(e) {
-        //    commonEvents.dispatchEvent('model.workout.save.failed');
-        //};
-
+        workoutDB.put(workout, onsuccess, onerror);
 
         return false;
     };
 
+    modelWorkout.clear = function clear(){
+        var onsuccess = function () {
+            console.log('Database celared');
+            commonEvents.dispatchEvent('model.workout.clear.successful');
+        };
+        var onerror = function (error) {
+            console.log('Database clear failed!', error);
+            commonEvents.dispatchEvent('model.workout.clear.failed');
+        };
+
+        workoutDB.clear(onsuccess, onerror);
+    };
+
+    modelWorkout.getList = function getList( status ) {
+        var onsuccess = function (data) {
+            data = data.filter(function(item){
+                return item.status == modelWorkout.WORKOUT_STATUS_SAVED;
+            });
+
+            commonEvents.dispatchEvent('model.workout.getlist.successful', data);
+        };
+        var onerror = function (error) {
+            console.log('Workout save failed!', error);
+            commonEvents.dispatchEvent('model.workout.getlist.failed');
+        };
+
+        workoutDB.getAll(onsuccess, onerror);
+    };
+
     modelWorkout.getWorkout = function getWorkout() {
         return workout;
-    }
+    };
 
 })(window.app);

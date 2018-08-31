@@ -25,20 +25,33 @@ describe("Workout", function () {
         this.modelSync.init();
         this.modelWorkout.init();
 
-    });
+        window.addEventListener(
+            'model.workout.dbready',
+            function(e){
+                _this.modelWorkout.clear();
+            });
 
+        this.runWorkout = function(doneCallback){
+            navigator.geolocation.delay = 1;
+            navigator.geolocation.repeat = false;
+            navigator.geolocation.waypoints = this.waypoints;
+
+            this.modelGeolocation.init();
+            this.modelWorkout.start(this.modelWorkout.WORKOUT_TYPE_RUNNING);
+
+            setTimeout( function(){
+                    _this.modelWorkout.togglePause();
+                    doneCallback();
+                },
+                3000);
+        };
+
+    });
 
     it('should start and pause workout', function (done) {
         var _this = this;
 
-        navigator.geolocation.delay = 1;
-        navigator.geolocation.repeat = false;
-        navigator.geolocation.waypoints = this.waypoints;
-
         expect(typeof this.modelWorkout === 'object').toBeTruthy();
-        this.modelGeolocation.init();
-
-        this.modelWorkout.start(this.modelWorkout.WORKOUT_TYPE_RUNNING);
 
         window.addEventListener(
             'model.workout.paused',
@@ -48,14 +61,15 @@ describe("Workout", function () {
             }
         );
 
-        setTimeout( function(){
+        this.runWorkout(function(){
             _this.modelWorkout.togglePause();
             done();
-        },
-        3000);
+        });
     });
 
     it('should save the workout', function (done) {
+        var _this = this;
+
         window.addEventListener(
             'model.workout.save.successful',
             function(e){
@@ -69,8 +83,42 @@ describe("Workout", function () {
             }
         );
 
-        this.modelWorkout.save();
+        this.runWorkout(function(){
+            _this.modelWorkout.save();
+        });
+    });
 
+    it('should load saved workouts', function (done) {
+        var _this = this;
+
+        window.addEventListener(
+            'model.workout.getlist.successful',
+            function(e){
+                expect(e.detail.length == 1).toBeTruthy();
+                expect(e.detail[0].status == _this.modelWorkout.WORKOUT_STATUS_SAVED).toBeTruthy();
+                done();
+            },
+            'model.workout.getlist.failed',
+            function(e){
+                done();
+            }
+        );
+
+        window.addEventListener(
+            'model.workout.save.successful',
+            function(e){
+                _this.modelWorkout.getList(_this.modelWorkout.WORKOUT_STATUS_SAVED);
+            },
+            'model.workout.save.failed',
+            function(e){
+                expect(e.detail).toBeTruthy();
+                done();
+            }
+        );
+
+        this.runWorkout(function(){
+            _this.modelWorkout.save();
+        });
     });
 
     it('should start the workout and update UI', function (done) {
