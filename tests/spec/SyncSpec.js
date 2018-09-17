@@ -64,6 +64,14 @@ describe("Sync", function () {
     it('should login with token and upload workouts', function (done) {
         var _this = this;
 
+
+        window.addEventListener(
+            'model.sync.upload.successful',
+            function(e){
+                expect(e.detail).toBeTruthy();
+                done();
+            });
+
         this.runWorkout(function(){
             _this.modelWorkout.save();
             _this.modelSync.uploadWorkouts();

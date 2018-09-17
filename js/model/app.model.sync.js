@@ -127,10 +127,11 @@ window.app = window.app || {};
                 /* Check the response status */
                 client.onreadystatechange = function() {
                     if (client.readyState == 4 && client.status == 200) {
-                        commonEvents.dispatchEvent('model.sync.upload.successful');
                         modelWorkout.clear();
+                        commonEvents.dispatchEvent('model.sync.upload.successful', true);
                     }
                     else{
+                        commonEvents.dispatchEvent('model.sync.upload.failed');
                     }
                 };
 
