@@ -146,8 +146,4 @@ describe("Workout", function () {
             4000);
     });
 
-    it('should login', function () {
-        this.modelSync.login();
-    });
-
 });

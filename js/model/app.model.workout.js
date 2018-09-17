@@ -273,7 +273,7 @@ window.app = window.app || {};
     modelWorkout.getList = function getList( status ) {
         var onsuccess = function (data) {
             data = data.filter(function(item){
-                return item.status == modelWorkout.WORKOUT_STATUS_SAVED;
+                return item.status == status;
             });
 
             commonEvents.dispatchEvent('model.workout.getlist.successful', data);
@@ -284,6 +284,10 @@ window.app = window.app || {};
         };
 
         workoutDB.getAll(onsuccess, onerror);
+    };
+
+    modelWorkout.getItemsToSync = function getItemsToSync( ) {
+        return modelWorkout.getList( modelWorkout.WORKOUT_STATUS_SAVED );
     };
 
     modelWorkout.getWorkout = function getWorkout() {
