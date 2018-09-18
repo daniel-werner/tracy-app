@@ -332,11 +332,11 @@ window.app = window.app || {};
         workoutDistance = page.querySelector('.workout-distance');
         workoutHr = page.querySelector('.workout-hr');
         workoutAltitude = page.querySelector('.workout-altitude');
-        pausePopup = document.getElementById('pause-popup'),
-        pausePopupFinishButton = pausePopup.querySelector('#pause-popup-yes-btn'),
-        pausePopupResumeButton = pausePopup.querySelector('#pause-popup-no-btn'),
-        savePopup = document.getElementById('save-popup'),
-        savePopupSaveButton = savePopup.querySelector('#save-popup-yes-btn'),
+        pausePopup = document.getElementById('pause-popup');
+        pausePopupFinishButton = pausePopup.querySelector('#pause-popup-yes-btn');
+        pausePopupResumeButton = pausePopup.querySelector('#pause-popup-no-btn');
+        savePopup = document.getElementById('save-popup');
+        savePopupSaveButton = savePopup.querySelector('#save-popup-yes-btn');
         savePopupDiscardButton = savePopup.querySelector('#save-popup-no-btn');
 
         // Mocked geolocation data

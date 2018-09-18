@@ -89,11 +89,11 @@ window.app = window.app || {};
         bindEvents();
     };
 
-    modelSync.login = function login() {
+    modelSync.login = function login(email, password) {
         var client = new XMLHttpRequest(),
             localStorage = window.localStorage;
 
-        var data = "email=demo@email.com&password=123123";
+        var data = "email=" + email + "&" + "password=" + password;
 
         client.open('post', 'http://tracy.test/api/login', true);
         client.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');

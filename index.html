@@ -66,16 +66,17 @@
         </div>
     </div>
 
-    <div class="ui-page finish" id="finish">
-        <div class="ui-header ui-header-fixed">
-            <a class="ui-header-btn ui-header-btn-left ui-header-btn-icon" id="finish-close-btn"></a>
+    <div id="login-popup" class="ui-popup">
+        <div class="ui-popup-header">Login</div>
+        <div class="ui-popup-content popup-content-padding">
+            <form action="#">
+                <input type="text" id="login-email" name="email" />
+                <input type="password" id="login-password" name="password">
+            </form>
         </div>
-        <div class="ui-content">
-            <img class="finish-flag">
-            <div class="message">YOU HAVE REACHED<br>YOUR DESTINATION</div>
-        </div>
-        <div class="ui-footer ui-footer-fixed">
-            <button id="finish-new-destination-btn">SET NEW DESTINATION</button>
+        <div class="ui-popup-footer ">
+            <a class="ui-btn no ui-grid-row" data-rel="back" data-inline="false" id="login-popup-cancel-btn">Cancel</a>
+            <a class="ui-btn yes ui-grid-row" data-rel="back" data-inline="false" id="login-popup-login-btn">Login</a>
         </div>
     </div>
 
@@ -121,7 +122,9 @@
     <script src="js/model/app.model.network.js"></script>
     <script src="js/model/app.model.geolocation.js"></script>
     <script src="js/model/app.model.workout.js"></script>
+    <script src="js/model/app.model.sync.js"></script>
     <script src="js/ui/app.ui.workout.js"></script>
+    <script src="js/ui/app.ui.login.js"></script>
     <script src="js/ui/app.ui.main.js"></script>
     <script src="js/ui/app.ui.intro.js"></script>
     <script src="js/ui/app.ui.js"></script>

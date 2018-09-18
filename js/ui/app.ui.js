@@ -102,6 +102,14 @@ window.app = window.app || {};
         uiWorkout = null,
 
         /**
+         * UI login reference.
+         *
+         * @private
+         * @type {object}
+         */
+        uiLogin = null,
+
+        /**
          * Close popup element.
          *
          * @private
@@ -264,6 +272,7 @@ window.app = window.app || {};
         uiIntro = app.ui.intro;
         uiMain = app.ui.main;
         uiWorkout = app.ui.workout;
+        uiLogin = app.ui.login;
         closePopup = document.getElementById('close-popup');
         closePopupYesBtn = closePopup.querySelector('#close-popup-yes-btn');
         gpsStatusIndicators = document.querySelectorAll('.gps-status');
@@ -272,6 +281,7 @@ window.app = window.app || {};
         uiIntro.init();
         uiMain.init();
         uiWorkout.init();
+        uiLogin.init();
         modelNetwork.init();
         modelGeolocation.init();
         modelWorkout.init();

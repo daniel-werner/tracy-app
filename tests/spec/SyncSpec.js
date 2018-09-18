@@ -58,7 +58,7 @@ describe("Sync", function () {
                 done();
             });
 
-        this.modelSync.login();
+        this.modelSync.login( 'demo@email.com', '123123' );
     });
 
     it('should login with token and upload workouts', function (done) {
