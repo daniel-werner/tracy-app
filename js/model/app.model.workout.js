@@ -26,8 +26,11 @@ window.app = window.app || {};
 
        var type = null,
 
-        MPS_TO_KMH = 3.6, // 3600/1000
-        SEC_PER_METER_TO_MIN_PER_KM = 16.67, // 1000/60
+        // Milliseconds per meter to kilometers per hour
+        MPS_TO_KMH = 3600, // hour = 3600 * 1000 milliseconds / kilometer = 1000 meters
+
+        // Milliseconds per meter to minutes per kilometer
+        MSEC_PER_METER_TO_MIN_PER_KM = 60,// Minute = 60 * 1000  millisecond / kilometer = 1000 meters
 
         /**
          * Workout model module reference.
@@ -132,7 +135,7 @@ window.app = window.app || {};
             if( distance.raw > 0.1 ){
                 var timediff = currentPosition.time - lastPosition.time,
                 speed = timediff ? MPS_TO_KMH * distance.raw / timediff : 0,
-                pace = SEC_PER_METER_TO_MIN_PER_KM * timediff / distance.raw,
+                pace = ( timediff / distance.raw ) / MSEC_PER_METER_TO_MIN_PER_KM,
                 heartRate = currentPosition.heart_rate,
                 altitude = currentPosition.elevation;
 
