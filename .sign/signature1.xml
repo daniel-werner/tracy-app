@@ -2,10 +2,6 @@
 <SignedInfo>
 <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></CanonicalizationMethod>
 <SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></SignatureMethod>
-<Reference URI=".DS_Store">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>yc8iYNcFBpLpA8GWQZpQtI3gNiSDAznF1P6svUOM2cM=</DigestValue>
-</Reference>
 <Reference URI=".gitignore">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>mu+CzpNpgFkmOjPEzpggdNJDtPxQ7XCEPSed+lKYVmo=</DigestValue>
@@ -13,50 +9,6 @@
 <Reference URI=".gitmodules">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>2fDdR+mTHSMW7GknSwmZ5h+nedSmZNX7Bn+J/altMj8=</DigestValue>
-</Reference>
-<Reference URI=".idea%2F.name">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>3ILMmPkOLwkEXxMDat7dUxBICJLKzZJwvX+wRu1hMvk=</DigestValue>
-</Reference>
-<Reference URI=".idea%2FcodeStyleSettings.xml">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>DGowl0wG9Gh0lmrDwgFoAmPZGU0btwQ/gN+Vl2Fu/QE=</DigestValue>
-</Reference>
-<Reference URI=".idea%2Fcopyright%2Fprofiles_settings.xml">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>qFTR3dCyE8dl4bxj69D3INaKeBUsSseeQubprQpX1oA=</DigestValue>
-</Reference>
-<Reference URI=".idea%2Fencodings.xml">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>NeBo3nWkmcCXRYXwG0ZoxW+UbcujqCOPTBpbakZ6pao=</DigestValue>
-</Reference>
-<Reference URI=".idea%2Fmarkdown-navigator.xml">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>BRc61DuX1qO+qTsx7Bj5Djr5RXZxf1wdmCCrJT5eb6M=</DigestValue>
-</Reference>
-<Reference URI=".idea%2Fmarkdown-navigator%2Fprofiles_settings.xml">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>UG5MiGafxQmk4LFfHWOSYt2jnlazI5y/moSHoFw5oAI=</DigestValue>
-</Reference>
-<Reference URI=".idea%2Fmisc.xml">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>FtdMooyiy/P136aVnV/Mzg0VYAMOXvgJDFRa/Mo4uBs=</DigestValue>
-</Reference>
-<Reference URI=".idea%2Fmodules.xml">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>NmuBMCuDj49WGhKF7qvZbTkc+oQFmKIY00j1pqcBS0w=</DigestValue>
-</Reference>
-<Reference URI=".idea%2Ftracy-app.iml">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>6cAE1b7tuNhQGqVFYJa9XRgYDzCBzS9W6BlsRGWYOKI=</DigestValue>
-</Reference>
-<Reference URI=".idea%2Fvcs.xml">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>VXaPH4T7EX8dD8OD4YC10KpeXmWEyMSimVwVtCN/CXI=</DigestValue>
-</Reference>
-<Reference URI=".idea%2Fworkspace.xml">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>tg+QaVAyAOR41NOwts4vZ04L4ShKY0US3eI4ipn0DHg=</DigestValue>
 </Reference>
 <Reference URI="LICENSE">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -68,15 +20,15 @@
 </Reference>
 <Reference URI="author-signature.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>9lS+Smd1zBXQyV2wnh/gzxDevghvAGy0dCBr8o+JJpI=</DigestValue>
+<DigestValue>SsGet4JmtrS7Hc5RVPGGwYkSt663EOvXxMZZlWfB8hE=</DigestValue>
 </Reference>
 <Reference URI="config.xml">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>gcXA8ZnklhIh18LXa+0S0Ae6d/DDJoUUUoEolf5YZjE=</DigestValue>
+<DigestValue>g+bAAocDJuOXIJg9kjWhU37m8pTjpJyr6hTgagwcvqE=</DigestValue>
 </Reference>
 <Reference URI="css%2Fstyle.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>cWDcAwioi+hUUEMNM1SC+XvyBOFwNWrIcqhVmTB8ESA=</DigestValue>
+<DigestValue>LgytE7/59DqvGJiQ1Nx+4RvUsnnNbO0kXfA8W3r8SiM=</DigestValue>
 </Reference>
 <Reference URI="css%2Ftau.custom.css">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -212,15 +164,11 @@
 </Reference>
 <Reference URI="index.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>EkkI+D4AaFN0r0of+WgAdoNqE4aQBs3cje98ofXKPLY=</DigestValue>
-</Reference>
-<Reference URI="js%2F.DS_Store">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>x/j9hQs7hptnh5OX4m1XEOn00v37haqdUdFYNE1idlQ=</DigestValue>
+<DigestValue>P7FmzFtBFetc1oQqjBmY8oPgxobKwOL8F18CDTdlbJA=</DigestValue>
 </Reference>
 <Reference URI="js%2Fapp.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>ZdTzhiUN/p5wavgeV065jZM5jVBIB/HBWwBv9Wp90mA=</DigestValue>
+<DigestValue>PQRaKpiFWzaQN7PKhwXqqhjQj5mbJLoDCLUfyvVqGlA=</DigestValue>
 </Reference>
 <Reference URI="js%2Fcommon%2Fapp.common.calculations.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -246,9 +194,17 @@
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>/2A6yMVu/uyocL0ETzBVEWyAgymlUuQ2Yb7VKqIZvqk=</DigestValue>
 </Reference>
+<Reference URI="js%2Fmodel%2Fapp.model.sync.js">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>7dblnPh6bkbL7sOsCcR9RMbpwA0qgChWKnLhReDZtEY=</DigestValue>
+</Reference>
 <Reference URI="js%2Fmodel%2Fapp.model.workout.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>5ykGa1bd+ASZTMDCntvmuNCeVnuMAV7Mp7hj7ciJaPo=</DigestValue>
+<DigestValue>JfWlGVTVmDDP/prraaO6AkHJ0BKP7w9NxN4LdKep5L8=</DigestValue>
+</Reference>
+<Reference URI="js%2Fui%2Fapp.ui.info.js">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>USbhTWL28BGo9MnmDXD0rDAjh0lTyHN2rxl6UaY0UUw=</DigestValue>
 </Reference>
 <Reference URI="js%2Fui%2Fapp.ui.intro.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -256,7 +212,11 @@
 </Reference>
 <Reference URI="js%2Fui%2Fapp.ui.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>h2Xm9/1TIa7iamEz7b4kgT6gIEFoan3Ftn4r2spUQlk=</DigestValue>
+<DigestValue>wUuPfFzFM1LmAAWSkdjAE5DHDbqodLq3wfrugEfE++o=</DigestValue>
+</Reference>
+<Reference URI="js%2Fui%2Fapp.ui.login.js">
+<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
+<DigestValue>R0lAmO6zY9uUl8WXbkxg6ZejwgTG4b7veQdTOL5HFC0=</DigestValue>
 </Reference>
 <Reference URI="js%2Fui%2Fapp.ui.main.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -264,15 +224,11 @@
 </Reference>
 <Reference URI="js%2Fui%2Fapp.ui.workout.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>kTWjYF9xNqvy2EfWtN0JzG82byJUFLbb2jXveGOAcYY=</DigestValue>
+<DigestValue>OB7+sIsbnbftt4hCj4mrdKFNTHNdNCwCLJPh2uIDpac=</DigestValue>
 </Reference>
-<Reference URI="lib%2F.DS_Store">
+<Reference URI="lib%2FIDBWrapper%2Fidbstore.min.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>bi/kseBGWViEVrWU8z9xr4GxM6iHnHFQnJ0tsCnnLnQ=</DigestValue>
-</Reference>
-<Reference URI="lib%2Ftau%2F.DS_Store">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>98jXANwAQnTFJAH4cfMU7Dxk6vD4tXJdYzWoDI4AQHQ=</DigestValue>
+<DigestValue>gp0zFdM/4lTGURc5PdSn+PDsPrk8RC7h8yZAwMtA0vk=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2FLICENSE.Flora">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -281,10 +237,6 @@
 <Reference URI="lib%2Ftau%2FVERSION">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>FllA+AGDvi3c6DoZaLTpyhnMJr4mkSByiz30PQhalY4=</DigestValue>
-</Reference>
-<Reference URI="lib%2Ftau%2Fmobile%2F.DS_Store">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>hZkM41yMsHD/b9ZruyE14LKzOZ0Ps9OT0i5YmOaH/Z8=</DigestValue>
 </Reference>
 <Reference URI="lib%2Ftau%2Fmobile%2Fjs%2Fjquery.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -1022,21 +974,13 @@
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>IpLU+Mb1c63YvBGZWU3+8zcx7kVp3y5gE4iRP2Jt9Y4=</DigestValue>
 </Reference>
-<Reference URI="tests%2F.DS_Store">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>8K3xfEGUFo50Bjf0QjwClBs8Vw3/CtEW+u/ZpFuyoSU=</DigestValue>
-</Reference>
 <Reference URI="tests%2FMIT.LICENSE">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>t3gPfygd2PB60+tzrPvSXavTu9UPKCdOk4kq1VaDkoM=</DigestValue>
 </Reference>
 <Reference URI="tests%2Findex.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>fFtO/3NgIDMY/ql4ZvCD4eTpoSRtidV03mcslJf7qxI=</DigestValue>
-</Reference>
-<Reference URI="tests%2Flib%2F.DS_Store">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>CyNl638FfVNJZVXM/QqIt6uwOIHZvK28IFYVDSknSo0=</DigestValue>
+<DigestValue>xy/CxVlbvy4bjmXjx2IzxkLuppujjOXjkLL19J82ysU=</DigestValue>
 </Reference>
 <Reference URI="tests%2Flib%2Fgeomock%2Fexample.html">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -1074,17 +1018,13 @@
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
 <DigestValue>2WIFzKQrxwy0Ndu/teky2mPaLXB89JBkQIJC40YgSRM=</DigestValue>
 </Reference>
-<Reference URI="tests%2Fspec%2F.DS_Store">
+<Reference URI="tests%2Fspec%2FSyncSpec.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>1lFlJ5EFymdzGAUAaI30vcaaLHt3F1LwpG7xILf9jsM=</DigestValue>
-</Reference>
-<Reference URI="tests%2Fspec%2F455.json">
-<DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>3uFUY8yeIIRPQ6Y6+9Tr/HE+f9VbQhE267rwXSUWABk=</DigestValue>
+<DigestValue>WLeSoxq9jZDeNpMUXQDqZtz7sQT52IJZqxzsGIp4w0g=</DigestValue>
 </Reference>
 <Reference URI="tests%2Fspec%2FWorkoutSpec.js">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
-<DigestValue>8l9kjpVCXNqit3yRHzTYdFT2O0fl1ovOYMsDm4IbpQA=</DigestValue>
+<DigestValue>+y5xslhKeZ7MM/e1GMgZrnsCBPw7idP462zFPhAYIhY=</DigestValue>
 </Reference>
 <Reference URI="tests%2Fspec%2Fwaypoints.json">
 <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></DigestMethod>
@@ -1099,11 +1039,11 @@
 </Reference>
 </SignedInfo>
 <SignatureValue>
-NsXXXrksuOTcZKn18a/tZywNV9SGTFYrJla870UEdZ8uj/Hp4pnXeGVj/3mfLVf4v9C+MzaydHIH
-2jAdrc6QoIR1TKw/NiqE2LY+C35wCjHp+LffQdNOAlGK5hrY7mdqdp3bm+wgwoBXmalXrWIG1pfw
-nZcBKhxrmhVOZg6PHTt+AM3TRRogPl8kg5o/IM9yp+T4cK2BcmroF+OcnjkwvXPZ9b0YzrdgBReF
-6wQ4huoplWCijkkb15x6bHQL3/UvNB/3lju5ZRyeBPuW4P0pKiNQerQY2eLirSPBXRjN91o2soyr
-xahx7GliWUy1szYT6fFd6k5DrV2HLArbjvWS2g==
+ASGxQ6XvpvzVhLBy5iS52GIwrnxJYnBLHLGWI/OOrofQrdkQky7hJOAdIYXrR5wJISv+eNY0olc8
+E4HnIF0Xa1yItWWqMWCQRsLB7OT9tazjRgCsU44z5EkAzSQmFQUtYaH6HXXP8p7TDtDE+1rbpodg
+VILaFJAYies8EFQzKqWnxWf3j9LLdsyp+zVoa4Ci3whOUVMeyZTjzNWCa/R5dh8a2qDffl9jjKCD
+uMxakby1nE/CVmC3td3S+l6yphLZX8J4dq99UcXwqu0yCB6DWPFD2h3jV9084y3h3mvFfEYyG9wV
+SycTuRggNCFzNUXSAvVDx0m9Yd2fQf1y4r+PaQ==
 </SignatureValue>
 <KeyInfo>
 <X509Data>
