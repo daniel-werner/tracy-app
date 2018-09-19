@@ -52,6 +52,7 @@ describe("Sync", function () {
         window.addEventListener(
             'model.sync.login.successful',
             function(e){
+                e.stopPropagation();
                 //console.log(e.detail);
                 expect(e.detail.hasOwnProperty('token')).toBeTruthy();
                 expect(e.detail.token.length > 0).toBeTruthy();
@@ -68,6 +69,7 @@ describe("Sync", function () {
         window.addEventListener(
             'model.sync.upload.successful',
             function(e){
+                e.stopPropagation();
                 expect(e.detail).toBeTruthy();
                 done();
             });

@@ -78,6 +78,14 @@ window.app = window.app || {};
         modelWorkout = null,
 
         /**
+         * Compass model module reference.
+         *
+         * @private
+         * @type {object}
+         */
+        modelSync = null,
+
+        /**
          * UI waiting module reference.
          *
          * @private
@@ -108,6 +116,14 @@ window.app = window.app || {};
          * @type {object}
          */
         uiLogin = null,
+
+        /**
+         * UI info reference.
+         *
+         * @private
+         * @type {object}
+         */
+        uiInfo = null,
 
         /**
          * Close popup element.
@@ -269,15 +285,18 @@ window.app = window.app || {};
         modelGeolocation = app.model.geolocation;
         modelNetwork = app.model.network;
         modelWorkout = app.model.workout;
+        modelSync = app.model.sync;
         uiIntro = app.ui.intro;
         uiMain = app.ui.main;
         uiWorkout = app.ui.workout;
         uiLogin = app.ui.login;
+        uiInfo = app.ui.info;
         closePopup = document.getElementById('close-popup');
         closePopupYesBtn = closePopup.querySelector('#close-popup-yes-btn');
         gpsStatusIndicators = document.querySelectorAll('.gps-status');
         networkStatusIndicators = document.querySelectorAll('.network-status');
         bindEvents();
+        uiInfo.init();
         uiIntro.init();
         uiMain.init();
         uiWorkout.init();
@@ -285,6 +304,14 @@ window.app = window.app || {};
         modelNetwork.init();
         modelGeolocation.init();
         modelWorkout.init();
+        modelSync.init();
+
+        window.addEventListener(
+            'model.workout.dbready',
+            function(e){
+                modelSync.uploadWorkouts();
+            });
+
     };
 
 })(window.app);

@@ -17,16 +17,10 @@
 /*global window, tau, document*/
 
 /**
- * Application navigation page module.
- * It is responsible for navigation page layout and logic.
+ * Application info popup module.
+ * It is responsible showing info popup.
  *
- * @module app.ui.navigation
- * @requires {@link app.common.calculations}
- * @requires {@link app.model.geolocation}
- * @requires {@link app.ui.waiting}
- * @requires {@link app.ui.destination}
- * @requires {@link app.ui.finish}
- * @namespace app.ui.navigation
+ * @module app.ui.info
  * @memberof app.ui
  */
 
@@ -42,7 +36,7 @@ window.app = window.app || {};
      * @private
      * @const {string}
      */
-    var PAGE_ID = 'login-popup',
+    var PAGE_ID = 'info-popup',
 
         /**
          * Page element.
@@ -53,42 +47,25 @@ window.app = window.app || {};
         page = null,
 
         /**
-         * Sync model module reference.
-         *
-         * @private
-         * @type {object}
-         */
-        modelSync = null,
-
-        /**
          * UI navigation module reference.
          *
          * @private
          * @type {object}
          */
-        uiLogin = null,
-
-        /**
-         * Common events module reference.
-         *
-         * @private
-         * @type {object}
-         */
-        commonEvents = app.common.events,
+        uiInfo = null,
 
         /**
          * Popup shown when the workout is paused
          *
          * @type {HTMLElement}
          */
-        loginPopup = null,
-        loginPopupLoginButton = null,
-        loginPopupCancelButton = null;
+        infoPopup = null,
+        infoPopupContent = null;
 
     // create namespace for the module
     app.ui = app.ui || {};
-    app.ui.login = app.ui.login || {};
-    uiLogin = app.ui.login;
+    app.ui.info = app.ui.info || {};
+    uiInfo = app.ui.info;
 
 
     /**
@@ -115,10 +92,9 @@ window.app = window.app || {};
      *
      * @private
      */
-    function onModelWorkoutUpdateUI(e) {
-        if (tau.activePage.id === PAGE_ID) {
-            updateUI(e.detail);
-        }
+    function onInfoShowHandler(e) {
+        infoPopupContent.innerHTML = e.detail;
+        tau.openPopup(infoPopup);
     }
 
     /**
@@ -138,39 +114,6 @@ window.app = window.app || {};
 
 
     /**
-     * Handles click event on pause popup finish button click.
-     *
-     * @private
-     */
-    function onLoginPopupLoginBtnClick() {
-        var email = loginPopup.querySelector('#login-email').value,
-            password = loginPopup.querySelector('#login-password').value;
-
-
-        modelSync.login(email, password)
-    }
-
-    /**
-     * Handles click event on pause popup resume button click.
-     *
-     * @private
-     */
-    function onLoginPopupCancelBtnClick() {
-    }
-
-    function onLoginSuccessful() {
-        commonEvents.dispatchEvent( 'ui.info.show', 'Successful login!');
-    }
-
-    function onLoginFail() {
-        commonEvents.dispatchEvent( 'ui.info.show', 'Login failed!');
-    }
-
-    function onLoginRequired(){
-        tau.openPopup(loginPopup);
-    }
-
-    /**
      * Registers event listeners.
      *
      * @private
@@ -180,12 +123,7 @@ window.app = window.app || {};
         document.addEventListener('tizenhwkey', onHwKeyEvent);
 
 
-        loginPopupLoginButton.addEventListener('click', onLoginPopupLoginBtnClick);
-        loginPopupCancelButton.addEventListener('click', onLoginPopupCancelBtnClick);
-
-        window.addEventListener( 'model.sync.login.successful', onLoginSuccessful );
-        window.addEventListener( 'model.sync.login.failed', onLoginFail );
-        window.addEventListener( 'model.sync.login.required', onLoginRequired );
+        window.addEventListener('ui.info.show', onInfoShowHandler);
 
     }
 
@@ -195,7 +133,7 @@ window.app = window.app || {};
      * @memberof app.ui.navigation
      * @public
      */
-    uiLogin.show = function show() {
+    uiInfo.show = function show() {
         tau.changePage('#' + PAGE_ID);
     };
 
@@ -205,14 +143,10 @@ window.app = window.app || {};
      * @memberof app.ui.navigation
      * @public
      */
-    uiLogin.init = function init() {
-        modelSync = app.model.sync;
+    uiInfo.init = function init() {
         page = document.getElementById(PAGE_ID);
-        loginPopup = document.getElementById('login-popup');
-        loginPopupLoginButton = loginPopup.querySelector('#login-popup-login-btn');
-        loginPopupCancelButton = loginPopup.querySelector('#login-popup-cancel-btn');
-
-        //tau.openPopup(loginPopup);
+        infoPopup = document.getElementById('info-popup');
+        infoPopupContent = document.getElementById('info-content');
 
         bindEvents();
     };

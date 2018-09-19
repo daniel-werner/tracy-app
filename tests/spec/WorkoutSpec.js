@@ -22,8 +22,8 @@ describe("Workout", function () {
         this.modelGeolocation = app.model.geolocation;
         this.modelSync = app.model.sync;
 
-        this.modelSync.init();
         this.modelWorkout.init();
+        this.modelSync.init();
 
         window.addEventListener(
             'model.workout.dbready',
@@ -53,12 +53,15 @@ describe("Workout", function () {
 
         expect(typeof this.modelWorkout === 'object').toBeTruthy();
 
+        var pauseListener = function(e){
+            var workout = _this.modelWorkout.getWorkout();
+            expect(workout.points.length).toEqual(421);
+            window.removeEventListener('model.workout.paused', pauseListener);
+        };
+
         window.addEventListener(
             'model.workout.paused',
-            function(){
-                var workout = _this.modelWorkout.getWorkout();
-                expect(workout.points.length).toEqual(421);
-            }
+            pauseListener
         );
 
         this.runWorkout(function(){
@@ -73,11 +76,13 @@ describe("Workout", function () {
         window.addEventListener(
             'model.workout.save.successful',
             function(e){
+                e.stopPropagation();
                 expect(e.detail).toBeTruthy();
                 done();
             },
             'model.workout.save.failed',
             function(e){
+                e.stopPropagation();
                 expect(e.detail).toBeTruthy();
                 done();
             }
@@ -94,12 +99,14 @@ describe("Workout", function () {
         window.addEventListener(
             'model.workout.getlist.successful',
             function(e){
+                e.stopPropagation();
                 expect(e.detail.length == 1).toBeTruthy();
                 expect(e.detail[0].status == _this.modelWorkout.WORKOUT_STATUS_SAVED).toBeTruthy();
                 done();
             },
             'model.workout.getlist.failed',
             function(e){
+                e.stopPropagation();
                 done();
             }
         );
@@ -107,10 +114,12 @@ describe("Workout", function () {
         window.addEventListener(
             'model.workout.save.successful',
             function(e){
+                e.stopPropagation();
                 _this.modelWorkout.getList(_this.modelWorkout.WORKOUT_STATUS_SAVED);
             },
             'model.workout.save.failed',
             function(e){
+                e.stopPropagation();
                 expect(e.detail).toBeTruthy();
                 done();
             }
@@ -121,29 +130,30 @@ describe("Workout", function () {
         });
     });
 
-    it('should start the workout and update UI', function (done) {
-        var _this = this;
-
-        navigator.geolocation.delay = 1000;
-        navigator.geolocation.repeat = false;
-        navigator.geolocation.waypoints = this.waypoints;
-
-        this.modelGeolocation.init();
-        expect(typeof this.modelWorkout === 'object').toBeTruthy();
-        this.modelWorkout.start(this.modelWorkout.WORKOUT_TYPE_RUNNING);
-
-        window.addEventListener(
-            'model.workout.updateui',
-            function(e){
-                var data = e.detail;
-                console.log(data);
-            }
-        );
-
-        setTimeout( function(){
-                done();
-            },
-            4000);
-    });
+    //it('should start the workout and update UI', function (done) {
+    //    var _this = this;
+    //
+    //    navigator.geolocation.delay = 1000;
+    //    navigator.geolocation.repeat = false;
+    //    navigator.geolocation.waypoints = this.waypoints;
+    //
+    //    this.modelGeolocation.init();
+    //    expect(typeof this.modelWorkout === 'object').toBeTruthy();
+    //    this.modelWorkout.start(this.modelWorkout.WORKOUT_TYPE_RUNNING);
+    //
+    //    window.addEventListener(
+    //        'model.workout.updateui',
+    //        function(e){
+    //            e.stopPropagation();
+    //            var data = e.detail;
+    //            console.log(data);
+    //        }
+    //    );
+    //
+    //    setTimeout( function(){
+    //            done();
+    //        },
+    //        4000);
+    //});
 
 });

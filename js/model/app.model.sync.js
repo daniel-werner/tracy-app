@@ -63,16 +63,11 @@ window.app = window.app || {};
     }
 
     function createAuthHeader(){
-        var token = getToken(),
-            header = false;
-
-        console.log(token);
-        if(token.length){
+        var token = getToken() || '',
             header = {
                 key: 'Authorization',
                 value: 'Bearer ' + token,
             };
-        }
 
         return header;
     }
@@ -93,24 +88,26 @@ window.app = window.app || {};
         var client = new XMLHttpRequest(),
             localStorage = window.localStorage;
 
+        /* Check the response status */
+        client.onreadystatechange = function() {
+            if (client.readyState == 4) {
+                if (client.status == 200) {
+
+                    localStorage.setItem('token', JSON.parse(client.response));
+                    commonEvents.dispatchEvent('model.sync.login.successful', { token: client.response });
+                }
+                else {
+                    commonEvents.dispatchEvent('model.sync.login.failed');
+                }
+            }
+        };
+
         var data = "email=" + email + "&" + "password=" + password;
 
         client.open('post', 'http://tracy.test/api/login', true);
         client.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         client.send(data); /* Send to server */
 
-        /* Check the response status */
-        client.onreadystatechange = function() {
-            if (client.readyState == 4 && client.status == 200) {
-                //console.log(client.response);
-
-                localStorage.setItem('token', JSON.parse(client.response));
-                commonEvents.dispatchEvent('model.sync.login.successful', { token: client.response });
-            }
-            else{
-                commonEvents.dispatchEvent('model.sync.login.failed');
-            }
-        };
     };
 
     modelSync.uploadWorkouts = function(){
@@ -122,16 +119,24 @@ window.app = window.app || {};
         window.addEventListener(
             'model.workout.getlist.successful',
             function(e){
+                e.stopPropagation();
                 workouts = e.detail;
 
                 /* Check the response status */
                 client.onreadystatechange = function() {
-                    if (client.readyState == 4 && client.status == 200) {
-                        modelWorkout.clear();
-                        commonEvents.dispatchEvent('model.sync.upload.successful', true);
-                    }
-                    else{
-                        commonEvents.dispatchEvent('model.sync.upload.failed');
+                    if (client.readyState == 4){
+                        switch(client.status){
+                            case 200:
+                                //modelWorkout.clear();
+                                commonEvents.dispatchEvent('model.sync.upload.successful', true);
+                                break;
+                            case 401:
+                                commonEvents.dispatchEvent('model.sync.login.required');
+                                break;
+                            default:
+                                commonEvents.dispatchEvent('model.sync.upload.failed');
+                                break;
+                        }
                     }
                 };
 
@@ -140,11 +145,13 @@ window.app = window.app || {};
                 var payload = JSON.stringify({ data: workouts });
 
                 client.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                client.setRequestHeader("Accept", "application/json");
                 client.setRequestHeader(authHeaders.key, authHeaders.value);
                 client.send(payload); /* Send to server */
             },
             'model.workout.getlist.failed',
             function(e){
+                e.stopPropagation();
                 commonEvents.dispatchEvent('model.sync.upload.failed');
             }
         );

@@ -184,6 +184,10 @@ hr{
     height: 140px;
 }
 
+#info-popup .ui-popup-footer{
+	height: 80px;
+}
+
 .ui-popup-overlay{
     background: none !important;
 }
