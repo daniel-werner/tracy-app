@@ -55,7 +55,7 @@ describe("Workout", function () {
 
         var pauseListener = function(e){
             var workout = _this.modelWorkout.getWorkout();
-            expect(workout.points.length).toEqual(421);
+            expect(workout.points.length).toEqual(6);
             window.removeEventListener('model.workout.paused', pauseListener);
         };
 
