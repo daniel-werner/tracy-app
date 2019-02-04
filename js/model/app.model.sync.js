@@ -127,7 +127,7 @@ window.app = window.app || {};
                     if (client.readyState == 4){
                         switch(client.status){
                             case 200:
-                                //modelWorkout.clear();
+                                modelWorkout.clear();
                                 commonEvents.dispatchEvent('model.sync.upload.successful', true);
                                 break;
                             case 401:
