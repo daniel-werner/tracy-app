@@ -67,6 +67,8 @@ window.app = window.app || {};
          */
         modelNetwork = null,
 
+        modelWorkout = null,
+
          /**
          * Ui waiting module reference.
          *
@@ -81,7 +83,10 @@ window.app = window.app || {};
          * @private
          * @type {object}
          */
-        uiMain = null;
+        uiMain = null,
+
+        workoutStartCyclingButton = null,
+        workoutStartRunningButton = null;
 
 
     // create namespace for the module
@@ -100,6 +105,15 @@ window.app = window.app || {};
 
     }
 
+    function onWorkoutStartCycling() {
+        modelWorkout.start(modelWorkout.WORKOUT_TYPE_CYCLING);
+        tau.changePage('#workout');
+    }
+
+    function onWorkoutStartRunning() {
+        modelWorkout.start(modelWorkout.WORKOUT_TYPE_RUNNING);
+        tau.changePage('#workout');
+    }
     /**
      * Registers event listeners.
      *
@@ -107,6 +121,9 @@ window.app = window.app || {};
      */
     function bindEvents() {
         page.addEventListener('pagebeforeshow', onPageBeforeShow);
+
+        workoutStartCyclingButton.addEventListener('click', onWorkoutStartCycling);
+        workoutStartRunningButton.addEventListener('click', onWorkoutStartRunning);
     }
 
     /**
@@ -129,8 +146,11 @@ window.app = window.app || {};
     uiMain.init = function init() {
         modelGeolocation = app.model.geolocation;
         modelNetwork = app.model.network;
+        modelWorkout = app.model.workout;
         uiWaiting = app.ui.waiting;
         page = document.getElementById(PAGE_ID);
+        workoutStartCyclingButton = page.querySelector('.workout-start-cycling');
+        workoutStartRunningButton = page.querySelector('.workout-start-running');
         bindEvents();
     };
 
