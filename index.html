@@ -32,11 +32,11 @@
                 <div class="status-indicator network-status"></div>
             </div>
     		<div class="ui-content">
-        		<a href="#workout" class="workout-icon tracy-cycling">
+        		<a href="#workout" class="workout-icon workout-start-cycling tracy-cycling">
         			START CYCLING
         		</a>
                 <hr>
-        		<a href="#workout" class="workout-icon tracy-running">
+        		<a href="#workout" class="workout-icon workout-start-running tracy-running">
         			START RUNNING
         		</a>
     		</div>
@@ -62,6 +62,9 @@
             <div class="workout-item-small">
                 <span class="workout-data workout-hr">126</span>
                 <span class="workout-data workout-altitude">1300</span>
+            </div>
+            <div class="workout-footer-md">
+                <a class="ui-btn yes ui-grid-row" id="workout-pause-btn">Pause</a>
             </div>
         </div>
     </div>
@@ -124,7 +127,8 @@
 
     <script src="lib/tau/mobile/js/tau.min.js"></script>
     <script src="lib/IDBWrapper/idbstore.min.js"></script>
-    <!--<script src="tests/lib/geomock/geomock.js"></script>-->
+    <!-- <script src="tests/lib/geomock/geomock.js"></script> -->
+    <!-- <script src="js/mock.js"></script> -->
     <script src="js/common/app.common.events.js"></script>
     <script src="js/common/app.common.calculations.js"></script>
     <script src="js/model/app.model.battery.js"></script>

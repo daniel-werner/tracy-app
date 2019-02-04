@@ -106,6 +106,19 @@ hr{
     background: transparent url('../images/altitude-icon.svg') no-repeat;
 }
 
+.workout-footer-md{
+    margin-top: 15px;
+    display: none;
+}
+
+
+@media screen and (min-height: 470px){
+    .workout-footer-md{
+        width: 100%;
+        display: block;
+    }
+}
+
 .status-indicator{
     margin: 0px 10px 0 10px;
     width: 20px;
