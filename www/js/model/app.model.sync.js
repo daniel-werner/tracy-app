@@ -104,7 +104,7 @@ window.app = window.app || {};
 
         var data = "email=" + email + "&" + "password=" + password;
 
-        client.open('post', 'https://512a32b5.ngrok.io/api/login', true);
+        client.open('post', 'https://tracy.wernerd.info/api/login', true);
         client.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         client.send(data); /* Send to server */
 
@@ -142,7 +142,7 @@ window.app = window.app || {};
                     }
                 };
 
-                client.open('POST', 'https://512a32b5.ngrok.io/api/workouts', true);
+                client.open('POST', 'https://tracy.wernerd.info/api/workouts', true);
 
                 var payload = JSON.stringify({ data: workouts });
 
