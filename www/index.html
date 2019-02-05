@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:; connect-src *;>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <title>Tracy App</title>
+
+        <link rel="stylesheet" type="text/css" href="lib/tau/mobile/theme/default/tau.css"/>
+        <link rel="stylesheet" type="text/css" href="css/tau.custom.css"/>
+        <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    </head>
+
+    <body>
+        <div class="ui-page intro" id="intro">
+            <div class="ui-content">
+            		<div class="intro">
+            			<div class="workout-icon tracy-cycling"></div>
+                        <div class="app-title">TRACY</div>
+            			<div class="workout-icon tracy-running"></div>
+    		        <div class="waiting-message" id="waiting-message">
+    	        		</div>
+            		</div>
+            </div>
+        </div>
+
+        <div class="ui-page main" id="main">
+                <div class="ui-header">
+                    <div class="status-indicator gps-status"></div>
+                    <div class="status-indicator network-status"></div>
+                </div>
+        		<div class="ui-content">
+            		<a href="#workout" class="workout-icon workout-start-cycling tracy-cycling">
+            			START CYCLING
+            		</a>
+                    <hr>
+            		<a href="#workout" class="workout-icon workout-start-running tracy-running">
+            			START RUNNING
+            		</a>
+        		</div>
+        </div>
+
+        <div class="ui-page workout" id="workout">
+            <div class="ui-header">
+                <div class="status-indicator gps-status"></div>
+                <span class="workout-status workout-paused">PAUSED</span>
+                <div class="status-indicator network-status"></div>
+            </div>
+            <div class="ui-content">
+                <div class="workout-item-big ">
+                    <div class="workout-speed-type">Speed:</div>
+                    <div class="workout-data workout-speed">20.2</div>
+                    <div class="workout-speed-unit">km/h</div>
+                </div>
+                <div class="workout-item-big">
+                    Distance:
+                    <div class="workout-data workout-distance">25.3</div>
+                    <div>km</div>
+                </div>
+                <div class="workout-item-small">
+                    <span class="workout-data workout-hr">126</span>
+                    <span class="workout-data workout-altitude">1300</span>
+                </div>
+                <div class="workout-footer-md">
+                    <a class="ui-btn yes ui-grid-row" id="workout-pause-btn">Pause</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="login-popup" class="ui-popup">
+            <div class="ui-popup-header">Login</div>
+            <div class="ui-popup-content popup-content-padding">
+                <form action="#">
+                    <input type="text" id="login-email" name="email" />
+                    <input type="password" id="login-password" name="password">
+                </form>
+            </div>
+            <div class="ui-popup-footer ">
+                <a class="ui-btn no ui-grid-row" data-rel="back" data-inline="false" id="login-popup-cancel-btn">Cancel</a>
+                <a class="ui-btn yes ui-grid-row" data-rel="back" data-inline="false" id="login-popup-login-btn">Login</a>
+            </div>
+        </div>
+
+        <div id="info-popup" class="ui-popup">
+            <div class="ui-popup-content popup-content-padding">
+                <span id="info-content"></span>
+            </div>
+            <div class="ui-popup-footer ">
+                <a class="ui-btn yes ui-grid-row" data-rel="back" data-inline="false" id="info-popup-ok-btn">Ok</a>
+            </div>
+        </div>
+
+        <div id="close-popup" class="ui-popup">
+            <div class="ui-popup-header">Close application</div>
+            <div class="ui-popup-content popup-content-padding">
+                Are you sure you want to close the application?
+            </div>
+            <div class="ui-popup-footer ">
+                <a class="ui-btn no ui-grid-row" data-rel="back" data-inline="false">No</a>
+                <a class="ui-btn yes ui-grid-row" data-rel="back" data-inline="false" id="close-popup-yes-btn">Yes</a>
+            </div>
+        </div>
+
+        <div id="pause-popup" class="ui-popup">
+            <div class="ui-popup-header">Finish workout</div>
+            <div class="ui-popup-content popup-content-padding">
+                Do you want to finish the workout?
+            </div>
+            <div class="ui-popup-footer ">
+                <a class="ui-btn no ui-grid-row" data-rel="" data-inline="false" id="pause-popup-no-btn">Resume</a>
+                <a class="ui-btn yes ui-grid-row" data-inline="false" id="pause-popup-yes-btn">Finish</a>
+            </div>
+        </div>
+
+        <div id="save-popup" class="ui-popup">
+            <div class="ui-popup-header">Save workout</div>
+            <div class="ui-popup-content popup-content-padding">
+                Do you want to save the workout?
+            </div>
+            <div class="ui-popup-footer ">
+                <a class="ui-btn no ui-grid-row"  data-inline="false" id="save-popup-no-btn">Discard</a>
+                <a class="ui-btn yes ui-grid-row" data-inline="false" id="save-popup-yes-btn">Save</a>
+            </div>
+        </div>
+
+        <script src="lib/tau/mobile/js/tau.min.js"></script>
+        <script src="lib/IDBWrapper/idbstore.min.js"></script>
+        <!--<script src="tests/lib/geomock/geomock.js"></script>-->
+        <!--<script src="js/mock.js"></script>-->
+        <script src="js/common/app.common.events.js"></script>
+        <script src="js/common/app.common.calculations.js"></script>
+        <script src="js/model/app.model.battery.js"></script>
+        <script src="js/model/app.model.network.js"></script>
+        <script src="js/model/app.model.geolocation.js"></script>
+        <script src="js/model/app.model.workout.js"></script>
+        <script src="js/model/app.model.sync.js"></script>
+        <script src="js/ui/app.ui.workout.js"></script>
+        <script src="js/ui/app.ui.login.js"></script>
+        <script src="js/ui/app.ui.main.js"></script>
+        <script src="js/ui/app.ui.intro.js"></script>
+        <script src="js/ui/app.ui.info.js"></script>
+        <script src="js/ui/app.ui.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>
