@@ -39,7 +39,9 @@ window.app = window.app || {};
          * @private
          * @type {object}
          */
-        commonEvents = app.common.events;
+        commonEvents = app.common.events,
+
+        modelNetwork = app.model.network;
 
 
     // create namespace for the module
@@ -132,7 +134,6 @@ window.app = window.app || {};
                                 commonEvents.dispatchEvent('model.sync.upload.successful', true);
                                 break;
                             case 401:
-                            case 403:
                                 commonEvents.dispatchEvent('model.sync.login.required');
                                 break;
                             default:
@@ -159,7 +160,10 @@ window.app = window.app || {};
             }
         );
 
-        modelWorkout.getItemsToSync();
+        // Disabled until network availability is fixed for cordova
+        // if( modelNetwork.isNetworkAvailable() ){
+            modelWorkout.getItemsToSync();
+        // }
     }
 
 })(window.app);

@@ -155,7 +155,9 @@ window.app = window.app || {};
          * @private
          * @type {HTMLElement}
          */
-        networkStatusIndicators = null;
+        networkStatusIndicators = null,
+
+        commonEvents = null;
 
     // create namespace for the module
     app.ui = app.ui || {};
@@ -291,6 +293,7 @@ window.app = window.app || {};
         uiWorkout = app.ui.workout;
         uiLogin = app.ui.login;
         uiInfo = app.ui.info;
+        commonEvents = app.common.events;
         closePopup = document.getElementById('close-popup');
         closePopupYesBtn = closePopup.querySelector('#close-popup-yes-btn');
         gpsStatusIndicators = document.querySelectorAll('.gps-status');
@@ -311,6 +314,26 @@ window.app = window.app || {};
             function(e){
                 modelSync.uploadWorkouts();
             });
+
+        window.addEventListener(
+            'model.workout.save.successful',
+            function(e){
+                modelSync.uploadWorkouts();
+            });
+
+        window.addEventListener(
+            'model.sync.upload.successful',
+            function(e){
+                commonEvents.dispatchEvent( 'ui.info.show', 'Workouts synced successfully!');
+            });
+
+        window.addEventListener(
+            'model.sync.upload.failed',
+            function(e){
+                commonEvents.dispatchEvent( 'ui.info.show', 'Workout sync failed!');
+            });
+
+
 
     };
 

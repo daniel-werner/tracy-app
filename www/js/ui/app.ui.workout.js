@@ -145,7 +145,8 @@ window.app = window.app || {};
          */
         savePopup = null,
         savePopupDiscardButton = null,
-        savePopupSaveButton = null;
+        savePopupSaveButton = null,
+        commonEvents = null;
 
     // create namespace for the module
     app.ui = app.ui || {};
@@ -285,6 +286,14 @@ window.app = window.app || {};
         tau.changePage('#main');
     }
 
+    function onModelWorkoutSaveSuccess() {
+        commonEvents.dispatchEvent( 'ui.info.show', 'Workout saved sucessfully!');
+    }
+
+    function onModelWorkoutSaveFailed() {
+        commonEvents.dispatchEvent( 'ui.info.show', 'Workout saved failed!');
+    }
+
     /**
      * Registers event listeners.
      *
@@ -306,6 +315,16 @@ window.app = window.app || {};
         window.addEventListener(
             'model.workout.resumed',
             onModelWorkoutResumed
+        );
+
+        window.addEventListener(
+            'model.workout.save.successful',
+            onModelWorkoutSaveSuccess
+        );
+
+        window.addEventListener(
+            'model.workout.save.failed',
+            onModelWorkoutSaveFailed
         );
 
         workoutPauseButton.addEventListener('click', onPauseBtnClick);
@@ -336,6 +355,7 @@ window.app = window.app || {};
      */
     uiWorkout.init = function init() {
         commonCalculations = app.common.calculations;
+        commonEvents = app.common.events;
         modelWorkout = app.model.workout;
         page = document.getElementById(PAGE_ID);
         workoutStatus = page.querySelector('.workout-status');
