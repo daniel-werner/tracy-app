@@ -312,13 +312,13 @@ window.app = window.app || {};
         window.addEventListener(
             'model.workout.dbready',
             function(e){
-                modelSync.uploadWorkouts();
+                modelSync.sync();
             });
 
         window.addEventListener(
             'model.workout.save.successful',
             function(e){
-                modelSync.uploadWorkouts();
+                modelSync.sync();
             });
 
         window.addEventListener(

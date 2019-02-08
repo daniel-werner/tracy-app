@@ -57,7 +57,19 @@ window.app = window.app || {};
      * @private
      */
     function bindEvents() {
-
+        window.addEventListener(
+            'model.workout.getlist.successful',
+            function(e){
+                e.stopPropagation();
+                var workouts = e.detail;
+                uploadWorkouts(workouts);
+            },
+            'model.workout.getlist.failed',
+            function(e){
+                e.stopPropagation();
+                commonEvents.dispatchEvent('model.sync.upload.failed');
+            }
+        );
     }
 
     function getToken(){
@@ -112,58 +124,46 @@ window.app = window.app || {};
 
     };
 
-    modelSync.uploadWorkouts = function(){
-        var client = new XMLHttpRequest(),
-            authHeaders = createAuthHeader(),
-            workouts = null;
-
-
-        window.addEventListener(
-            'model.workout.getlist.successful',
-            function(e){
-                e.stopPropagation();
-                workouts = e.detail;
-
-                /* Check the response status */
-                client.onreadystatechange = function() {
-                    if (client.readyState == 4){
-                        console.log('Response: ' + client.status);
-                        switch(client.status){
-                            case 200:
-                                modelWorkout.clear();
-                                commonEvents.dispatchEvent('model.sync.upload.successful', true);
-                                break;
-                            case 401:
-                                commonEvents.dispatchEvent('model.sync.login.required');
-                                break;
-                            default:
-                                commonEvents.dispatchEvent('model.sync.upload.failed');
-                                break;
-                        }
-                    }
-                };
-
-                client.open('POST', 'https://tracy.wernerd.info/api/workouts', true);
-
-                var payload = JSON.stringify({ data: workouts });
-
-                client.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-                client.setRequestHeader("Accept", "application/json");
-                client.setRequestHeader(authHeaders.key, authHeaders.value);
-                console.log('Sending data to the server');
-                client.send(payload); /* Send to server */
-            },
-            'model.workout.getlist.failed',
-            function(e){
-                e.stopPropagation();
-                commonEvents.dispatchEvent('model.sync.upload.failed');
-            }
-        );
-
+    modelSync.sync = function(){
         // Disabled until network availability is fixed for cordova
         // if( modelNetwork.isNetworkAvailable() ){
             modelWorkout.getItemsToSync();
         // }
+
+    }
+
+    function uploadWorkouts(workouts){
+        var client = new XMLHttpRequest(),
+            authHeaders = createAuthHeader();
+
+            /* Check the response status */
+            client.onreadystatechange = function() {
+                if (client.readyState == 4){
+                    console.log('Response: ' + client.status);
+                    switch(client.status){
+                        case 200:
+                            modelWorkout.clear();
+                            commonEvents.dispatchEvent('model.sync.upload.successful', true);
+                            break;
+                        case 401:
+                            commonEvents.dispatchEvent('model.sync.login.required');
+                            break;
+                        default:
+                            commonEvents.dispatchEvent('model.sync.upload.failed');
+                            break;
+                    }
+                }
+            };
+
+            client.open('POST', 'https://tracy.wernerd.info/api/workouts', true);
+
+            var payload = JSON.stringify({ data: workouts });
+
+            client.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            client.setRequestHeader("Accept", "application/json");
+            client.setRequestHeader(authHeaders.key, authHeaders.value);
+            console.log('Sending data to the server');
+            client.send(payload); /* Send to server */
     }
 
 })(window.app);

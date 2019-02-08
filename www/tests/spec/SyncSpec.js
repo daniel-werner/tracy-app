@@ -76,7 +76,7 @@ describe("Sync", function () {
 
         this.runWorkout(function(){
             _this.modelWorkout.save();
-            _this.modelSync.uploadWorkouts();
+            _this.modelSync.sync();
         });
     });
 
