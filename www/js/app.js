@@ -93,6 +93,7 @@ window.app = window.app || {};
      * @private
      */
     function onBatteryLow() {
+        console.log('Battery low');
         app.exit();
     }
 
@@ -128,10 +129,11 @@ window.app = window.app || {};
      * @public
      */
     app.init = function init() {
-        modelBattery.init();
+        var platform = Platform.get(),
+            driverFactory = new DriverFactory(platform);
+
+        modelBattery.init(driverFactory.buildBatteryDriver(platform));
         bindEvents();
-        modelBattery.listenBatteryLowState();
-        modelBattery.checkBatteryLowState();
         ui.init();
         if(typeof tizen !== 'undefined'){
             tizen.power.request('CPU', 'CPU_AWAKE');

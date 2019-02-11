@@ -32,21 +32,13 @@ window.app = window.app || {};
 (function defineAppModelBattery(app) {
     'use strict';
 
-    /**
-     * Low battery threshold.
-     *
-     * @private
-     * @const {number}
-     */
-    var LOW_BATTERY = 0.04,
-
         /**
          * Battery model module reference.
          *
          * @private
          * @type {object}
          */
-        modelBattery = null,
+        var modelBattery = null,
 
         /**
          * Common events module reference.
@@ -56,13 +48,7 @@ window.app = window.app || {};
          */
         commonEvents = app.common.events,
 
-        /**
-         * System information object.
-         *
-         * @private
-         * @type {Systeminfo}
-         */
-        systeminfo = null;
+        driver = null;
 
     // create namespace for the module
     app.model = app.model || {};
@@ -70,76 +56,14 @@ window.app = window.app || {};
     modelBattery = app.model.battery;
 
     /**
-     * Adds low battery state listener.
-     *
-     * Triggers model.battery.low event if the battery state is low.
-     *
-     * @memberof app.model.battery
-     * @public
-     * @fires model.battery.low
-     */
-    modelBattery.listenBatteryLowState = function listenBatteryLowState() {
-        try {
-            systeminfo.addPropertyValueChangeListener(
-                'BATTERY',
-                function change(battery) {
-                    if (!battery.isCharging && battery.level < LOW_BATTERY) {
-                        commonEvents.dispatchEvent('model.battery.low');
-                    }
-                },
-                null,
-                function errorCallback(error) {
-                    console.warn('Battery state listener was not set.', error);
-                }
-            );
-        } catch (error) {
-            console.warn('Battery state listener was not set.', error);
-        }
-    };
-
-    /**
-     * Checks low battery state.
-     *
-     * Triggers model.battery.checked event if the battery state is checked.
-     * Additionally triggers model.battery.low event
-     * if the battery state is low.
-     *
-     * @memberof app.model.battery
-     * @public
-     * @fires model.battery.low
-     * @fires model.battery.checked
-     */
-    modelBattery.checkBatteryLowState = function checkBatteryLowState() {
-        try {
-            systeminfo.getPropertyValue(
-                'BATTERY',
-                function getValue(battery) {
-                    if (!battery.isCharging && battery.level < LOW_BATTERY) {
-                        commonEvents.dispatchEvent('model.battery.low');
-                    }
-                    commonEvents.dispatchEvent('model.battery.checked');
-                },
-                function errorCallback(error) {
-                    console.warn('Couldn\'t get battery level value.', error);
-                }
-            );
-        } catch (error) {
-            console.warn('Couldn\'t get battery level value.', error);
-        }
-    };
-
-    /**
      * Initializes the battery model module.
      *
      * @memberof app.model.battery
      * @public
      */
-    modelBattery.init = function init() {
-        if (typeof tizen === 'object' && typeof tizen.systeminfo === 'object') {
-            systeminfo = tizen.systeminfo;
-        } else {
-            console.warn('tizen.systeminfo not available');
-        }
+    modelBattery.init = function init(driver) {
+        driver = driver;
+        driver.init();
     };
 
 })(window.app);
