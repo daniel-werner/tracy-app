@@ -6,7 +6,6 @@
 
     BatteryDriver.prototype = {
         init: function(){
-            console.log(this);
             this.bind();
         },
         bind: function(){
