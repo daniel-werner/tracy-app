@@ -49,6 +49,8 @@ window.app = window.app || {};
      */
      modelWorkout = app.model.workout,
 
+     modelNetwork = app.model.network,
+
         /**
          * UI module reference.
          *
@@ -133,6 +135,7 @@ window.app = window.app || {};
             driverFactory = new DriverFactory(platform);
 
         modelBattery.init(driverFactory.buildBatteryDriver(platform));
+        modelNetwork.init(driverFactory.buildNetworkDriver(platform));
         bindEvents();
         ui.init();
         if(typeof tizen !== 'undefined'){

@@ -178,19 +178,18 @@ window.app = window.app || {};
      * @private
      */
     function onModelNetworkTypeChanged() {
-        if( modelNetwork.isNetworkAvailable() ) {
-            for (var i = 0; i < networkStatusIndicators.length; ++i) {
-                var networkStatusIndicator = networkStatusIndicators[i];
-                if (!networkStatusIndicator.classList.contains('network-status-active')) {
+        for (var i = 0; i < networkStatusIndicators.length; ++i) {
+            var networkStatusIndicator = networkStatusIndicators[i];
+
+            if (networkStatusIndicator.classList.contains('network-status-active')) {
+                networkStatusIndicator.classList.remove('network-status-active');
+            }
+
+            if (modelNetwork.isNetworkAvailable() &&
+                !networkStatusIndicator.classList.contains('network-status-active')) {
                     networkStatusIndicator.classList.add('network-status-active');
-                }
-                else {
-                    if (networkStatusIndicator.classList.contains('network-status-active')) {
-                        networkStatusIndicator.classList.remove('network-status-active');
-                    }
-                }
-            };
-        }
+            }
+        };
     }
 
     /**
@@ -304,7 +303,6 @@ window.app = window.app || {};
         uiMain.init();
         uiWorkout.init();
         uiLogin.init();
-        modelNetwork.init();
         modelGeolocation.init();
         modelWorkout.init();
         modelSync.init();

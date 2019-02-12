@@ -32,90 +32,22 @@ window.app = window.app || {};
 (function defineAppModelNetwork(app) {
     'use strict';
 
-    /**
-     * The list of the names of the available networks.
-     *
-     * @private
-     * @const {string[]}
-     */
-    var NETWORKS = ['2G', '2.5G', '3G', '4G', 'WIFI', 'ETHERNET', 'UNKNOWN'],
-
-        /**
-         * Network model module reference.
-         *
-         * @private
-         * @type {object}
-         */
-        modelNetwork = null,
-
         /**
          * Common events module reference.
          *
          * @private
          * @type {object}
          */
-        commonEvents = app.common.events,
+        var commonEvents = app.common.events,
 
-        /**
-         * Systeminfo API object.
-         *
-         * @private
-         * @type {object}
-         */
-        systeminfo = null,
-
-        /**
-         * Stores information about available network type.
-         *
-         * @private
-         * @type {string}
-         */
-        networkType = 'NONE';
+        modelNetwork = null;
 
     // create namespace for the module
     app.model = app.model || {};
     app.model.network = app.model.network || {};
     modelNetwork = app.model.network;
+    modelNetwork.driver = null;
 
-    /**
-     * Performs action when the type of the network changes.
-     *
-     * @private
-     * @param {SystemInfoNetwork} network
-     * @fires model.network.type.changed
-     */
-    function onNetworkTypeChange(network) {
-        networkType = network.networkType;
-        commonEvents.dispatchEvent('model.network.type.changed');
-    }
-
-    /**
-     * Performs action when the type of the network is obtained.
-     *
-     * @private
-     * @param {SystemInfoNetwork} network
-     * @fires model.network.initialized
-     */
-    function onGetNetworkTypeSuccess(network) {
-        networkType = network.networkType;
-        commonEvents.dispatchEvent('model.network.initialized');
-    }
-
-    /**
-     * Sets network value change listener.
-     *
-     * @private
-     */
-    function setNetworkValueChangeListener() {
-        try {
-            systeminfo.addPropertyValueChangeListener(
-                'NETWORK',
-                onNetworkTypeChange
-            );
-        } catch (error) {
-            console.warn('Network change listener was not set.', error);
-        }
-    }
 
     /**
      * Checks available network type.
@@ -123,30 +55,8 @@ window.app = window.app || {};
      * @private
      */
     function checkNetworkType() {
-        try {
-            systeminfo.getPropertyValue(
-                'NETWORK',
-                onGetNetworkTypeSuccess,
-                function onGetPropertyValueError(error) {
-                    console.warn('Couldn\'t get network type value.', error);
-                }
-            );
-        } catch (error) {
-            console.warn('Couldn\'t get network type value.', error);
-        }
+        return modelNetwork.driver.checkNetworkType();
     }
-
-    /**
-     * Checks whether the network type has different value than 'NONE'
-     * and whether the google service is available.
-     *
-     * @memberof app.model.network
-     * @public
-     * @returns {boolean}
-     */
-    modelNetwork.isGoogleService = function isGoogleService() {
-        return NETWORKS.indexOf(networkType) !== -1 && !!window.google;
-    };
 
     /**
      * Checks whether the network type has different value than 'NONE'.
@@ -156,7 +66,7 @@ window.app = window.app || {};
      * @returns {boolean}
      */
     modelNetwork.isNetworkAvailable = function isNetworkAvailable() {
-        return NETWORKS.indexOf(networkType) !== -1;
+        return modelNetwork.driver.isNetworkAvailable();
     };
 
     /**
@@ -167,7 +77,7 @@ window.app = window.app || {};
      * @returns {string}
      */
     modelNetwork.getNetworkType = function getNetworkType() {
-        return networkType;
+        return modelNetwork.driver.getNetworkType();
     };
 
     /**
@@ -176,14 +86,9 @@ window.app = window.app || {};
      * @memberof app.model.network
      * @public
      */
-    modelNetwork.init = function init() {
-        if (typeof tizen === 'object' && typeof tizen.systeminfo === 'object') {
-            systeminfo = tizen.systeminfo;
-            setNetworkValueChangeListener();
-            checkNetworkType();
-        } else {
-            console.warn('tizen.systeminfo not available');
-        }
+    modelNetwork.init = function init(driver) {
+        modelNetwork.driver = driver;
+        modelNetwork.driver.init();
     };
 
 })(window.app);
