@@ -127,6 +127,8 @@ window.app = window.app || {};
         workoutHr = null,
         workoutAltitude = null,
 
+        workoutPauseButton = null,
+
         /**
          * Popup shown when the workout is paused
          *
@@ -170,7 +172,6 @@ window.app = window.app || {};
      * @private
      */
     function onPageBeforeShow() {
-        modelWorkout.start();
         updateUI(
             {
                 speed: 0,
@@ -245,7 +246,15 @@ window.app = window.app || {};
      */
     function onPausePopupFinishBtnClick() {
         tau.openPopup(savePopup);
-        //modelWorkout.save();
+    }
+
+    /**
+     * Handles click event on pause button button click.
+     *
+     * @private
+     */
+    function onPauseBtnClick(e) {
+        modelWorkout.togglePause();
     }
 
     /**
@@ -299,6 +308,8 @@ window.app = window.app || {};
             onModelWorkoutResumed
         );
 
+        workoutPauseButton.addEventListener('click', onPauseBtnClick);
+
         pausePopupFinishButton.addEventListener('click', onPausePopupFinishBtnClick);
         pausePopupResumeButton.addEventListener('click', onPausePopupResumeBtnClick);
 
@@ -332,28 +343,13 @@ window.app = window.app || {};
         workoutDistance = page.querySelector('.workout-distance');
         workoutHr = page.querySelector('.workout-hr');
         workoutAltitude = page.querySelector('.workout-altitude');
+        workoutPauseButton = page.querySelector('#workout-pause-btn');
         pausePopup = document.getElementById('pause-popup');
         pausePopupFinishButton = pausePopup.querySelector('#pause-popup-yes-btn');
         pausePopupResumeButton = pausePopup.querySelector('#pause-popup-no-btn');
         savePopup = document.getElementById('save-popup');
         savePopupSaveButton = savePopup.querySelector('#save-popup-yes-btn');
         savePopupDiscardButton = savePopup.querySelector('#save-popup-no-btn');
-
-        // Mocked geolocation data
-        //var xmlhttp = new XMLHttpRequest();
-        //
-        //xmlhttp.onreadystatechange = function () {
-        //    if (this.readyState == 4 && this.status == 200) {
-        //        navigator.geolocation.waypoints = JSON.parse(this.responseText);
-        //    }
-        //};
-        //
-        //xmlhttp.open("GET", "tests/spec/455.json", true);
-        //xmlhttp.send();
-
-        //navigator.geolocation.delay = 1000;
-        //navigator.geolocation.repeat = false;
-
 
         bindEvents();
     };
