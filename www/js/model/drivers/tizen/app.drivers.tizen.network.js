@@ -18,7 +18,9 @@
         try {
             systeminfo.getPropertyValue(
                 'NETWORK',
-                this.onGetNetworkTypeSuccess,
+                function(network){
+                    _this.onGetNetworkTypeSuccess(network);
+                },
                 function onGetPropertyValueError(error) {
                     console.warn('Couldn\'t get network type value.', error);
                 }
@@ -30,22 +32,25 @@
         try {
             systeminfo.addPropertyValueChangeListener(
                 'NETWORK',
-                this.onNetworkTypeChange
-            );
+            function(network){
+                _this.onNetworkTypeChange(network);
+            }
+        );
         } catch (error) {
             console.warn('Network change listener was not set.', error);
         }
 
-    }
+    };
 
     proto.onNetworkTypeChange = function(network) {
         this.networkType = network.networkType;
-        commonEvents.dispatchEvent('model.network.type.changed');
-    }
+        this.commonEvents.dispatchEvent('model.network.type.changed');
+    };
+
     proto.onGetNetworkTypeSuccess = function(network) {
         this.networkType = network.networkType;
-        commonEvents.dispatchEvent('model.network.initialized');
-    }
+        this.commonEvents.dispatchEvent('model.network.initialized');
+    };
 
     NetworkDriverTizen.prototype = proto;
     root.NetworkDriverTizen = NetworkDriverTizen;

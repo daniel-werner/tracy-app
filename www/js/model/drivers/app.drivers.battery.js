@@ -11,7 +11,7 @@
         bind: function(){
 
         }
-    }
+    };
 
     root.BatteryDriver = BatteryDriver;
 })(window);

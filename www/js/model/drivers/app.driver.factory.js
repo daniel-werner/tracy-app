@@ -32,7 +32,7 @@
 
             return batteryDriver;
         }
-    }
+    };
 
     root.DriverFactory = DriverFactory;
 })(window);
