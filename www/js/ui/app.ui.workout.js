@@ -208,9 +208,11 @@ window.app = window.app || {};
      * @param {Event} e
      */
     function onHwKeyEvent(e) {
-        if (e.keyName === 'back') {
-            modelWorkout.togglePause();
-            e.stopPropagation();
+        if (tau.activePage.id === PAGE_ID) {
+	        if (e.keyName === 'back') {
+	            modelWorkout.togglePause();
+	            e.stopPropagation();
+	        }
         }
     }
 

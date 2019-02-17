@@ -122,22 +122,6 @@ window.app = window.app || {};
     }
 
     /**
-     * Handles tizenhwkey event.
-     *
-     * Closes application if the back device button is pressed.
-     *
-     * @private
-     * @param {Event} e
-     */
-    function onHwKeyEvent(e) {
-        if (e.keyName === 'back') {
-            tau.closePopup(page);
-            e.stopPropagation();
-        }
-    }
-
-
-    /**
      * Handles click event on pause popup finish button click.
      *
      * @private
@@ -177,7 +161,6 @@ window.app = window.app || {};
      */
     function bindEvents() {
         page.addEventListener('pagebeforeshow', onPageBeforeShow);
-        document.addEventListener('tizenhwkey', onHwKeyEvent);
 
 
         loginPopupLoginButton.addEventListener('click', onLoginPopupLoginBtnClick);

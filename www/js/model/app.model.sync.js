@@ -83,7 +83,7 @@ window.app = window.app || {};
                 value: 'Bearer ' + token,
             };
 
-        return header;
+        return token.length ? header : false;
     }
 
     /**
@@ -116,9 +116,13 @@ window.app = window.app || {};
             }
         };
 
+    	client.onerror = function(e) {
+			console.log(e);
+        };
+
         var data = "email=" + email + "&" + "password=" + password;
 
-        client.open('post', 'https://tracy.wernerd.info/api/login', true);
+        client.open('POST', 'https://tracy.wernerd.info/api/login', true);
         client.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         client.send(data); /* Send to server */
 
@@ -135,6 +139,11 @@ window.app = window.app || {};
     function uploadWorkouts(workouts){
         var client = new XMLHttpRequest(),
             authHeaders = createAuthHeader();
+
+            if(authHeaders === false){
+                commonEvents.dispatchEvent('model.sync.login.required');
+               return false;
+            }
 
             /* Check the response status */
             client.onreadystatechange = function() {
