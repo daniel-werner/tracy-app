@@ -98,31 +98,12 @@ window.app = window.app || {};
     }
 
     /**
-     * Handles tizenhwkey event.
-     *
-     * Closes application if the back device button is pressed.
-     *
-     * @private
-     * @param {Event} e
-     */
-    function onHwKeyEvent(e) {
-        if (e.keyName === 'back') {
-            tau.closePopup(page);
-            e.stopPropagation();
-        }
-    }
-
-
-    /**
      * Registers event listeners.
      *
      * @private
      */
     function bindEvents() {
         page.addEventListener('pagebeforeshow', onPageBeforeShow);
-        document.addEventListener('tizenhwkey', onHwKeyEvent);
-
-
         window.addEventListener('ui.info.show', onInfoShowHandler);
 
     }
