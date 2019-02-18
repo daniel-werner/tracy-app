@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="info.wernerd.tracyapp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="info.wernerd.tracyapp" version="0.2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Tracy</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="vernerd@gmail.com" href="https://www.wernerd.info">
+        Daniel Werner
     </author>
     <content src="index.html" />
     <icon density="xhdpi" height="96" platform="android" src="res/icon/android/icon-96-xhdpi.png" width="96" />
