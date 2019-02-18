@@ -136,6 +136,7 @@ window.app = window.app || {};
 
         modelBattery.init(driverFactory.buildBatteryDriver(platform));
         modelNetwork.init(driverFactory.buildNetworkDriver(platform));
+        modelWorkout.init(driverFactory.buildHarwareDriver(platform));
         bindEvents();
         ui.init();
         if(typeof tizen !== 'undefined'){

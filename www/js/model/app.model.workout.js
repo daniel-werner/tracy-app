@@ -64,6 +64,7 @@ window.app = window.app || {};
          */
         commonCalculations = app.common.calculations,
 
+        hardwareDriver = null,
 
         /**
          * Started flag.
@@ -211,7 +212,9 @@ window.app = window.app || {};
      * @fires model.geolocation.available
      * @fires model.geolocation.unavailable
      */
-    modelWorkout.init = function init() {
+    modelWorkout.init = function init(driver) {
+        hardwareDriver = driver;
+        hardwareDriver.init();
         bindEvents();
         initDatabase();
     };
@@ -224,6 +227,7 @@ window.app = window.app || {};
         workout.points = [];
 
         active = true;
+        hardwareDriver.backgroundRunEnable();
     };
 
     /**
@@ -234,9 +238,11 @@ window.app = window.app || {};
         if(!active){
             segmentIndex++;
             commonEvents.dispatchEvent('model.workout.resumed');
+            hardwareDriver.backgroundRunEnable();
         }
         else{
             commonEvents.dispatchEvent('model.workout.paused');
+            hardwareDriver.backgroundRunDisable();
         }
 
         active ^= true;

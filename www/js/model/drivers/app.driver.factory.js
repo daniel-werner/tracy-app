@@ -31,6 +31,20 @@
             }
 
             return batteryDriver;
+        },
+        buildHarwareDriver: function(){
+            var hardwareDriver = new HardwareDriver();
+
+            switch(this.platform){
+                case Platform.PLATFORM_TIZEN:
+                    hardwareDriver = new HardwareDriverTizen();
+                    break;
+                case Platform.PLATFORM_ANDROID:
+                    hardwareDriver = new HardwareDriverAndroid();
+                    break;
+            }
+
+            return hardwareDriver;
         }
     };
 

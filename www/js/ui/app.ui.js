@@ -304,7 +304,6 @@ window.app = window.app || {};
         uiWorkout.init();
         uiLogin.init();
         modelGeolocation.init();
-        modelWorkout.init();
         modelSync.init();
 
         window.addEventListener(
