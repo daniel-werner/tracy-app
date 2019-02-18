@@ -4,3 +4,10 @@
 .idea
 tests/spec/455.json
 .build
+
+#Cordova
+/platforms
+/plugins
+
+/resources/signing
+/node_modules
