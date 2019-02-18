@@ -88,37 +88,12 @@ window.app = window.app || {};
     }
 
     /**
-     * Handles model.battery.low event.
-     *
-     * Closes application.
-     *
-     * @private
-     */
-    function onBatteryLow() {
-        console.log('Battery low');
-        app.exit();
-    }
-
-    /**
-     * Handles model.battery.checked event.
-     *
-     * Initializes application UI.
-     *
-     * @private
-     */
-    function onBatteryChecked() {
-        //ui.init();
-    }
-
-    /**
      * Registers event listeners.
      *
      * @private
      */
     function bindEvents() {
         document.addEventListener('tizenhwkey', onHwKeyEvent);
-        window.addEventListener('model.battery.low', onBatteryLow);
-        window.addEventListener('model.battery.checked', onBatteryChecked);
     }
 
     /**
@@ -139,11 +114,6 @@ window.app = window.app || {};
         modelWorkout.init(driverFactory.buildHarwareDriver(platform));
         bindEvents();
         ui.init();
-        if(typeof tizen !== 'undefined'){
-            tizen.power.request('CPU', 'CPU_AWAKE');
-            tizen.power.request('SCREEN', 'SCREEN_NORMAL');
-        }
-
     };
 
     window.addEventListener('load', app.init);
