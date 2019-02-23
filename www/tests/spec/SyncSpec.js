@@ -50,7 +50,7 @@ describe("Sync", function () {
                     _this.modelWorkout.togglePause();
                     doneCallback();
                 },
-                3000);
+                300);
         };
 
     });
