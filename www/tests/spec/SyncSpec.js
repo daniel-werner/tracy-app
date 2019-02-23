@@ -4,6 +4,11 @@ describe("Sync", function () {
     var env = jasmine.getEnv();
     env.randomizeTests(false);
 
+    app.model.sync.init(
+        'http://tracy.test/api/login',
+        'http://tracy.test/api/workouts'
+    );
+
     beforeEach(function (done) {
         var xmlhttp = new XMLHttpRequest(),
             _this = this;
@@ -22,8 +27,10 @@ describe("Sync", function () {
         this.modelGeolocation = app.model.geolocation;
         this.modelSync = app.model.sync;
 
-        this.modelSync.init();
-        this.modelWorkout.init();
+        var platform = Platform.get(),
+            driverFactory = new DriverFactory(platform);
+
+        this.modelWorkout.init(driverFactory.buildHarwareDriver(platform));
 
         window.addEventListener(
             'model.workout.dbready',
@@ -53,7 +60,6 @@ describe("Sync", function () {
             'model.sync.login.successful',
             function(e){
                 e.stopPropagation();
-                //console.log(e.detail);
                 expect(e.detail.hasOwnProperty('token')).toBeTruthy();
                 expect(e.detail.token.length > 0).toBeTruthy();
                 done();

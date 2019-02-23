@@ -41,8 +41,12 @@ window.app = window.app || {};
          */
         commonEvents = app.common.events,
 
-        modelNetwork = app.model.network;
+        modelNetwork = app.model.network,
 
+        syncUrls = {
+            login: '',
+            upload: ''
+        };
 
     // create namespace for the module
     app.model = app.model || {};
@@ -93,8 +97,13 @@ window.app = window.app || {};
      * @public
      * @fires model.sync.login.successful
      * @fires model.sync.login.failed
+     * @param {string} loginUrl
+     * @param {string} uploadUrl
      */
-    modelSync.init = function init() {
+    modelSync.init = function init(loginUrl, uploadUrl) {
+        syncUrls.login = loginUrl;
+        syncUrls.upload = uploadUrl;
+
         bindEvents();
     };
 
@@ -122,7 +131,7 @@ window.app = window.app || {};
 
         var data = "email=" + email + "&" + "password=" + password;
 
-        client.open('POST', 'https://tracy.wernerd.info/api/login', true);
+        client.open('POST', syncUrls.login, true);
         client.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         client.send(data); /* Send to server */
 
@@ -164,7 +173,7 @@ window.app = window.app || {};
                 }
             };
 
-            client.open('POST', 'https://tracy.wernerd.info/api/workouts', true);
+            client.open('POST', syncUrls.upload, true);
 
             var payload = JSON.stringify({ data: workouts });
 

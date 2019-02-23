@@ -20,10 +20,11 @@ describe("Workout", function () {
 
         this.modelWorkout = app.model.workout;
         this.modelGeolocation = app.model.geolocation;
-        this.modelSync = app.model.sync;
 
-        this.modelWorkout.init();
-        this.modelSync.init();
+        var platform = Platform.get(),
+            driverFactory = new DriverFactory(platform);
+
+        this.modelWorkout.init(driverFactory.buildHarwareDriver(platform));
 
         window.addEventListener(
             'model.workout.dbready',
@@ -126,6 +127,7 @@ describe("Workout", function () {
         );
 
         this.runWorkout(function(){
+            // _this.modelSync.sync = function(){};
             _this.modelWorkout.save();
         });
     });

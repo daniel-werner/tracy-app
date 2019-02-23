@@ -304,7 +304,10 @@ window.app = window.app || {};
         uiWorkout.init();
         uiLogin.init();
         modelGeolocation.init();
-        modelSync.init();
+        modelSync.init(
+            'https://tracy.wernerd.info/api/login',
+            'https://tracy.wernerd.info/api/workouts'
+        );
 
         window.addEventListener(
             'model.workout.dbready',

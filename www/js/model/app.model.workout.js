@@ -24,21 +24,13 @@ window.app = window.app || {};
      * @const {number}
      */
 
-       var type = null,
-
-        // Milliseconds per meter to kilometers per hour
-        MPS_TO_KMH = 3600, // hour = 3600 * 1000 milliseconds / kilometer = 1000 meters
-
-        // Milliseconds per meter to minutes per kilometer
-        MSEC_PER_METER_TO_MIN_PER_KM = 60,// Minute = 60 * 1000  millisecond / kilometer = 1000 meters
-
         /**
          * Workout model module reference.
          *
          * @private
          * @type {object}
          */
-        modelWorkout = null,
+        var modelWorkout = null,
 
         /**
          * Geolocation model module reference.
@@ -86,23 +78,17 @@ window.app = window.app || {};
          * Workout data.
          *
          * @private
-         * @type {object}
+         * @type {BaseWorkout}
          */
-        workout = {
-            type: null,
-            status: null,
-            distance: 0,
-            points: [{
-                segment_index: 0,
-                lat: null,
-                lng: null,
-                heart_rate: null,
-                elevation: null,
-                time: null
-            }]
-        },
+        workout = null,
 
         workoutDB = null,
+
+        // Milliseconds per meter to kilometers per hour
+        MPS_TO_KMH = 3600, // hour = 3600 * 1000 milliseconds / kilometer = 1000 meters
+
+        // Milliseconds per meter to minutes per kilometer
+        MSEC_PER_METER_TO_MIN_PER_KM = 60,// Minute = 60 * 1000  millisecond / kilometer = 1000 meters
         isDBready = false;
 
     // create namespace for the module
@@ -165,16 +151,18 @@ window.app = window.app || {};
      */
     function onModelGeolocationPositionAvailable() {
         var currentPosition = modelGeolocation.getCurrentPosition();
-        if(active){
-            workout.points.push({
-                segment_index: segmentIndex,
-                lat: currentPosition.coords.latitude,
-                lng: currentPosition.coords.longitude,
-                heart_rate: null,
-                elevation: currentPosition.coords.altitude,
-                time: currentPosition.timestamp
-            });
 
+        if(workout.isActive()){
+            var point = new Point(
+                0,
+                currentPosition.coords.latitude,
+                currentPosition.coords.longitude,
+                0,
+                currentPosition.coords.altitude,
+                currentPosition.timestamp
+            );
+
+            workout.addPoint(point);
             updateUI();
         }
     }
@@ -220,13 +208,16 @@ window.app = window.app || {};
     };
 
     modelWorkout.start = function start(type) {
-        segmentIndex = 0;
-        workout.type = type;
-        workout.status = modelWorkout.WORKOUT_STATUS_UNSAVED;
-        workout.distance = 0;
-        workout.points = [];
+        switch(type){
+            case BaseWorkout.WORKOUT_TYPE_CYCLING:
+                workout = new CyclingWorkout();
+                break;
+            case BaseWorkout.WORKOUT_TYPE_RUNNING:
+                workout = new RunningWorkout();
+                break;
+        }
 
-        active = true;
+        workout.start();
         hardwareDriver.backgroundRunEnable();
     };
 
@@ -235,8 +226,7 @@ window.app = window.app || {};
      * @fires model.workout.paused
      */
     modelWorkout.togglePause = function togglePause(){
-        if(!active){
-            segmentIndex++;
+        if(!workout.isActive()){
             commonEvents.dispatchEvent('model.workout.resumed');
             hardwareDriver.backgroundRunEnable();
         }
@@ -244,13 +234,12 @@ window.app = window.app || {};
             commonEvents.dispatchEvent('model.workout.paused');
             hardwareDriver.backgroundRunDisable();
         }
-
-        active ^= true;
+        workout.pause();
 
     };
 
     modelWorkout.save = function save(){
-        workout.status = modelWorkout.WORKOUT_STATUS_SAVED;
+        workout.save();
 
         var onsuccess = function(id){
             console.log('Successfully inserted! insertId is: ' + id);
@@ -261,7 +250,7 @@ window.app = window.app || {};
             commonEvents.dispatchEvent('model.workout.save.failed');
         };
 
-        workoutDB.put(workout, onsuccess, onerror);
+        workoutDB.put(workout.serialize(), onsuccess, onerror);
 
         return false;
     };
