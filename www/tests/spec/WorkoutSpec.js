@@ -24,7 +24,7 @@ describe("Workout", function () {
         var platform = Platform.get(),
             driverFactory = new DriverFactory(platform);
 
-        this.modelWorkout.init(driverFactory.buildHarwareDriver(platform));
+        this.modelWorkout.init(driverFactory.buildHardwareDriver(platform));
 
         window.addEventListener(
             'model.workout.dbready',
