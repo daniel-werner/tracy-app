@@ -1937,7 +1937,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+ // Milliseconds per meter to kilometers per hour
 
+var MPS_TO_KMH = 3600; // hour = 3600 * 1000 milliseconds / kilometer = 1000 meters
 
 var CyclingWorkout =
 /*#__PURE__*/
@@ -1964,8 +1966,10 @@ function (_BaseWorkout) {
   _createClass(CyclingWorkout, [{
     key: "calculateSpeed",
     value: function calculateSpeed(pointA, pointB) {
-      var distance = this.calculateDistance(pointA, pointB);
-      return distance.raw;
+      var distance = this.calculateDistance(pointA, pointB),
+          timeDiff = pointB.time - pointA.time,
+          speed = timeDiff ? MPS_TO_KMH * distance / timeDiff : 0;
+      return speed;
     }
   }]);
 
@@ -2042,7 +2046,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+ // Milliseconds per meter to minutes per kilometer
 
+var MSEC_PER_METER_TO_MIN_PER_KM = 60; // Minute = 60 * 1000  millisecond / kilometer = 1000 meters
 
 var RunningWorkout =
 /*#__PURE__*/
@@ -2067,10 +2073,12 @@ function (_BaseWorkout) {
 
 
   _createClass(RunningWorkout, [{
-    key: "calculateSpeed",
-    value: function calculateSpeed(pointA, pointB) {
-      var distance = this.calculateDistance(pointA, pointB);
-      return distance.raw;
+    key: "calculatePace",
+    value: function calculatePace(pointA, pointB) {
+      var distance = this.calculateDistance(pointA, pointB),
+          timeDiff = pointB.time - pointA.time,
+          pace = timeDiff / distance / MSEC_PER_METER_TO_MIN_PER_KM;
+      return pace;
     }
   }]);
 
@@ -2335,23 +2343,42 @@ describe("DriverFactory", function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_js_workout_app_workout_cycling_workout_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../src/js/workout/app.workout.cycling_workout.js */ "./src/js/workout/app.workout.cycling_workout.js");
+/* harmony import */ var _src_js_workout_app_workout_running_workout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../src/js/workout/app.workout.running_workout */ "./src/js/workout/app.workout.running_workout.js");
+
 
 describe("Workout", function () {
   it('should calculate distance', function () {
-    var pointA = new Point(0, 45.8849114, 19.2545559, 0, 0, 1551018055000),
-        pointB = new Point(0, 45.8856601, 19.2553514, 0, 0, 1551018060000),
+    var timeA = 1551018055000,
+        timeB = timeA + 20000,
+        // 20 sec
+    pointA = new Point(0, 45.8849114, 19.2545559, 0, 0, timeA),
+        pointB = new Point(0, 45.8856601, 19.2553514, 0, 0, timeB),
         expectedDistance = 103.54782304590353,
         workout = new _src_js_workout_app_workout_cycling_workout_js__WEBPACK_IMPORTED_MODULE_0__["CyclingWorkout"](),
         distance = workout.calculateDistance(pointA, pointB);
     expect(distance).toEqual(expectedDistance);
   });
   it('should calculate speed', function () {
-    var pointA = new Point(0, 45.8849114, 19.2545559, 0, 0, 1551018055000),
-        pointB = new Point(0, 45.8856601, 19.2553514, 0, 0, 1551018060000),
+    var timeA = 1551018055000,
+        timeB = timeA + 20000,
+        // 20 sec
+    pointA = new Point(0, 45.8849114, 19.2545559, 0, 0, timeA),
+        pointB = new Point(0, 45.8856601, 19.2553514, 0, 0, timeB),
         expectedSpeed = 18.638608148262635,
         workout = new _src_js_workout_app_workout_cycling_workout_js__WEBPACK_IMPORTED_MODULE_0__["CyclingWorkout"](),
         speed = workout.calculateSpeed(pointA, pointB);
     expect(speed).toEqual(expectedSpeed);
+  });
+  it('should calculate pace', function () {
+    var timeA = 1551018055000,
+        timeB = timeA + 40000,
+        // 40 sec
+    pointA = new Point(0, 45.8849114, 19.2545559, 0, 0, timeA),
+        pointB = new Point(0, 45.8856601, 19.2553514, 0, 0, timeB),
+        expectedPace = 6.438248985409653,
+        workout = new _src_js_workout_app_workout_running_workout__WEBPACK_IMPORTED_MODULE_1__["RunningWorkout"](),
+        pace = workout.calculatePace(pointA, pointB);
+    expect(pace).toEqual(expectedPace);
   });
 });
 

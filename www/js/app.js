@@ -3525,7 +3525,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+ // Milliseconds per meter to kilometers per hour
 
+var MPS_TO_KMH = 3600; // hour = 3600 * 1000 milliseconds / kilometer = 1000 meters
 
 var CyclingWorkout =
 /*#__PURE__*/
@@ -3552,8 +3554,10 @@ function (_BaseWorkout) {
   _createClass(CyclingWorkout, [{
     key: "calculateSpeed",
     value: function calculateSpeed(pointA, pointB) {
-      var distance = this.calculateDistance(pointA, pointB);
-      return distance.raw;
+      var distance = this.calculateDistance(pointA, pointB),
+          timeDiff = pointB.time - pointA.time,
+          speed = timeDiff ? MPS_TO_KMH * distance / timeDiff : 0;
+      return speed;
     }
   }]);
 
@@ -3630,7 +3634,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+ // Milliseconds per meter to minutes per kilometer
 
+var MSEC_PER_METER_TO_MIN_PER_KM = 60; // Minute = 60 * 1000  millisecond / kilometer = 1000 meters
 
 var RunningWorkout =
 /*#__PURE__*/
@@ -3655,10 +3661,12 @@ function (_BaseWorkout) {
 
 
   _createClass(RunningWorkout, [{
-    key: "calculateSpeed",
-    value: function calculateSpeed(pointA, pointB) {
-      var distance = this.calculateDistance(pointA, pointB);
-      return distance.raw;
+    key: "calculatePace",
+    value: function calculatePace(pointA, pointB) {
+      var distance = this.calculateDistance(pointA, pointB),
+          timeDiff = pointB.time - pointA.time,
+          pace = timeDiff / distance / MSEC_PER_METER_TO_MIN_PER_KM;
+      return pace;
     }
   }]);
 
