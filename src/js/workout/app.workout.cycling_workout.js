@@ -8,6 +8,8 @@ class CyclingWorkout extends BaseWorkout {
         super();
 
         this.type = WORKOUT_TYPE_CYCLING;
+
+        this._speed = 0;
     }
 
     /**
@@ -16,12 +18,32 @@ class CyclingWorkout extends BaseWorkout {
      * @param {Point} pointB
      * @returns {number}
      */
-    calculateSpeed(pointA, pointB) {
-        let distance = this.calculateDistance(pointA, pointB),
+    _calculateSpeed(pointA, pointB) {
+        let distance = this._calculateDistance(pointA, pointB),
             timeDiff = pointB.time - pointA.time,
             speed = timeDiff ? MPS_TO_KMH * distance / timeDiff : 0;
 
+        this._speed = speed;
+
         return speed;
+    }
+
+    /**
+     * Calculate the params such as distance, speed, etc
+     *
+     * @param {Point} pointA
+     * @param {Point} pointB
+     */
+    calculate(pointA, pointB){
+        this._calculateSpeed(pointA, pointB);
+    }
+
+    /**
+     *
+     * @returns {number}
+     */
+    get speed(){
+        return this._speed;
     }
 }
 

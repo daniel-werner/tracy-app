@@ -1107,7 +1107,6 @@ window.app = window.app || {};
         var data = {
           distance: workout.distance / 1000,
           speed: speed,
-          pace: pace,
           heartRate: heartRate,
           altitude: altitude
         };
@@ -1216,7 +1215,7 @@ window.app = window.app || {};
       commonEvents.dispatchEvent('model.workout.save.failed');
     };
 
-    workoutDB.put(workout.serialize(), onsuccess, onerror);
+    workoutDB.put(workout.toObject(), onsuccess, onerror);
     return false;
   };
 
@@ -1786,8 +1785,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 __webpack_require__(/*! ./app.workout.point */ "./src/js/workout/app.workout.point.js");
 
-__webpack_require__(/*! ../common/app.common.calculations */ "./src/js/common/app.common.calculations.js"); // ;(function (root) {
-
+__webpack_require__(/*! ../common/app.common.calculations */ "./src/js/common/app.common.calculations.js");
 
 var WORKOUT_STATUS_UNSAVED = 0,
     WORKOUT_STATUS_SAVED = 1,
@@ -1798,9 +1796,9 @@ var WORKOUT_STATUS_UNSAVED = 0,
 var WORKOUT_TYPE_RUNNING = 1;
 var WORKOUT_TYPE_CYCLING = 2;
 /**
-     * @class BaseWorkout
-     * @constructor
-     */
+ * @class BaseWorkout
+ * @constructor
+ */
 
 var BaseWorkout =
 /*#__PURE__*/
@@ -1810,10 +1808,10 @@ function () {
 
     this.type = null;
     this.status = WORKOUT_STATUS_UNSAVED;
-    this.distance = 0;
     /** @member {Point[]} **/
 
-    this.points = [];
+    this._points = [];
+    this._distance = 0;
     this._segmentIndex = 0;
     this._state = WORKOUT_STATE_STOPPED;
   }
@@ -1856,7 +1854,35 @@ function () {
     key: "addPoint",
     value: function addPoint(point) {
       point.segment_index = this._segmentIndex;
-      this.points.push(point);
+
+      this._points.push(point);
+
+      var points = this._getCalculationPoints();
+
+      if (points) {
+        this.calculate(points.pointA, points.pointB);
+      }
+    }
+    /**
+     *
+     * @private
+     *
+     * @returns {?{pointA: Point, pointB: Point}}
+     */
+
+  }, {
+    key: "_getCalculationPoints",
+    value: function _getCalculationPoints() {
+      var calculationPoints = null;
+
+      if (this._points.length >= 2) {
+        calculationPoints = {
+          pointA: this._points[this._points.length - 2],
+          pointB: this._points[this._points.length - 1]
+        };
+      }
+
+      return calculationPoints;
     }
     /**
      *
@@ -1866,8 +1892,8 @@ function () {
      */
 
   }, {
-    key: "calculateDistance",
-    value: function calculateDistance(pointA, pointB) {
+    key: "_calculateDistance",
+    value: function _calculateDistance(pointA, pointB) {
       var distance = window.app.common.calculations.calculateDistance({
         latitude: pointA.lat,
         longitude: pointA.lng
@@ -1875,36 +1901,78 @@ function () {
         latitude: pointB.lat,
         longitude: pointB.lng
       });
-      return distance.raw;
+      this._distance = distance.raw;
+      return this._distance;
     }
+    /**
+     * Calculate the params such as distance, speed, etc
+     *
+     * @param {Point} pointA
+     * @param {Point} pointB
+     */
+
+  }, {
+    key: "calculate",
+    value: function calculate(pointA, pointB) {}
+    /**
+     *
+     * @returns {number}
+     */
+
+  }, {
+    key: "toObject",
+
     /**
      *
      * @returns {{type: int, status: int, points: Point[]}}
      */
-
-  }, {
-    key: "serialize",
-    value: function serialize() {
+    value: function toObject() {
       return {
         type: this.type,
         status: this.status,
-        points: this.points
+        points: this._points
       };
+    }
+  }, {
+    key: "speed",
+    get: function get() {
+      return 0;
+    }
+    /**
+     *
+     * @returns {number}
+     */
+
+  }, {
+    key: "distance",
+    get: function get() {
+      return this._distance;
+    }
+    /**
+     *
+     * @param {number} distance
+     */
+    ,
+    set: function set(distance) {
+      this._distance = distance;
+    }
+    /**
+     *
+     * @returns {Point[]}
+     */
+
+  }, {
+    key: "points",
+    get: function get() {
+      return this._points;
     }
   }]);
 
   return BaseWorkout;
 }();
 
-; // Milliseconds per meter to kilometers per hour
+;
 
-BaseWorkout.MPS_TO_KMH = 3600; // hour = 3600 * 1000 milliseconds / kilometer = 1000 meters
-// Milliseconds per meter to minutes per kilometer
-
-BaseWorkout.MSEC_PER_METER_TO_MIN_PER_KM = 60; // Minute = 60 * 1000  millisecond / kilometer = 1000 meters
-// BaseWorkout.prototype = {};
-
- // })(window);
 
 /***/ }),
 
@@ -1953,6 +2021,7 @@ function (_BaseWorkout) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CyclingWorkout).call(this));
     _this.type = _app_workout_base_workout__WEBPACK_IMPORTED_MODULE_0__["WORKOUT_TYPE_CYCLING"];
+    _this._speed = 0;
     return _this;
   }
   /**
@@ -1964,12 +2033,36 @@ function (_BaseWorkout) {
 
 
   _createClass(CyclingWorkout, [{
-    key: "calculateSpeed",
-    value: function calculateSpeed(pointA, pointB) {
-      var distance = this.calculateDistance(pointA, pointB),
+    key: "_calculateSpeed",
+    value: function _calculateSpeed(pointA, pointB) {
+      var distance = this._calculateDistance(pointA, pointB),
           timeDiff = pointB.time - pointA.time,
           speed = timeDiff ? MPS_TO_KMH * distance / timeDiff : 0;
+
+      this._speed = speed;
       return speed;
+    }
+    /**
+     * Calculate the params such as distance, speed, etc
+     *
+     * @param {Point} pointA
+     * @param {Point} pointB
+     */
+
+  }, {
+    key: "calculate",
+    value: function calculate(pointA, pointB) {
+      this._calculateSpeed(pointA, pointB);
+    }
+    /**
+     *
+     * @returns {number}
+     */
+
+  }, {
+    key: "speed",
+    get: function get() {
+      return this._speed;
     }
   }]);
 
@@ -2062,6 +2155,7 @@ function (_BaseWorkout) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(RunningWorkout).call(this));
     _this.type = _app_workout_base_workout__WEBPACK_IMPORTED_MODULE_0__["WORKOUT_TYPE_RUNNING"];
+    _this._pace = 0;
     return _this;
   }
   /**
@@ -2073,12 +2167,36 @@ function (_BaseWorkout) {
 
 
   _createClass(RunningWorkout, [{
-    key: "calculatePace",
-    value: function calculatePace(pointA, pointB) {
-      var distance = this.calculateDistance(pointA, pointB),
+    key: "_calculatePace",
+    value: function _calculatePace(pointA, pointB) {
+      var distance = this._calculateDistance(pointA, pointB),
           timeDiff = pointB.time - pointA.time,
           pace = timeDiff / distance / MSEC_PER_METER_TO_MIN_PER_KM;
-      return pace;
+
+      this._pace = pace;
+      return this._pace;
+    }
+    /**
+     * Calculate the params such as distance, speed, etc
+     *
+     * @param {Point} pointA
+     * @param {Point} pointB
+     */
+
+  }, {
+    key: "calculate",
+    value: function calculate(pointA, pointB) {
+      this._calculatePace(pointA, pointB);
+    }
+    /**
+     *
+     * @returns {number}
+     */
+
+  }, {
+    key: "speed",
+    get: function get() {
+      return this._pace;
     }
   }]);
 
@@ -2350,35 +2468,70 @@ describe("Workout", function () {
   it('should calculate distance', function () {
     var timeA = 1551018055000,
         timeB = timeA + 20000,
-        // 20 sec
+        // +20 sec
     pointA = new Point(0, 45.8849114, 19.2545559, 0, 0, timeA),
         pointB = new Point(0, 45.8856601, 19.2553514, 0, 0, timeB),
         expectedDistance = 103.54782304590353,
-        workout = new _src_js_workout_app_workout_cycling_workout_js__WEBPACK_IMPORTED_MODULE_0__["CyclingWorkout"](),
-        distance = workout.calculateDistance(pointA, pointB);
+        // meters
+    workout = new _src_js_workout_app_workout_cycling_workout_js__WEBPACK_IMPORTED_MODULE_0__["CyclingWorkout"](),
+        distance = workout._calculateDistance(pointA, pointB);
+
     expect(distance).toEqual(expectedDistance);
   });
   it('should calculate speed', function () {
     var timeA = 1551018055000,
         timeB = timeA + 20000,
-        // 20 sec
+        // +20 sec
     pointA = new Point(0, 45.8849114, 19.2545559, 0, 0, timeA),
         pointB = new Point(0, 45.8856601, 19.2553514, 0, 0, timeB),
         expectedSpeed = 18.638608148262635,
         workout = new _src_js_workout_app_workout_cycling_workout_js__WEBPACK_IMPORTED_MODULE_0__["CyclingWorkout"](),
-        speed = workout.calculateSpeed(pointA, pointB);
+        speed = workout._calculateSpeed(pointA, pointB);
+
     expect(speed).toEqual(expectedSpeed);
   });
   it('should calculate pace', function () {
     var timeA = 1551018055000,
         timeB = timeA + 40000,
-        // 40 sec
+        // +40 sec
     pointA = new Point(0, 45.8849114, 19.2545559, 0, 0, timeA),
         pointB = new Point(0, 45.8856601, 19.2553514, 0, 0, timeB),
         expectedPace = 6.438248985409653,
         workout = new _src_js_workout_app_workout_running_workout__WEBPACK_IMPORTED_MODULE_1__["RunningWorkout"](),
-        pace = workout.calculatePace(pointA, pointB);
+        pace = workout._calculatePace(pointA, pointB);
+
     expect(pace).toEqual(expectedPace);
+  });
+  it('should add points and calculate distance and pace', function () {
+    var timeA = 1551018055000,
+        timeB = timeA + 40000,
+        // +40 sec
+    pointA = new Point(0, 45.8849114, 19.2545559, 0, 0, timeA),
+        pointB = new Point(0, 45.8856601, 19.2553514, 0, 0, timeB),
+        expectedPace = 6.438248985409653,
+        expectedDistance = 103.54782304590353,
+        // meters
+    workout = new _src_js_workout_app_workout_running_workout__WEBPACK_IMPORTED_MODULE_1__["RunningWorkout"]();
+    workout.addPoint(pointA);
+    workout.addPoint(pointB);
+    expect(workout.speed).toEqual(expectedPace);
+    expect(workout.distance).toEqual(expectedDistance);
+  });
+  it('should add points and calculate distance and speed', function () {
+    var timeA = 1551018055000,
+        timeB = timeA + 20000,
+        // +20 sec
+    pointA = new Point(0, 45.8849114, 19.2545559, 0, 0, timeA),
+        pointB = new Point(0, 45.8856601, 19.2553514, 0, 0, timeB),
+        expectedSpeed = 18.638608148262635,
+        // km/h
+    expectedDistance = 103.54782304590353,
+        // meters
+    workout = new _src_js_workout_app_workout_cycling_workout_js__WEBPACK_IMPORTED_MODULE_0__["CyclingWorkout"]();
+    workout.addPoint(pointA);
+    workout.addPoint(pointB);
+    expect(workout.speed).toEqual(expectedSpeed);
+    expect(workout.distance).toEqual(expectedDistance);
   });
 });
 
@@ -2421,9 +2574,9 @@ describe("Workout", function () {
  */
 __webpack_require__(/*! ../js/model/models */ "./src/js/model/models.js");
 
-__webpack_require__(/*! ./spec/SyncModelSpec */ "./src/tests/spec/SyncModelSpec.js");
-
 __webpack_require__(/*! ./spec/WorkoutModelSpec */ "./src/tests/spec/WorkoutModelSpec.js");
+
+__webpack_require__(/*! ./spec/SyncModelSpec */ "./src/tests/spec/SyncModelSpec.js");
 
 __webpack_require__(/*! ./spec/unit/DriverFactorySpec */ "./src/tests/spec/unit/DriverFactorySpec.js");
 

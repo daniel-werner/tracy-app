@@ -9,6 +9,8 @@ class RunningWorkout extends BaseWorkout {
         super();
 
         this.type = WORKOUT_TYPE_RUNNING;
+
+        this._pace = 0;
     }
 
     /**
@@ -17,12 +19,32 @@ class RunningWorkout extends BaseWorkout {
      * @param {Point} pointB
      * @returns {number}
      */
-    calculatePace(pointA, pointB) {
-        let distance = this.calculateDistance(pointA, pointB),
+    _calculatePace(pointA, pointB) {
+        let distance = this._calculateDistance(pointA, pointB),
             timeDiff = pointB.time - pointA.time,
             pace = ( timeDiff / distance ) / MSEC_PER_METER_TO_MIN_PER_KM;
 
-        return pace;
+        this._pace = pace;
+
+        return this._pace;
+    }
+
+    /**
+     * Calculate the params such as distance, speed, etc
+     *
+     * @param {Point} pointA
+     * @param {Point} pointB
+     */
+    calculate(pointA, pointB){
+        this._calculatePace(pointA, pointB);
+    }
+
+    /**
+     *
+     * @returns {number}
+     */
+    get speed(){
+        return this._pace;
     }
 }
 

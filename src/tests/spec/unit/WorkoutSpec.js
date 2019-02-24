@@ -4,7 +4,7 @@ import {RunningWorkout} from "../../../../src/js/workout/app.workout.running_wor
 describe("Workout", function () {
     it('should calculate distance', function () {
         let timeA = 1551018055000,
-            timeB = timeA + 20000, // 20 sec
+            timeB = timeA + 20000, // +20 sec
             pointA = new Point(
             0,
             45.8849114,
@@ -23,16 +23,16 @@ describe("Workout", function () {
                 timeB
             ),
 
-            expectedDistance = 103.54782304590353,
+            expectedDistance = 103.54782304590353, // meters
             workout = new CyclingWorkout(),
-            distance = workout.calculateDistance(pointA, pointB);
+            distance = workout._calculateDistance(pointA, pointB);
 
         expect(distance).toEqual(expectedDistance);
     });
 
     it('should calculate speed', function () {
         let timeA = 1551018055000,
-            timeB = timeA + 20000, // 20 sec
+            timeB = timeA + 20000, // +20 sec
             pointA = new Point(
             0,
             45.8849114,
@@ -53,14 +53,14 @@ describe("Workout", function () {
 
             expectedSpeed = 18.638608148262635,
             workout = new CyclingWorkout(),
-            speed = workout.calculateSpeed(pointA, pointB);
+            speed = workout._calculateSpeed(pointA, pointB);
 
         expect(speed).toEqual(expectedSpeed);
-    })
+    });
 
     it('should calculate pace', function () {
         let timeA = 1551018055000,
-            timeB = timeA + 40000, // 40 sec
+            timeB = timeA + 40000, // +40 sec
             pointA = new Point(
             0,
             45.8849114,
@@ -81,8 +81,72 @@ describe("Workout", function () {
 
             expectedPace = 6.438248985409653,
             workout = new RunningWorkout(),
-            pace = workout.calculatePace(pointA, pointB);
+            pace = workout._calculatePace(pointA, pointB);
 
         expect(pace).toEqual(expectedPace);
-    })
+    });
+
+    it('should add points and calculate distance and pace', function () {
+        let timeA = 1551018055000,
+            timeB = timeA + 40000, // +40 sec
+            pointA = new Point(
+                0,
+                45.8849114,
+                19.2545559,
+                0,
+                0,
+                timeA
+            ),
+
+            pointB = new Point(
+                0,
+                45.8856601,
+                19.2553514,
+                0,
+                0,
+                timeB
+            ),
+
+            expectedPace = 6.438248985409653,
+            expectedDistance = 103.54782304590353, // meters
+            workout = new RunningWorkout();
+
+            workout.addPoint(pointA);
+            workout.addPoint(pointB);
+
+        expect(workout.speed).toEqual(expectedPace);
+        expect(workout.distance).toEqual(expectedDistance);
+    });
+
+    it('should add points and calculate distance and speed', function () {
+        let timeA = 1551018055000,
+            timeB = timeA + 20000, // +20 sec
+            pointA = new Point(
+                0,
+                45.8849114,
+                19.2545559,
+                0,
+                0,
+                timeA
+            ),
+
+            pointB = new Point(
+                0,
+                45.8856601,
+                19.2553514,
+                0,
+                0,
+                timeB
+            ),
+
+            expectedSpeed = 18.638608148262635, // km/h
+            expectedDistance = 103.54782304590353, // meters
+            workout = new CyclingWorkout();
+
+        workout.addPoint(pointA);
+        workout.addPoint(pointB);
+
+        expect(workout.speed).toEqual(expectedSpeed);
+        expect(workout.distance).toEqual(expectedDistance);
+    });
 });

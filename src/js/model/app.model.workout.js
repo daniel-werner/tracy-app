@@ -136,7 +136,6 @@ window.app = window.app || {};
                 var data = {
                     distance: workout.distance / 1000,
                     speed: speed,
-                    pace: pace,
                     heartRate: heartRate,
                     altitude: altitude
                 };
@@ -255,7 +254,7 @@ window.app = window.app || {};
             commonEvents.dispatchEvent('model.workout.save.failed');
         };
 
-        workoutDB.put(workout.serialize(), onsuccess, onerror);
+        workoutDB.put(workout.toObject(), onsuccess, onerror);
 
         return false;
     };
