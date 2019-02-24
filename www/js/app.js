@@ -214,7 +214,7 @@ window.app = window.app || {};
         driverFactory = new DriverFactory(platform);
     modelBattery.init(driverFactory.buildBatteryDriver(platform));
     modelNetwork.init(driverFactory.buildNetworkDriver(platform));
-    modelWorkout.init(driverFactory.buildHarwareDriver(platform));
+    modelWorkout.init(driverFactory.buildHardwareDriver(platform));
     bindEvents();
     ui.init();
   };
@@ -1610,7 +1610,7 @@ __webpack_require__(/*! ./tizen/app.drivers.tizen.hardware */ "./src/js/model/dr
 
       return batteryDriver;
     },
-    buildHarwareDriver: function buildHarwareDriver() {
+    buildHardwareDriver: function buildHardwareDriver() {
       var hardwareDriver = new HardwareDriver();
 
       switch (this.platform) {

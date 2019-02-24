@@ -39,7 +39,7 @@ require('./tizen/app.drivers.tizen.hardware');
 
             return batteryDriver;
         },
-        buildHarwareDriver: function(){
+        buildHardwareDriver: function(){
             var hardwareDriver = new HardwareDriver();
 
             switch(this.platform){

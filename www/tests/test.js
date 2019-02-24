@@ -1447,7 +1447,7 @@ __webpack_require__(/*! ./tizen/app.drivers.tizen.hardware */ "./src/js/model/dr
 
       return batteryDriver;
     },
-    buildHarwareDriver: function buildHarwareDriver() {
+    buildHardwareDriver: function buildHardwareDriver() {
       var hardwareDriver = new HardwareDriver();
 
       switch (this.platform) {
