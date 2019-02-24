@@ -12,7 +12,7 @@ let mix = require('laravel-mix');
  */
 
 mix.js('src/js/app.js', 'www/js/');//.sass('src/app.scss', 'dist/');
-mix.js('src/js/test.js', 'www/tests/');//.sass('src/app.scss', 'dist/');
+mix.js('src/tests/test.js', 'www/tests/');//.sass('src/app.scss', 'dist/');
 
 mix.copyDirectory('src/js/lib/tau', 'www/js/lib/tau' );
 mix.copyDirectory('src/js/lib/IDBWrapper', 'www/js/lib/IDBWrapper' );

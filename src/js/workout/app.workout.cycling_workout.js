@@ -1,16 +1,23 @@
-require('./app.workout.base_workout');
+import {BaseWorkout} from "./app.workout.base_workout";
 
-;(function (root) {
+class CyclingWorkout extends BaseWorkout {
+    constructor() {
+        super();
 
-    var CyclingWorkout = function () {
-        BaseWorkout.call(this);
+        this.type = super.WORKOUT_TYPE_CYCLING;
+    }
 
-        this.type = BaseWorkout.WORKOUT_TYPE_CYCLING;
-    };
+    /**
+     *
+     * @param {Point} pointA
+     * @param {Point} pointB
+     * @returns {number}
+     */
+    calculateSpeed(pointA, pointB) {
+        let distance = this.calculateDistance(pointA, pointB);
 
-    var proto = new BaseWorkout();
+        return distance.raw;
+    }
+}
 
-    CyclingWorkout.prototype = proto;
-
-    root.CyclingWorkout = CyclingWorkout;
-})(window);
+export {CyclingWorkout}

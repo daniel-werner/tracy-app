@@ -27,4 +27,9 @@
  * @namespace app
  */
 
-require('./model/models');
+require('../js/model/models');
+
+require('./spec/SyncModelSpec');
+require('./spec/WorkoutModelSpec');
+require('./spec/unit/DriverFactorySpec');
+require('./spec/unit/WorkoutSpec');

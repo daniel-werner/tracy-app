@@ -1,6 +1,7 @@
 require('./app.workout.point');
+require('../common/app.common.calculations');
 
-;(function (root) {
+// ;(function (root) {
 
     var WORKOUT_STATUS_UNSAVED = 0,
         WORKOUT_STATUS_SAVED = 1,
@@ -14,15 +15,78 @@ require('./app.workout.point');
      * @class BaseWorkout
      * @constructor
      */
-    var BaseWorkout = function () {
-        this.type = null;
-        this.status = WORKOUT_STATUS_UNSAVED;
-        this.distance = 0;
-        /** @member {Point[]} **/
-        this.points = [];
+    class BaseWorkout {
+        constructor() {
+            this.type = null;
+            this.status = WORKOUT_STATUS_UNSAVED;
+            this.distance = 0;
+            /** @member {Point[]} **/
+            this.points = [];
 
-        this._segmentIndex = 0;
-        this._state = WORKOUT_STATE_STOPPED;
+            this._segmentIndex = 0;
+            this._state = WORKOUT_STATE_STOPPED;
+        }
+
+        init() {
+        }
+
+        start() {
+            this._state = WORKOUT_STATE_RUNNING;
+        }
+
+        pause() {
+            this._state = WORKOUT_STATE_PAUSED;
+            this._segmentIndex++;
+        }
+
+        save() {
+            this.status = WORKOUT_STATUS_SAVED;
+        }
+
+        /**
+         *
+         * @returns {boolean}
+         */
+        isActive() {
+            return this._state === WORKOUT_STATE_RUNNING;
+        }
+
+        /**
+         *
+         * @param {Point} point
+         */
+        addPoint(point) {
+            point.segment_index = this._segmentIndex;
+
+            this.points.push(point);
+        }
+
+        /**
+         *
+         * @param {Point} pointA
+         * @param {Point} pointB
+         * @returns {number}
+         */
+        calculateDistance(pointA, pointB) {
+            let distance = window.app.common.calculations.calculateDistance(
+                {latitude: pointA.lat, longitude: pointA.lng},
+                {latitude: pointB.lat, longitude: pointB.lng}
+            );
+
+            return distance.raw;
+        }
+
+        /**
+         *
+         * @returns {{type: int, status: int, points: Point[]}}
+         */
+        serialize() {
+            return {
+                type: this.type,
+                status: this.status,
+                points: this.points
+            }
+        }
     };
 
     BaseWorkout.WORKOUT_TYPE_RUNNING = 1;
@@ -34,47 +98,7 @@ require('./app.workout.point');
     // Milliseconds per meter to minutes per kilometer
     BaseWorkout.MSEC_PER_METER_TO_MIN_PER_KM = 60;// Minute = 60 * 1000  millisecond / kilometer = 1000 meters
 
-    BaseWorkout.prototype = {
-        init: function () {
-        },
-        start: function () {
-            this._state = WORKOUT_STATE_RUNNING;
-        },
-        pause: function () {
-            this._state = WORKOUT_STATE_PAUSED;
-            this._segmentIndex++;
-        },
-        save: function () {
-            this.status = WORKOUT_STATUS_SAVED;
-        },
-        /**
-         *
-         * @returns {boolean}
-         */
-        isActive: function(){
-            return this._state === WORKOUT_STATE_RUNNING;
-        },
-        /**
-         *
-         * @param {Point} point
-         */
-        addPoint: function(point){
-            point.segment_index = this._segmentIndex;
+    // BaseWorkout.prototype = {};
 
-            this.points.push(point);
-        },
-        /**
-         *
-         * @returns {{type: int, status: int, points: Point[]}}
-         */
-        serialize: function(){
-            return {
-                type: this.type,
-                status: this.status,
-                points: this.points
-            }
-        }
-    };
-
-    root.BaseWorkout = BaseWorkout;
-})(window);
+    export { BaseWorkout };
+// })(window);

@@ -965,12 +965,17 @@ window.app = window.app || {};
 /*!*******************************************!*\
   !*** ./src/js/model/app.model.workout.js ***!
   \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-__webpack_require__(/*! ../workout/app.workout.cycling_workout */ "./src/js/workout/app.workout.cycling_workout.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _workout_app_workout_cycling_workout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../workout/app.workout.cycling_workout */ "./src/js/workout/app.workout.cycling_workout.js");
+/* harmony import */ var _workout_app_workout_running_workout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../workout/app.workout.running_workout */ "./src/js/workout/app.workout.running_workout.js");
+/* harmony import */ var _workout_app_workout_base_workout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../workout/app.workout.base_workout */ "./src/js/workout/app.workout.base_workout.js");
 
-__webpack_require__(/*! ../workout/app.workout.running_workout */ "./src/js/workout/app.workout.running_workout.js");
+
+
 
 __webpack_require__(/*! ../common/app.common.calculations */ "./src/js/common/app.common.calculations.js");
 /*global window, console, geolocation, setTimeout*/
@@ -1168,12 +1173,12 @@ window.app = window.app || {};
 
   modelWorkout.start = function start(type) {
     switch (type) {
-      case BaseWorkout.WORKOUT_TYPE_CYCLING:
-        workout = new CyclingWorkout();
+      case _workout_app_workout_base_workout__WEBPACK_IMPORTED_MODULE_2__["BaseWorkout"].WORKOUT_TYPE_CYCLING:
+        workout = new _workout_app_workout_cycling_workout__WEBPACK_IMPORTED_MODULE_0__["CyclingWorkout"]();
         break;
 
-      case BaseWorkout.WORKOUT_TYPE_RUNNING:
-        workout = new RunningWorkout();
+      case _workout_app_workout_base_workout__WEBPACK_IMPORTED_MODULE_2__["BaseWorkout"].WORKOUT_TYPE_RUNNING:
+        workout = new _workout_app_workout_running_workout__WEBPACK_IMPORTED_MODULE_1__["RunningWorkout"]();
         break;
     }
 
@@ -1761,69 +1766,44 @@ __webpack_require__(/*! ./app.model.sync */ "./src/js/model/app.model.sync.js");
 
 /***/ }),
 
-/***/ "./src/js/test.js":
-/*!************************!*\
-  !*** ./src/js/test.js ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
- * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-/*global document, tizen, console, window*/
-
-/**
- * Main application module.
- * Provides a namespace for other application modules.
- * Handles application life cycle.
- *
- * @module app
- * @requires {@link app.model.battery}
- * @requires {@link app.ui}
- * @namespace app
- */
-__webpack_require__(/*! ./model/models */ "./src/js/model/models.js");
-
-/***/ }),
-
 /***/ "./src/js/workout/app.workout.base_workout.js":
 /*!****************************************************!*\
   !*** ./src/js/workout/app.workout.base_workout.js ***!
   \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: BaseWorkout */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BaseWorkout", function() { return BaseWorkout; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 __webpack_require__(/*! ./app.workout.point */ "./src/js/workout/app.workout.point.js");
 
-;
+__webpack_require__(/*! ../common/app.common.calculations */ "./src/js/common/app.common.calculations.js"); // ;(function (root) {
 
-(function (root) {
-  var WORKOUT_STATUS_UNSAVED = 0,
-      WORKOUT_STATUS_SAVED = 1,
-      WORKOUT_STATE_STOPPED = 0,
-      WORKOUT_STATE_RUNNING = 1,
-      WORKOUT_STATE_PAUSED = 2,
-      WORKOUT_STATE_AUTOPAUSED = 3;
-  /**
-   * @class BaseWorkout
-   * @constructor
-   */
 
-  var BaseWorkout = function BaseWorkout() {
+var WORKOUT_STATUS_UNSAVED = 0,
+    WORKOUT_STATUS_SAVED = 1,
+    WORKOUT_STATE_STOPPED = 0,
+    WORKOUT_STATE_RUNNING = 1,
+    WORKOUT_STATE_PAUSED = 2,
+    WORKOUT_STATE_AUTOPAUSED = 3;
+/**
+ * @class BaseWorkout
+ * @constructor
+ */
+
+var BaseWorkout =
+/*#__PURE__*/
+function () {
+  function BaseWorkout() {
+    _classCallCheck(this, BaseWorkout);
+
     this.type = null;
     this.status = WORKOUT_STATUS_UNSAVED;
     this.distance = 0;
@@ -1832,60 +1812,97 @@ __webpack_require__(/*! ./app.workout.point */ "./src/js/workout/app.workout.poi
     this.points = [];
     this._segmentIndex = 0;
     this._state = WORKOUT_STATE_STOPPED;
-  };
+  }
 
-  BaseWorkout.WORKOUT_TYPE_RUNNING = 1;
-  BaseWorkout.WORKOUT_TYPE_CYCLING = 2; // Milliseconds per meter to kilometers per hour
-
-  BaseWorkout.MPS_TO_KMH = 3600; // hour = 3600 * 1000 milliseconds / kilometer = 1000 meters
-  // Milliseconds per meter to minutes per kilometer
-
-  BaseWorkout.MSEC_PER_METER_TO_MIN_PER_KM = 60; // Minute = 60 * 1000  millisecond / kilometer = 1000 meters
-
-  BaseWorkout.prototype = {
-    init: function init() {},
-    start: function start() {
+  _createClass(BaseWorkout, [{
+    key: "init",
+    value: function init() {}
+  }, {
+    key: "start",
+    value: function start() {
       this._state = WORKOUT_STATE_RUNNING;
-    },
-    pause: function pause() {
+    }
+  }, {
+    key: "pause",
+    value: function pause() {
       this._state = WORKOUT_STATE_PAUSED;
       this._segmentIndex++;
-    },
-    save: function save() {
+    }
+  }, {
+    key: "save",
+    value: function save() {
       this.status = WORKOUT_STATUS_SAVED;
-    },
-
+    }
     /**
      *
      * @returns {boolean}
      */
-    isActive: function isActive() {
-      return this._state === WORKOUT_STATE_RUNNING;
-    },
 
+  }, {
+    key: "isActive",
+    value: function isActive() {
+      return this._state === WORKOUT_STATE_RUNNING;
+    }
     /**
      *
      * @param {Point} point
      */
-    addPoint: function addPoint(point) {
+
+  }, {
+    key: "addPoint",
+    value: function addPoint(point) {
       point.segment_index = this._segmentIndex;
       this.points.push(point);
-    },
+    }
+    /**
+     *
+     * @param {Point} pointA
+     * @param {Point} pointB
+     * @returns {number}
+     */
 
+  }, {
+    key: "calculateDistance",
+    value: function calculateDistance(pointA, pointB) {
+      var distance = window.app.common.calculations.calculateDistance({
+        latitude: pointA.lat,
+        longitude: pointA.lng
+      }, {
+        latitude: pointB.lat,
+        longitude: pointB.lng
+      });
+      return distance.raw;
+    }
     /**
      *
      * @returns {{type: int, status: int, points: Point[]}}
      */
-    serialize: function serialize() {
+
+  }, {
+    key: "serialize",
+    value: function serialize() {
       return {
         type: this.type,
         status: this.status,
         points: this.points
       };
     }
-  };
-  root.BaseWorkout = BaseWorkout;
-})(window);
+  }]);
+
+  return BaseWorkout;
+}();
+
+;
+BaseWorkout.WORKOUT_TYPE_RUNNING = 1;
+BaseWorkout.WORKOUT_TYPE_CYCLING = 2; // Milliseconds per meter to kilometers per hour
+
+BaseWorkout.MPS_TO_KMH = 3600; // hour = 3600 * 1000 milliseconds / kilometer = 1000 meters
+// Milliseconds per meter to minutes per kilometer
+
+BaseWorkout.MSEC_PER_METER_TO_MIN_PER_KM = 60; // Minute = 60 * 1000  millisecond / kilometer = 1000 meters
+// BaseWorkout.prototype = {};
+
+ // })(window);
 
 /***/ }),
 
@@ -1893,23 +1910,71 @@ __webpack_require__(/*! ./app.workout.point */ "./src/js/workout/app.workout.poi
 /*!*******************************************************!*\
   !*** ./src/js/workout/app.workout.cycling_workout.js ***!
   \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: CyclingWorkout */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-__webpack_require__(/*! ./app.workout.base_workout */ "./src/js/workout/app.workout.base_workout.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CyclingWorkout", function() { return CyclingWorkout; });
+/* harmony import */ var _app_workout_base_workout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.workout.base_workout */ "./src/js/workout/app.workout.base_workout.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-(function (root) {
-  var CyclingWorkout = function CyclingWorkout() {
-    BaseWorkout.call(this);
-    this.type = BaseWorkout.WORKOUT_TYPE_CYCLING;
-  };
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  var proto = new BaseWorkout();
-  CyclingWorkout.prototype = proto;
-  root.CyclingWorkout = CyclingWorkout;
-})(window);
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+var CyclingWorkout =
+/*#__PURE__*/
+function (_BaseWorkout) {
+  _inherits(CyclingWorkout, _BaseWorkout);
+
+  function CyclingWorkout() {
+    var _this;
+
+    _classCallCheck(this, CyclingWorkout);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CyclingWorkout).call(this));
+    _this.type = _get(_getPrototypeOf(CyclingWorkout.prototype), "WORKOUT_TYPE_CYCLING", _assertThisInitialized(_this));
+    return _this;
+  }
+  /**
+   *
+   * @param {Point} pointA
+   * @param {Point} pointB
+   * @returns {number}
+   */
+
+
+  _createClass(CyclingWorkout, [{
+    key: "calculateSpeed",
+    value: function calculateSpeed(pointA, pointB) {
+      var distance = this.calculateDistance(pointA, pointB);
+      return distance.raw;
+    }
+  }]);
+
+  return CyclingWorkout;
+}(_app_workout_base_workout__WEBPACK_IMPORTED_MODULE_0__["BaseWorkout"]);
+
+
 
 /***/ }),
 
@@ -1954,34 +2019,405 @@ __webpack_require__(/*! ./app.workout.base_workout */ "./src/js/workout/app.work
 /*!*******************************************************!*\
   !*** ./src/js/workout/app.workout.running_workout.js ***!
   \*******************************************************/
+/*! exports provided: RunningWorkout */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RunningWorkout", function() { return RunningWorkout; });
+/* harmony import */ var _app_workout_base_workout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.workout.base_workout */ "./src/js/workout/app.workout.base_workout.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
+
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+var RunningWorkout =
+/*#__PURE__*/
+function (_BaseWorkout) {
+  _inherits(RunningWorkout, _BaseWorkout);
+
+  function RunningWorkout() {
+    var _this;
+
+    _classCallCheck(this, RunningWorkout);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(RunningWorkout).call(this));
+    _this.type = _get(_getPrototypeOf(RunningWorkout.prototype), "WORKOUT_TYPE_RUNNING", _assertThisInitialized(_this));
+    return _this;
+  }
+  /**
+   *
+   * @param {Point} pointA
+   * @param {Point} pointB
+   * @returns {number}
+   */
+
+
+  _createClass(RunningWorkout, [{
+    key: "calculateSpeed",
+    value: function calculateSpeed(pointA, pointB) {
+      var distance = this.calculateDistance(pointA, pointB);
+      return distance.raw;
+    }
+  }]);
+
+  return RunningWorkout;
+}(_app_workout_base_workout__WEBPACK_IMPORTED_MODULE_0__["BaseWorkout"]);
+
+
+
+/***/ }),
+
+/***/ "./src/tests/spec/SyncModelSpec.js":
+/*!*****************************************!*\
+  !*** ./src/tests/spec/SyncModelSpec.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+describe("Sync", function () {
+  var app = window.app || {};
+  var env = jasmine.getEnv();
+  env.randomizeTests(false);
+  app.model.sync.init('http://tracy.test/api/login', 'http://tracy.test/api/workouts');
+  beforeEach(function (done) {
+    var xmlhttp = new XMLHttpRequest(),
+        _this = this;
+
+    xmlhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        _this.waypoints = JSON.parse(this.responseText);
+        done();
+      }
+    };
+
+    xmlhttp.open("GET", "tests/data/455.json", true);
+    xmlhttp.send();
+    this.modelWorkout = app.model.workout;
+    this.modelGeolocation = app.model.geolocation;
+    this.modelSync = app.model.sync;
+    var platform = Platform.get(),
+        driverFactory = new DriverFactory(platform);
+    this.modelWorkout.init(driverFactory.buildHardwareDriver(platform));
+    window.addEventListener('model.workout.dbready', function (e) {
+      _this.modelWorkout.clear();
+    });
+
+    this.runWorkout = function (doneCallback) {
+      navigator.geolocation.delay = 1;
+      navigator.geolocation.repeat = false;
+      navigator.geolocation.waypoints = this.waypoints;
+      this.modelGeolocation.init();
+      this.modelWorkout.start(this.modelWorkout.WORKOUT_TYPE_RUNNING);
+      setTimeout(function () {
+        _this.modelWorkout.togglePause();
+
+        doneCallback();
+      }, 300);
+    };
+  });
+  it('should login', function (done) {
+    window.addEventListener('model.sync.login.successful', function (e) {
+      e.stopPropagation();
+      expect(e.detail.hasOwnProperty('token')).toBeTruthy();
+      expect(e.detail.token.length > 0).toBeTruthy();
+      done();
+    });
+    this.modelSync.login('demo@email.com', '123123');
+  });
+  it('should login with token and upload workouts', function (done) {
+    var _this = this;
+
+    window.addEventListener('model.sync.upload.successful', function (e) {
+      e.stopPropagation();
+      expect(e.detail).toBeTruthy();
+      done();
+    });
+    this.runWorkout(function () {
+      _this.modelWorkout.save();
+
+      _this.modelSync.sync();
+    });
+  });
+});
+
+/***/ }),
+
+/***/ "./src/tests/spec/WorkoutModelSpec.js":
+/*!********************************************!*\
+  !*** ./src/tests/spec/WorkoutModelSpec.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+describe("Workout model", function () {
+  var app = window.app || {};
+  var env = jasmine.getEnv();
+  env.randomizeTests(false);
+  beforeEach(function (done) {
+    var xmlhttp = new XMLHttpRequest(),
+        _this = this;
+
+    xmlhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        _this.waypoints = JSON.parse(this.responseText);
+        done();
+      }
+    };
+
+    xmlhttp.open("GET", "tests/data/455.json", true);
+    xmlhttp.send();
+    this.modelWorkout = app.model.workout;
+    this.modelGeolocation = app.model.geolocation;
+    var platform = Platform.get(),
+        driverFactory = new DriverFactory(platform);
+    this.modelWorkout.init(driverFactory.buildHardwareDriver(platform));
+    window.addEventListener('model.workout.dbready', function (e) {
+      _this.modelWorkout.clear();
+    });
+
+    this.runWorkout = function (doneCallback) {
+      navigator.geolocation.delay = 1;
+      navigator.geolocation.repeat = false;
+      navigator.geolocation.waypoints = this.waypoints;
+      this.modelGeolocation.init();
+      this.modelWorkout.start(this.modelWorkout.WORKOUT_TYPE_RUNNING);
+      setTimeout(function () {
+        _this.modelWorkout.togglePause();
+
+        doneCallback();
+      }, 300);
+    };
+  });
+  it('should start and pause workout', function (done) {
+    var _this = this;
+
+    expect(_typeof(this.modelWorkout) === 'object').toBeTruthy();
+
+    var pauseListener = function pauseListener(e) {
+      var workout = _this.modelWorkout.getWorkout();
+
+      expect(workout.points.length).toEqual(6);
+      window.removeEventListener('model.workout.paused', pauseListener);
+    };
+
+    window.addEventListener('model.workout.paused', pauseListener);
+    this.runWorkout(function () {
+      _this.modelWorkout.togglePause();
+
+      done();
+    });
+  });
+  it('should save the workout', function (done) {
+    var _this = this;
+
+    window.addEventListener('model.workout.save.successful', function (e) {
+      e.stopPropagation();
+      expect(e.detail).toBeTruthy();
+      done();
+    }, 'model.workout.save.failed', function (e) {
+      e.stopPropagation();
+      expect(e.detail).toBeTruthy();
+      done();
+    });
+    this.runWorkout(function () {
+      _this.modelWorkout.save();
+    });
+  });
+  it('should load saved workouts', function (done) {
+    var _this = this;
+
+    window.addEventListener('model.workout.getlist.successful', function (e) {
+      e.stopPropagation();
+      expect(e.detail.length == 1).toBeTruthy();
+      expect(e.detail[0].status == _this.modelWorkout.WORKOUT_STATUS_SAVED).toBeTruthy();
+      done();
+    }, 'model.workout.getlist.failed', function (e) {
+      e.stopPropagation();
+      done();
+    });
+    window.addEventListener('model.workout.save.successful', function (e) {
+      e.stopPropagation();
+
+      _this.modelWorkout.getList(_this.modelWorkout.WORKOUT_STATUS_SAVED);
+    }, 'model.workout.save.failed', function (e) {
+      e.stopPropagation();
+      expect(e.detail).toBeTruthy();
+      done();
+    });
+    this.runWorkout(function () {
+      // _this.modelSync.sync = function(){};
+      _this.modelWorkout.save();
+    });
+  }); //it('should start the workout and update UI', function (done) {
+  //    var _this = this;
+  //
+  //    navigator.geolocation.delay = 1000;
+  //    navigator.geolocation.repeat = false;
+  //    navigator.geolocation.waypoints = this.waypoints;
+  //
+  //    this.modelGeolocation.init();
+  //    expect(typeof this.modelWorkout === 'object').toBeTruthy();
+  //    this.modelWorkout.start(this.modelWorkout.WORKOUT_TYPE_RUNNING);
+  //
+  //    window.addEventListener(
+  //        'model.workout.updateui',
+  //        function(e){
+  //            e.stopPropagation();
+  //            var data = e.detail;
+  //            console.log(data);
+  //        }
+  //    );
+  //
+  //    setTimeout( function(){
+  //            done();
+  //        },
+  //        4000);
+  //});
+});
+
+/***/ }),
+
+/***/ "./src/tests/spec/unit/DriverFactorySpec.js":
+/*!**************************************************!*\
+  !*** ./src/tests/spec/unit/DriverFactorySpec.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+describe("DriverFactory", function () {
+  it('should create drivers for tizen', function () {
+    var platform = Platform.PLATFORM_TIZEN,
+        driverFactory = new DriverFactory(platform),
+        batteryDriver = driverFactory.buildBatteryDriver(platform),
+        networkDriver = driverFactory.buildNetworkDriver(platform),
+        hardwareDriver = driverFactory.buildHardwareDriver(platform);
+    expect(batteryDriver instanceof BatteryDriverTizen).toBeTruthy();
+    expect(networkDriver instanceof NetworkDriverTizen).toBeTruthy();
+    expect(hardwareDriver instanceof HardwareDriverTizen).toBeTruthy();
+  });
+  it('should create drivers for android', function () {
+    var platform = Platform.PLATFORM_ANDROID,
+        driverFactory = new DriverFactory(platform),
+        batteryDriver = driverFactory.buildBatteryDriver(platform),
+        networkDriver = driverFactory.buildNetworkDriver(platform),
+        hardwareDriver = driverFactory.buildHardwareDriver(platform);
+    expect(batteryDriver instanceof BatteryDriverAndroid).toBeTruthy();
+    expect(networkDriver instanceof NetworkDriverAndroid).toBeTruthy();
+    expect(hardwareDriver instanceof HardwareDriverAndroid).toBeTruthy();
+  });
+});
+
+/***/ }),
+
+/***/ "./src/tests/spec/unit/WorkoutSpec.js":
+/*!********************************************!*\
+  !*** ./src/tests/spec/unit/WorkoutSpec.js ***!
+  \********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _src_js_workout_app_workout_cycling_workout_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../src/js/workout/app.workout.cycling_workout.js */ "./src/js/workout/app.workout.cycling_workout.js");
+
+describe("Workout", function () {
+  it('should calculate distance', function () {
+    var pointA = new Point(0, 45.8849114, 19.2545559, 0, 0, 1551018055000),
+        pointB = new Point(0, 45.8856601, 19.2553514, 0, 0, 1551018060000),
+        expectedDistance = 103.54782304590353,
+        workout = new _src_js_workout_app_workout_cycling_workout_js__WEBPACK_IMPORTED_MODULE_0__["CyclingWorkout"](),
+        distance = workout.calculateDistance(pointA, pointB);
+    expect(distance).toEqual(expectedDistance);
+  });
+  it('should calculate speed', function () {
+    var pointA = new Point(0, 45.8849114, 19.2545559, 0, 0, 1551018055000),
+        pointB = new Point(0, 45.8856601, 19.2553514, 0, 0, 1551018060000),
+        expectedSpeed = 18.638608148262635,
+        workout = new _src_js_workout_app_workout_cycling_workout_js__WEBPACK_IMPORTED_MODULE_0__["CyclingWorkout"](),
+        speed = workout.calculateSpeed(pointA, pointB);
+    expect(speed).toEqual(expectedSpeed);
+  });
+});
+
+/***/ }),
+
+/***/ "./src/tests/test.js":
+/*!***************************!*\
+  !*** ./src/tests/test.js ***!
+  \***************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ./app.workout.base_workout */ "./src/js/workout/app.workout.base_workout.js");
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-;
+/*global document, tizen, console, window*/
 
-(function (root) {
-  var RunningWorkout = function RunningWorkout() {
-    BaseWorkout.call(this);
-    this.type = BaseWorkout.WORKOUT_TYPE_RUNNING;
-  };
+/**
+ * Main application module.
+ * Provides a namespace for other application modules.
+ * Handles application life cycle.
+ *
+ * @module app
+ * @requires {@link app.model.battery}
+ * @requires {@link app.ui}
+ * @namespace app
+ */
+__webpack_require__(/*! ../js/model/models */ "./src/js/model/models.js");
 
-  var proto = new BaseWorkout();
-  RunningWorkout.prototype = proto;
-  root.RunningWorkout = RunningWorkout;
-})(window);
+__webpack_require__(/*! ./spec/SyncModelSpec */ "./src/tests/spec/SyncModelSpec.js");
+
+__webpack_require__(/*! ./spec/WorkoutModelSpec */ "./src/tests/spec/WorkoutModelSpec.js");
+
+__webpack_require__(/*! ./spec/unit/DriverFactorySpec */ "./src/tests/spec/unit/DriverFactorySpec.js");
+
+__webpack_require__(/*! ./spec/unit/WorkoutSpec */ "./src/tests/spec/unit/WorkoutSpec.js");
 
 /***/ }),
 
 /***/ 1:
-/*!******************************!*\
-  !*** multi ./src/js/test.js ***!
-  \******************************/
+/*!*********************************!*\
+  !*** multi ./src/tests/test.js ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/vernerd/www/tracy-app/src/js/test.js */"./src/js/test.js");
+module.exports = __webpack_require__(/*! /Users/vernerd/www/tracy-app/src/tests/test.js */"./src/tests/test.js");
 
 
 /***/ })

@@ -20,7 +20,7 @@ describe("Sync", function () {
             }
         };
 
-        xmlhttp.open("GET", "tests/spec/455.json", true);
+        xmlhttp.open("GET", "tests/data/455.json", true);
         xmlhttp.send();
 
         this.modelWorkout = app.model.workout;

@@ -1,4 +1,4 @@
-describe("Workout", function () {
+describe("Workout model", function () {
     var app = window.app || {};
 
     var env = jasmine.getEnv();
@@ -15,7 +15,7 @@ describe("Workout", function () {
             }
         };
 
-        xmlhttp.open("GET", "tests/spec/455.json", true);
+        xmlhttp.open("GET", "tests/data/455.json", true);
         xmlhttp.send();
 
         this.modelWorkout = app.model.workout;

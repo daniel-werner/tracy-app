@@ -1,5 +1,6 @@
-require('../workout/app.workout.cycling_workout');
-require('../workout/app.workout.running_workout');
+import {CyclingWorkout} from "../workout/app.workout.cycling_workout";
+import {RunningWorkout} from "../workout/app.workout.running_workout";
+import {BaseWorkout} from "../workout/app.workout.base_workout";
 
 require('../common/app.common.calculations');
 /*global window, console, geolocation, setTimeout*/
