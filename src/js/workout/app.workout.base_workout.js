@@ -11,11 +11,14 @@ require('../common/app.common.calculations');
         WORKOUT_STATE_PAUSED = 2,
         WORKOUT_STATE_AUTOPAUSED = 3;
 
-    /**
+        export const WORKOUT_TYPE_RUNNING = 1;
+        export const WORKOUT_TYPE_CYCLING = 2;
+/**
      * @class BaseWorkout
      * @constructor
      */
     class BaseWorkout {
+
         constructor() {
             this.type = null;
             this.status = WORKOUT_STATUS_UNSAVED;
@@ -88,9 +91,6 @@ require('../common/app.common.calculations');
             }
         }
     };
-
-    BaseWorkout.WORKOUT_TYPE_RUNNING = 1;
-    BaseWorkout.WORKOUT_TYPE_CYCLING = 2;
 
     // Milliseconds per meter to kilometers per hour
     BaseWorkout.MPS_TO_KMH = 3600; // hour = 3600 * 1000 milliseconds / kilometer = 1000 meters

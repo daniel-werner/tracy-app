@@ -1173,11 +1173,11 @@ window.app = window.app || {};
 
   modelWorkout.start = function start(type) {
     switch (type) {
-      case _workout_app_workout_base_workout__WEBPACK_IMPORTED_MODULE_2__["BaseWorkout"].WORKOUT_TYPE_CYCLING:
+      case _workout_app_workout_base_workout__WEBPACK_IMPORTED_MODULE_2__["WORKOUT_TYPE_CYCLING"]:
         workout = new _workout_app_workout_cycling_workout__WEBPACK_IMPORTED_MODULE_0__["CyclingWorkout"]();
         break;
 
-      case _workout_app_workout_base_workout__WEBPACK_IMPORTED_MODULE_2__["BaseWorkout"].WORKOUT_TYPE_RUNNING:
+      case _workout_app_workout_base_workout__WEBPACK_IMPORTED_MODULE_2__["WORKOUT_TYPE_RUNNING"]:
         workout = new _workout_app_workout_running_workout__WEBPACK_IMPORTED_MODULE_1__["RunningWorkout"]();
         break;
     }
@@ -1770,11 +1770,13 @@ __webpack_require__(/*! ./app.model.sync */ "./src/js/model/app.model.sync.js");
 /*!****************************************************!*\
   !*** ./src/js/workout/app.workout.base_workout.js ***!
   \****************************************************/
-/*! exports provided: BaseWorkout */
+/*! exports provided: WORKOUT_TYPE_RUNNING, WORKOUT_TYPE_CYCLING, BaseWorkout */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WORKOUT_TYPE_RUNNING", function() { return WORKOUT_TYPE_RUNNING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WORKOUT_TYPE_CYCLING", function() { return WORKOUT_TYPE_CYCLING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BaseWorkout", function() { return BaseWorkout; });
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1793,10 +1795,12 @@ var WORKOUT_STATUS_UNSAVED = 0,
     WORKOUT_STATE_RUNNING = 1,
     WORKOUT_STATE_PAUSED = 2,
     WORKOUT_STATE_AUTOPAUSED = 3;
+var WORKOUT_TYPE_RUNNING = 1;
+var WORKOUT_TYPE_CYCLING = 2;
 /**
- * @class BaseWorkout
- * @constructor
- */
+     * @class BaseWorkout
+     * @constructor
+     */
 
 var BaseWorkout =
 /*#__PURE__*/
@@ -1892,9 +1896,7 @@ function () {
   return BaseWorkout;
 }();
 
-;
-BaseWorkout.WORKOUT_TYPE_RUNNING = 1;
-BaseWorkout.WORKOUT_TYPE_CYCLING = 2; // Milliseconds per meter to kilometers per hour
+; // Milliseconds per meter to kilometers per hour
 
 BaseWorkout.MPS_TO_KMH = 3600; // hour = 3600 * 1000 milliseconds / kilometer = 1000 meters
 // Milliseconds per meter to minutes per kilometer
@@ -1929,15 +1931,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
-
-function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
 
@@ -1952,7 +1950,7 @@ function (_BaseWorkout) {
     _classCallCheck(this, CyclingWorkout);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CyclingWorkout).call(this));
-    _this.type = _get(_getPrototypeOf(CyclingWorkout.prototype), "WORKOUT_TYPE_CYCLING", _assertThisInitialized(_this));
+    _this.type = _app_workout_base_workout__WEBPACK_IMPORTED_MODULE_0__["WORKOUT_TYPE_CYCLING"];
     return _this;
   }
   /**
@@ -2038,15 +2036,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _get(target, property, receiver) { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get; } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(receiver); } return desc.value; }; } return _get(target, property, receiver || target); }
-
-function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
 
@@ -2061,7 +2055,7 @@ function (_BaseWorkout) {
     _classCallCheck(this, RunningWorkout);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(RunningWorkout).call(this));
-    _this.type = _get(_getPrototypeOf(RunningWorkout.prototype), "WORKOUT_TYPE_RUNNING", _assertThisInitialized(_this));
+    _this.type = _app_workout_base_workout__WEBPACK_IMPORTED_MODULE_0__["WORKOUT_TYPE_RUNNING"];
     return _this;
   }
   /**

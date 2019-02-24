@@ -1,6 +1,6 @@
 import {CyclingWorkout} from "../workout/app.workout.cycling_workout";
 import {RunningWorkout} from "../workout/app.workout.running_workout";
-import {BaseWorkout} from "../workout/app.workout.base_workout";
+import {WORKOUT_TYPE_CYCLING, WORKOUT_TYPE_RUNNING} from "../workout/app.workout.base_workout";
 
 require('../common/app.common.calculations');
 /*global window, console, geolocation, setTimeout*/
@@ -214,10 +214,10 @@ window.app = window.app || {};
 
     modelWorkout.start = function start(type) {
         switch(type){
-            case BaseWorkout.WORKOUT_TYPE_CYCLING:
+            case WORKOUT_TYPE_CYCLING:
                 workout = new CyclingWorkout();
                 break;
-            case BaseWorkout.WORKOUT_TYPE_RUNNING:
+            case WORKOUT_TYPE_RUNNING:
                 workout = new RunningWorkout();
                 break;
         }

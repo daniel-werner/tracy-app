@@ -1,10 +1,10 @@
-import {BaseWorkout} from "./app.workout.base_workout";
+import {BaseWorkout, WORKOUT_TYPE_CYCLING} from "./app.workout.base_workout";
 
 class CyclingWorkout extends BaseWorkout {
     constructor() {
         super();
 
-        this.type = super.WORKOUT_TYPE_CYCLING;
+        this.type = WORKOUT_TYPE_CYCLING;
     }
 
     /**
