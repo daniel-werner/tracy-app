@@ -103,9 +103,9 @@ class BaseWorkout {
             {latitude: pointB.lat, longitude: pointB.lng}
         );
 
-        this._distance = distance.raw;
+        this._distance += distance.raw;
 
-        return this._distance;
+        return distance.raw;
     }
 
     /**
@@ -117,8 +117,6 @@ class BaseWorkout {
     calculate(pointA, pointB){
 
     }
-
-
 
     /**
      *
@@ -133,7 +131,7 @@ class BaseWorkout {
      * @returns {number}
      */
     get distance(){
-        return this._distance;
+        return this._distance / 1000;
     }
 
     /**
@@ -150,6 +148,22 @@ class BaseWorkout {
      */
     get points(){
         return this._points;
+    }
+
+    /**
+     *
+     * @returns {int|number}
+     */
+    get heartRate(){
+        return this._points.length ? this._points[this._points.length - 1].heart_rate : 0;
+    }
+
+    /**
+     *
+     * @returns {number}
+     */
+    get altitude(){
+        return this._points.length ? this._points[this._points.length - 1].elevation : 0;
     }
 
     /**

@@ -1191,31 +1191,7 @@ window.app = window.app || {};
    * @type {object}
    */
   commonEvents = app.common.events,
-
-  /**
-   * Common calculations module reference.
-   *
-   * @private
-   * @type {object}
-   */
-  commonCalculations = app.common.calculations,
       hardwareDriver = null,
-
-  /**
-   * Started flag.
-   *
-   * @private
-   * @type boolean
-   */
-  active = false,
-
-  /**
-   * Count the segments (pause and resume).
-   *
-   * @private
-   * @type int
-   */
-  segmentIndex = 0,
 
   /**
    * Workout data.
@@ -1225,13 +1201,7 @@ window.app = window.app || {};
    */
   workout = null,
       workoutDB = null,
-      // Milliseconds per meter to kilometers per hour
-  MPS_TO_KMH = 3600,
-      // hour = 3600 * 1000 milliseconds / kilometer = 1000 meters
-  // Milliseconds per meter to minutes per kilometer
-  MSEC_PER_METER_TO_MIN_PER_KM = 60,
-      // Minute = 60 * 1000  millisecond / kilometer = 1000 meters
-  isDBready = false; // create namespace for the module
+      isDBready = false; // create namespace for the module
 
   app.model = app.model || {};
   app.model.workout = app.model.workout || {};
@@ -1249,32 +1219,8 @@ window.app = window.app || {};
    */
 
   function updateUI() {
-    if (workout.points.length > 1) {
-      var currentPosition = workout.points[workout.points.length - 1],
-          lastPosition = workout.points[workout.points.length - 2],
-          distance = commonCalculations.calculateDistance({
-        latitude: lastPosition.lat,
-        longitude: lastPosition.lng
-      }, {
-        latitude: currentPosition.lat,
-        longitude: currentPosition.lng
-      });
-
-      if (distance.raw > 0.1) {
-        var timediff = currentPosition.time - lastPosition.time,
-            speed = timediff ? MPS_TO_KMH * distance.raw / timediff : 0,
-            pace = timediff / distance.raw / MSEC_PER_METER_TO_MIN_PER_KM,
-            heartRate = currentPosition.heart_rate,
-            altitude = currentPosition.elevation;
-        workout.distance += distance.raw;
-        var data = {
-          distance: workout.distance / 1000,
-          speed: speed,
-          heartRate: heartRate,
-          altitude: altitude
-        };
-        commonEvents.dispatchEvent('model.workout.updateui', data);
-      }
+    if (workout) {
+      commonEvents.dispatchEvent('model.workout.updateui', workout);
     }
   }
   /**
@@ -3489,8 +3435,8 @@ function () {
         latitude: pointB.lat,
         longitude: pointB.lng
       });
-      this._distance = distance.raw;
-      return this._distance;
+      this._distance += distance.raw;
+      return distance.raw;
     }
     /**
      * Calculate the params such as distance, speed, etc
@@ -3534,7 +3480,7 @@ function () {
   }, {
     key: "distance",
     get: function get() {
-      return this._distance;
+      return this._distance / 1000;
     }
     /**
      *
@@ -3553,6 +3499,26 @@ function () {
     key: "points",
     get: function get() {
       return this._points;
+    }
+    /**
+     *
+     * @returns {int|number}
+     */
+
+  }, {
+    key: "heartRate",
+    get: function get() {
+      return this._points.length ? this._points[this._points.length - 1].heart_rate : 0;
+    }
+    /**
+     *
+     * @returns {number}
+     */
+
+  }, {
+    key: "altitude",
+    get: function get() {
+      return this._points.length ? this._points[this._points.length - 1].elevation : 0;
     }
   }]);
 

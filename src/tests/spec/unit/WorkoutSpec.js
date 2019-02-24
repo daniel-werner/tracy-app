@@ -108,7 +108,7 @@ describe("Workout", function () {
             ),
 
             expectedPace = 6.438248985409653,
-            expectedDistance = 103.54782304590353, // meters
+            expectedDistance = 103.54782304590353 / 1000, // km
             workout = new RunningWorkout();
 
             workout.addPoint(pointA);
@@ -140,7 +140,7 @@ describe("Workout", function () {
             ),
 
             expectedSpeed = 18.638608148262635, // km/h
-            expectedDistance = 103.54782304590353, // meters
+            expectedDistance = 103.54782304590353 / 1000, // km
             workout = new CyclingWorkout();
 
         workout.addPoint(pointA);
