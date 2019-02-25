@@ -1,17 +1,14 @@
 window.addEventListener('load', function(){
-    var xmlhttp = new XMLHttpRequest(),
-        _this = this;
-
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            navigator.geolocation.waypoints = JSON.parse(this.responseText);
-        }
-    };
-
-    xmlhttp.open("GET", "tests/data/455.json", true);
-    xmlhttp.send();
-
     navigator.geolocation.delay = 1000;
     navigator.geolocation.repeat = true;
 
+    var startTime = 1551018055000;
+
+    navigator.geolocation.waypoints = [
+        {coords : {latitude : 45.8849114, longitude : 19.2545559, accuracy: 65 }, timestamp: startTime},
+        {coords : {latitude : 45.8856601, longitude : 19.2553514, accuracy: 65 }, timestamp: startTime + 30000},
+        {coords : {latitude : 45.8849114, longitude : 19.2545559, accuracy: 65 }, timestamp: startTime + 55000},
+        {coords : {latitude : 45.8856601, longitude : 19.2553514, accuracy: 65 }, timestamp: startTime + 75000},
+        {coords : {latitude : 45.8849114, longitude : 19.2545559, accuracy: 65 }, timestamp: startTime + 90000},
+    ];
 });
