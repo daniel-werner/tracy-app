@@ -54,6 +54,10 @@ window.app = window.app || {};
          */
         commonEvents = app.common.events,
 
+        /**
+         *
+         * @type {HardwareDriver}
+         */
         hardwareDriver = null,
 
         /**
@@ -186,8 +190,14 @@ window.app = window.app || {};
             workout.pause();
             hardwareDriver.backgroundRunDisable();
         }
+    };
 
-
+    /**
+     *
+     * @returns {boolean}
+     */
+    modelWorkout.isHeartRateAvailable = function(){
+        return hardwareDriver.isHeartRateAvailable();
     };
 
     modelWorkout.save = function save(){

@@ -186,6 +186,9 @@ window.app = window.app || {};
             updateUI(workout);
         }
 
+        if(!modelWorkout.isHeartRateAvailable()){
+            workoutHr.style.display = 'none';
+        }
         workoutStatus.style.display = 'none';
     }
 

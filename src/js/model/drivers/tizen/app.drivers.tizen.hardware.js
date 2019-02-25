@@ -11,7 +11,7 @@ require('../app.drivers.hardware')
 
         };
         proto.isHeartRateAvailable = function () {
-            return false;
+            return true;
         };
         proto.backgroundRunEnable = function () {
             tizen.power.request("CPU", "CPU_AWAKE");

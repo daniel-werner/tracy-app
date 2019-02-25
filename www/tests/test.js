@@ -2446,7 +2446,12 @@ window.app = window.app || {};
    * @type {object}
    */
   commonEvents = app.common.events,
-      hardwareDriver = null,
+
+  /**
+   *
+   * @type {HardwareDriver}
+   */
+  hardwareDriver = null,
 
   /**
    * Workout data.
@@ -2565,6 +2570,15 @@ window.app = window.app || {};
       workout.pause();
       hardwareDriver.backgroundRunDisable();
     }
+  };
+  /**
+   *
+   * @returns {boolean}
+   */
+
+
+  modelWorkout.isHeartRateAvailable = function () {
+    return hardwareDriver.isHeartRateAvailable();
   };
 
   modelWorkout.save = function save() {
@@ -2882,6 +2896,11 @@ __webpack_require__(/*! ./tizen/app.drivers.tizen.hardware */ "./src/js/model/dr
       this.bind();
     },
     bind: function bind() {},
+
+    /**
+     *
+     * @returns {boolean}
+     */
     isHeartRateAvailable: function isHeartRateAvailable() {
       return false;
     },
@@ -3025,7 +3044,7 @@ __webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.d
   proto.bind = function () {};
 
   proto.isHeartRateAvailable = function () {
-    return false;
+    return true;
   };
 
   proto.backgroundRunEnable = function () {

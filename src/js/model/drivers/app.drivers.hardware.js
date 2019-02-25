@@ -10,6 +10,10 @@
         bind: function(){
 
         },
+        /**
+         *
+         * @returns {boolean}
+         */
         isHeartRateAvailable: function () {
             return false;
         },
