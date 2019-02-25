@@ -3467,7 +3467,7 @@ function (_BaseWorkout) {
       var distance = this._calculateDistance(pointA, pointB),
           timeDiff = pointB.time - pointA.time;
 
-      if (distance > 1) {
+      if (distance > 1 && timeDiff > 0) {
         this._speed = timeDiff ? MPS_TO_KMH * distance / timeDiff : 0;
       }
 
@@ -3603,7 +3603,7 @@ function (_BaseWorkout) {
       var distance = this._calculateDistance(pointA, pointB),
           timeDiff = pointB.time - pointA.time;
 
-      if (distance > 1) {
+      if (distance > 1 && timeDiff > 0) {
         this._pace = timeDiff / distance / MSEC_PER_METER_TO_MIN_PER_KM;
       }
 
