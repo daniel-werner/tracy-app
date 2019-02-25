@@ -3118,7 +3118,10 @@ window.app = window.app || {};
 
 
   function onPageBeforeShow() {
-    updateUI(workout);
+    if (workout) {
+      updateUI(workout);
+    }
+
     workoutStatus.style.display = 'none';
   }
   /**

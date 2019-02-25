@@ -182,7 +182,10 @@ window.app = window.app || {};
      * @private
      */
     function onPageBeforeShow() {
-        updateUI(workout);
+        if(workout){
+            updateUI(workout);
+        }
+
         workoutStatus.style.display = 'none';
     }
 
