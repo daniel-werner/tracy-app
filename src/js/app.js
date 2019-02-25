@@ -56,6 +56,8 @@ window.app = window.app || {};
 
         modelNetwork = app.model.network,
 
+        hardwareDriver = null,
+
         /**
          * UI module reference.
          *
@@ -71,11 +73,7 @@ window.app = window.app || {};
      * @public
      */
     app.exit = function exit() {
-        try {
-            tizen.application.getCurrentApplication().exit();
-        } catch (error) {
-            console.warn('Application exit failed.', error.message);
-        }
+        hardwareDriver.exit();
     };
 
     /**
@@ -99,6 +97,10 @@ window.app = window.app || {};
      */
     function bindEvents() {
         document.addEventListener('tizenhwkey', onHwKeyEvent);
+
+        document.addEventListener('backbutton', function (evt) {
+            ui.toggleClosePopup();
+        }, false);
     }
 
     /**
@@ -114,9 +116,11 @@ window.app = window.app || {};
         var platform = Platform.get(),
             driverFactory = new DriverFactory(platform);
 
+        hardwareDriver = driverFactory.buildHardwareDriver(platform);
+
         modelBattery.init(driverFactory.buildBatteryDriver(platform));
         modelNetwork.init(driverFactory.buildNetworkDriver(platform));
-        modelWorkout.init(driverFactory.buildHardwareDriver(platform));
+        modelWorkout.init(hardwareDriver);
         bindEvents();
         ui.init();
     };

@@ -24,12 +24,6 @@ require('../app.drivers.hardware')
                 }
             }
         );
-
-        document.addEventListener('backbutton', function (evt) {
-            navigator.app.exitApp();
-        }, false);
-
-
     };
     proto.isHeartRateAvailable = function () {
         return false;
@@ -39,6 +33,13 @@ require('../app.drivers.hardware')
     };
     proto.backgroundRunDisable = function () {
         cordova.plugins.backgroundMode.disable();
+    };
+    proto.exit = function(){
+        try {
+            navigator.app.exitApp();
+        } catch (error) {
+            console.warn('Application exit failed.', error.message);
+        }
     };
 
     HardwareDriverAndroid.prototype = proto;

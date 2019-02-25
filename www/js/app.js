@@ -1567,6 +1567,7 @@ window.app = window.app || {};
    */
   modelWorkout = app.model.workout,
       modelNetwork = app.model.network,
+      hardwareDriver = null,
 
   /**
    * UI module reference.
@@ -1583,11 +1584,7 @@ window.app = window.app || {};
    */
 
   app.exit = function exit() {
-    try {
-      tizen.application.getCurrentApplication().exit();
-    } catch (error) {
-      console.warn('Application exit failed.', error.message);
-    }
+    hardwareDriver.exit();
   };
   /**
    * Handles tizenhwkey event.
@@ -1613,6 +1610,9 @@ window.app = window.app || {};
 
   function bindEvents() {
     document.addEventListener('tizenhwkey', onHwKeyEvent);
+    document.addEventListener('backbutton', function (evt) {
+      ui.toggleClosePopup();
+    }, false);
   }
   /**
    * Initializes app module.
@@ -1628,9 +1628,10 @@ window.app = window.app || {};
   app.init = function init() {
     var platform = Platform.get(),
         driverFactory = new DriverFactory(platform);
+    hardwareDriver = driverFactory.buildHardwareDriver(platform);
     modelBattery.init(driverFactory.buildBatteryDriver(platform));
     modelNetwork.init(driverFactory.buildNetworkDriver(platform));
-    modelWorkout.init(driverFactory.buildHardwareDriver(platform));
+    modelWorkout.init(hardwareDriver);
     bindEvents();
     ui.init();
   };
@@ -2899,9 +2900,6 @@ __webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.d
         });
       }
     });
-    document.addEventListener('backbutton', function (evt) {
-      navigator.app.exitApp();
-    }, false);
   };
 
   proto.isHeartRateAvailable = function () {
@@ -2914,6 +2912,14 @@ __webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.d
 
   proto.backgroundRunDisable = function () {
     cordova.plugins.backgroundMode.disable();
+  };
+
+  proto.exit = function () {
+    try {
+      navigator.app.exitApp();
+    } catch (error) {
+      console.warn('Application exit failed.', error.message);
+    }
   };
 
   HardwareDriverAndroid.prototype = proto;
@@ -3099,7 +3105,8 @@ __webpack_require__(/*! ./tizen/app.drivers.tizen.hardware */ "./src/js/model/dr
       return false;
     },
     backgroundRunEnable: function backgroundRunEnable() {},
-    backgroundRunDisable: function backgroundRunDisable() {}
+    backgroundRunDisable: function backgroundRunDisable() {},
+    exit: function exit() {}
   };
   root.HardwareDriver = HardwareDriver;
 })(window);
@@ -3249,6 +3256,14 @@ __webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.d
   proto.backgroundRunDisable = function () {
     tizen.power.release("CPU");
     tizen.power.release('SCREEN');
+  };
+
+  proto.exit = function () {
+    try {
+      tizen.application.getCurrentApplication().exit();
+    } catch (error) {
+      console.warn('Application exit failed.', error.message);
+    }
   };
 
   HardwareDriverTizen.prototype = proto;
