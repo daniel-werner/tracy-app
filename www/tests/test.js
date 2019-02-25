@@ -1128,6 +1128,7 @@ window.app = window.app || {};
     }
 
     workout.start();
+    updateUI();
     hardwareDriver.backgroundRunEnable();
   };
   /**
@@ -1862,7 +1863,7 @@ function () {
     value: function calculate(pointA, pointB) {}
     /**
      *
-     * @returns {number}
+     * @returns {string}
      */
 
   }, {
@@ -1879,6 +1880,26 @@ function () {
         points: this._points
       };
     }
+  }, {
+    key: "speedUnit",
+    get: function get() {
+      return 'km/h';
+    }
+    /**
+     *
+     * @returns {string}
+     */
+
+  }, {
+    key: "speedLabel",
+    get: function get() {
+      return 'Speed';
+    }
+    /**
+     *
+     * @returns {number}
+     */
+
   }, {
     key: "speed",
     get: function get() {
@@ -2153,6 +2174,26 @@ function (_BaseWorkout) {
     key: "calculate",
     value: function calculate(pointA, pointB) {
       this._calculatePace(pointA, pointB);
+    }
+    /**
+     *
+     * @returns {string}
+     */
+
+  }, {
+    key: "speedUnit",
+    get: function get() {
+      return 'min/km';
+    }
+    /**
+     *
+     * @returns {string}
+     */
+
+  }, {
+    key: "speedLabel",
+    get: function get() {
+      return 'Pace';
     }
     /**
      *

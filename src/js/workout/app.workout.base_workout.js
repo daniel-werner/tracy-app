@@ -120,6 +120,22 @@ class BaseWorkout {
 
     /**
      *
+     * @returns {string}
+     */
+    get speedUnit(){
+        return 'km/h';
+    }
+
+    /**
+     *
+     * @returns {string}
+     */
+    get speedLabel(){
+        return 'Speed'
+    }
+
+    /**
+     *
      * @returns {number}
      */
     get speed(){

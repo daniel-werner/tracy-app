@@ -166,6 +166,7 @@ window.app = window.app || {};
         }
 
         workout.start();
+        updateUI();
         hardwareDriver.backgroundRunEnable();
     };
 

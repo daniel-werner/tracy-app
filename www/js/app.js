@@ -1291,6 +1291,7 @@ window.app = window.app || {};
     }
 
     workout.start();
+    updateUI();
     hardwareDriver.backgroundRunEnable();
   };
   /**
@@ -3060,10 +3061,18 @@ window.app = window.app || {};
    */
   workoutStatus = null,
       workoutSpeed = null,
+      workoutSpeedLabel = null,
+      workoutSpeedUnit = null,
       workoutDistance = null,
       workoutHr = null,
       workoutAltitude = null,
       workoutPauseButton = null,
+
+  /**
+   *
+   * @type {BaseWorkout}
+   */
+  workout = null,
 
   /**
    * Popup shown when the workout is paused
@@ -3094,8 +3103,9 @@ window.app = window.app || {};
    */
 
   function updateUI(data) {
-    //console.log(data);
     workoutSpeed.innerText = Math.round(data.speed * 10) / 10;
+    workoutSpeedLabel.innerText = data.speedLabel;
+    workoutSpeedUnit.innerText = data.speedUnit;
     workoutDistance.innerText = Math.round(data.distance * 10) / 10;
     workoutHr.innerText = Math.round(data.heartRate);
     workoutAltitude.innerText = Math.round(data.altitude);
@@ -3108,12 +3118,7 @@ window.app = window.app || {};
 
 
   function onPageBeforeShow() {
-    updateUI({
-      speed: 0,
-      distance: 0,
-      heartRate: 0,
-      altitude: 0
-    });
+    updateUI(workout);
     workoutStatus.style.display = 'none';
   }
   /**
@@ -3127,8 +3132,10 @@ window.app = window.app || {};
 
 
   function onModelWorkoutUpdateUI(e) {
+    workout = e.detail;
+
     if (tau.activePage.id === PAGE_ID) {
-      updateUI(e.detail);
+      updateUI(workout);
     }
   }
   /**
@@ -3283,6 +3290,8 @@ window.app = window.app || {};
     page = document.getElementById(PAGE_ID);
     workoutStatus = page.querySelector('.workout-status');
     workoutSpeed = page.querySelector('.workout-speed');
+    workoutSpeedLabel = page.querySelector('.workout-speed-label');
+    workoutSpeedUnit = page.querySelector('.workout-speed-unit');
     workoutDistance = page.querySelector('.workout-distance');
     workoutHr = page.querySelector('.workout-hr');
     workoutAltitude = page.querySelector('.workout-altitude');
@@ -3450,7 +3459,7 @@ function () {
     value: function calculate(pointA, pointB) {}
     /**
      *
-     * @returns {number}
+     * @returns {string}
      */
 
   }, {
@@ -3467,6 +3476,26 @@ function () {
         points: this._points
       };
     }
+  }, {
+    key: "speedUnit",
+    get: function get() {
+      return 'km/h';
+    }
+    /**
+     *
+     * @returns {string}
+     */
+
+  }, {
+    key: "speedLabel",
+    get: function get() {
+      return 'Speed';
+    }
+    /**
+     *
+     * @returns {number}
+     */
+
   }, {
     key: "speed",
     get: function get() {
@@ -3741,6 +3770,26 @@ function (_BaseWorkout) {
     key: "calculate",
     value: function calculate(pointA, pointB) {
       this._calculatePace(pointA, pointB);
+    }
+    /**
+     *
+     * @returns {string}
+     */
+
+  }, {
+    key: "speedUnit",
+    get: function get() {
+      return 'min/km';
+    }
+    /**
+     *
+     * @returns {string}
+     */
+
+  }, {
+    key: "speedLabel",
+    get: function get() {
+      return 'Pace';
     }
     /**
      *

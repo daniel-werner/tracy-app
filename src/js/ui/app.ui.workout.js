@@ -123,11 +123,19 @@ window.app = window.app || {};
          */
         workoutStatus = null,
         workoutSpeed = null,
+        workoutSpeedLabel = null,
+        workoutSpeedUnit = null,
         workoutDistance = null,
         workoutHr = null,
         workoutAltitude = null,
 
         workoutPauseButton = null,
+
+        /**
+         *
+         * @type {BaseWorkout}
+         */
+        workout = null,
 
         /**
          * Popup shown when the workout is paused
@@ -160,8 +168,9 @@ window.app = window.app || {};
      * @private
      */
     function updateUI(data) {
-        //console.log(data);
         workoutSpeed.innerText = Math.round( data.speed * 10 ) / 10;
+        workoutSpeedLabel.innerText = data.speedLabel;
+        workoutSpeedUnit.innerText = data.speedUnit;
         workoutDistance.innerText = Math.round( data.distance * 10 ) / 10;
         workoutHr.innerText = Math.round(data.heartRate);
         workoutAltitude.innerText = Math.round(data.altitude);
@@ -173,15 +182,7 @@ window.app = window.app || {};
      * @private
      */
     function onPageBeforeShow() {
-        updateUI(
-            {
-                speed: 0,
-                distance: 0,
-                heartRate: 0,
-                altitude: 0
-            }
-        );
-
+        updateUI(workout);
         workoutStatus.style.display = 'none';
     }
 
@@ -194,8 +195,10 @@ window.app = window.app || {};
      * @private
      */
     function onModelWorkoutUpdateUI(e) {
+        workout = e.detail;
+
         if (tau.activePage.id === PAGE_ID) {
-            updateUI(e.detail);
+            updateUI(workout);
         }
     }
 
@@ -362,6 +365,8 @@ window.app = window.app || {};
         page = document.getElementById(PAGE_ID);
         workoutStatus = page.querySelector('.workout-status');
         workoutSpeed = page.querySelector('.workout-speed');
+        workoutSpeedLabel = page.querySelector('.workout-speed-label');
+        workoutSpeedUnit = page.querySelector('.workout-speed-unit');
         workoutDistance = page.querySelector('.workout-distance');
         workoutHr = page.querySelector('.workout-hr');
         workoutAltitude = page.querySelector('.workout-altitude');

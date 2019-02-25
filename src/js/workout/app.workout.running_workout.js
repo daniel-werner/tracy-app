@@ -41,6 +41,22 @@ class RunningWorkout extends BaseWorkout {
 
     /**
      *
+     * @returns {string}
+     */
+    get speedUnit(){
+        return 'min/km';
+    }
+
+    /**
+     *
+     * @returns {string}
+     */
+    get speedLabel(){
+        return 'Pace'
+    }
+
+    /**
+     *
      * @returns {number}
      */
     get speed(){
