@@ -2562,9 +2562,9 @@ window.app = window.app || {};
 
   modelWorkout.togglePause = function togglePause() {
     if (!workout.isActive()) {
+      hardwareDriver.backgroundRunEnable();
       commonEvents.dispatchEvent('model.workout.resumed');
       workout.resume();
-      hardwareDriver.backgroundRunEnable();
     } else {
       commonEvents.dispatchEvent('model.workout.paused');
       workout.pause();
@@ -2694,19 +2694,17 @@ __webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.d
   var proto = new HardwareDriver();
 
   proto.bind = function () {
-    document.addEventListener("deviceready", function () {
-      cordova.plugins.backgroundMode.on('activate', function () {
-        cordova.plugins.backgroundMode.disableWebViewOptimizations();
-      });
-      window.addEventListener('model.workout.updateui', function (e) {
-        var distance = e.detail.distance;
+    cordova.plugins.backgroundMode.on('activate', function () {
+      cordova.plugins.backgroundMode.disableWebViewOptimizations();
+    });
+    window.addEventListener('model.workout.updateui', function (e) {
+      var distance = e.detail.distance;
 
-        if (cordova.plugins.backgroundMode.isActive()) {
-          cordova.plugins.backgroundMode.configure({
-            text: 'Workout active, distance: ' + Math.round(distance * 100) / 100 + ' km'
-          });
-        }
-      });
+      if (cordova.plugins.backgroundMode.isActive()) {
+        cordova.plugins.backgroundMode.configure({
+          text: 'Workout active, distance: ' + Math.round(distance * 100) / 100 + ' km'
+        });
+      }
     });
   };
 
@@ -2720,6 +2718,14 @@ __webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.d
 
   proto.backgroundRunDisable = function () {
     cordova.plugins.backgroundMode.disable();
+  };
+
+  proto.exit = function () {
+    try {
+      navigator.app.exitApp();
+    } catch (error) {
+      console.warn('Application exit failed.', error.message);
+    }
   };
 
   HardwareDriverAndroid.prototype = proto;
@@ -2905,7 +2911,8 @@ __webpack_require__(/*! ./tizen/app.drivers.tizen.hardware */ "./src/js/model/dr
       return false;
     },
     backgroundRunEnable: function backgroundRunEnable() {},
-    backgroundRunDisable: function backgroundRunDisable() {}
+    backgroundRunDisable: function backgroundRunDisable() {},
+    exit: function exit() {}
   };
   root.HardwareDriver = HardwareDriver;
 })(window);
@@ -2966,7 +2973,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
       if ((typeof tizen === "undefined" ? "undefined" : _typeof(tizen)) === 'object' && _typeof(tizen.systeminfo) === 'object') {
         platform = this.PLATFORM_TIZEN;
-      } else if ((typeof device === "undefined" ? "undefined" : _typeof(device)) === 'object' && device.platform === 'android') {
+      } else if ((typeof device === "undefined" ? "undefined" : _typeof(device)) === 'object' && device.platform === 'Android') {
         platform = this.PLATFORM_ANDROID;
       }
 
@@ -3055,6 +3062,14 @@ __webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.d
   proto.backgroundRunDisable = function () {
     tizen.power.release("CPU");
     tizen.power.release('SCREEN');
+  };
+
+  proto.exit = function () {
+    try {
+      tizen.application.getCurrentApplication().exit();
+    } catch (error) {
+      console.warn('Application exit failed.', error.message);
+    }
   };
 
   HardwareDriverTizen.prototype = proto;

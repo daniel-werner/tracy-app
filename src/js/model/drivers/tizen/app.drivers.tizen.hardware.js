@@ -21,6 +21,13 @@ require('../app.drivers.hardware')
             tizen.power.release("CPU");
             tizen.power.release('SCREEN');
         };
+        proto.exit = function(){
+            try {
+                tizen.application.getCurrentApplication().exit();
+            } catch (error) {
+                console.warn('Application exit failed.', error.message);
+            }
+        };
 
     HardwareDriverTizen.prototype = proto;
     root.HardwareDriverTizen = HardwareDriverTizen;
