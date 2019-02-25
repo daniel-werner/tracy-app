@@ -111,7 +111,7 @@ window.app = window.app || {};
                 currentPosition.coords.latitude,
                 currentPosition.coords.longitude,
                 0,
-                currentPosition.coords.altitude,
+                currentPosition.coords.altitude || 0,
                 currentPosition.timestamp
             );
 

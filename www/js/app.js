@@ -2683,7 +2683,7 @@ window.app = window.app || {};
     var currentPosition = modelGeolocation.getCurrentPosition();
 
     if (workout && workout.isActive()) {
-      var point = new Point(0, currentPosition.coords.latitude, currentPosition.coords.longitude, 0, currentPosition.coords.altitude, currentPosition.timestamp);
+      var point = new Point(0, currentPosition.coords.latitude, currentPosition.coords.longitude, 0, currentPosition.coords.altitude || 0, currentPosition.timestamp);
       workout.addPoint(point);
       updateUI();
     }
