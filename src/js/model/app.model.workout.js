@@ -178,13 +178,15 @@ window.app = window.app || {};
     modelWorkout.togglePause = function togglePause(){
         if(!workout.isActive()){
             commonEvents.dispatchEvent('model.workout.resumed');
+            workout.resume();
             hardwareDriver.backgroundRunEnable();
         }
         else{
             commonEvents.dispatchEvent('model.workout.paused');
+            workout.pause();
             hardwareDriver.backgroundRunDisable();
         }
-        workout.pause();
+
 
     };
 

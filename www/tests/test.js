@@ -2558,13 +2558,13 @@ window.app = window.app || {};
   modelWorkout.togglePause = function togglePause() {
     if (!workout.isActive()) {
       commonEvents.dispatchEvent('model.workout.resumed');
+      workout.resume();
       hardwareDriver.backgroundRunEnable();
     } else {
       commonEvents.dispatchEvent('model.workout.paused');
+      workout.pause();
       hardwareDriver.backgroundRunDisable();
     }
-
-    workout.pause();
   };
 
   modelWorkout.save = function save() {
@@ -3199,6 +3199,11 @@ function () {
     key: "save",
     value: function save() {
       this.status = WORKOUT_STATUS_SAVED;
+    }
+  }, {
+    key: "resume",
+    value: function resume() {
+      this._state = WORKOUT_STATE_RUNNING;
     }
     /**
      *

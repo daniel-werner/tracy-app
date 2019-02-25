@@ -46,6 +46,10 @@ class BaseWorkout {
         this.status = WORKOUT_STATUS_SAVED;
     }
 
+    resume() {
+        this._state = WORKOUT_STATE_RUNNING;
+    }
+
     /**
      *
      * @returns {boolean}
