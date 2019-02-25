@@ -1,6 +1,7 @@
 import {CyclingWorkout} from "../workout/app.workout.cycling_workout";
 import {RunningWorkout} from "../workout/app.workout.running_workout";
 import {WORKOUT_TYPE_CYCLING, WORKOUT_TYPE_RUNNING} from "../workout/app.workout.base_workout";
+let IDBStore = require( "../../../node_modules/idb-wrapper/idbstore");
 
 require('../common/app.common.calculations');
 /*global window, console, geolocation, setTimeout*/
