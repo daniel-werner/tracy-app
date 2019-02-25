@@ -21,10 +21,11 @@ class RunningWorkout extends BaseWorkout {
      */
     _calculatePace(pointA, pointB) {
         let distance = this._calculateDistance(pointA, pointB),
-            timeDiff = pointB.time - pointA.time,
-            pace = ( timeDiff / distance ) / MSEC_PER_METER_TO_MIN_PER_KM;
+            timeDiff = pointB.time - pointA.time;
 
-        this._pace = pace;
+        if (distance > 1) {
+            this._pace = (timeDiff / distance) / MSEC_PER_METER_TO_MIN_PER_KM;
+        }
 
         return this._pace;
     }
@@ -35,7 +36,7 @@ class RunningWorkout extends BaseWorkout {
      * @param {Point} pointA
      * @param {Point} pointB
      */
-    calculate(pointA, pointB){
+    calculate(pointA, pointB) {
         this._calculatePace(pointA, pointB);
     }
 
@@ -43,7 +44,7 @@ class RunningWorkout extends BaseWorkout {
      *
      * @returns {string}
      */
-    get speedUnit(){
+    get speedUnit() {
         return 'min/km';
     }
 
@@ -51,7 +52,7 @@ class RunningWorkout extends BaseWorkout {
      *
      * @returns {string}
      */
-    get speedLabel(){
+    get speedLabel() {
         return 'Pace'
     }
 
@@ -59,9 +60,9 @@ class RunningWorkout extends BaseWorkout {
      *
      * @returns {number}
      */
-    get speed(){
+    get speed() {
         return this._pace;
     }
 }
 
- export {RunningWorkout};
+export {RunningWorkout};

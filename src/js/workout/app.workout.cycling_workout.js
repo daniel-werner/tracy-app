@@ -20,12 +20,13 @@ class CyclingWorkout extends BaseWorkout {
      */
     _calculateSpeed(pointA, pointB) {
         let distance = this._calculateDistance(pointA, pointB),
-            timeDiff = pointB.time - pointA.time,
-            speed = timeDiff ? MPS_TO_KMH * distance / timeDiff : 0;
+            timeDiff = pointB.time - pointA.time;
 
-        this._speed = speed;
+        if( distance > 1){
+            this._speed = timeDiff ? MPS_TO_KMH * distance / timeDiff : 0;
+        }
 
-        return speed;
+        return this._speed;
     }
 
     /**

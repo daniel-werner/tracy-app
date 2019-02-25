@@ -5068,11 +5068,13 @@ function (_BaseWorkout) {
     key: "_calculateSpeed",
     value: function _calculateSpeed(pointA, pointB) {
       var distance = this._calculateDistance(pointA, pointB),
-          timeDiff = pointB.time - pointA.time,
-          speed = timeDiff ? MPS_TO_KMH * distance / timeDiff : 0;
+          timeDiff = pointB.time - pointA.time;
 
-      this._speed = speed;
-      return speed;
+      if (distance > 1) {
+        this._speed = timeDiff ? MPS_TO_KMH * distance / timeDiff : 0;
+      }
+
+      return this._speed;
     }
     /**
      * Calculate the params such as distance, speed, etc
@@ -5202,10 +5204,12 @@ function (_BaseWorkout) {
     key: "_calculatePace",
     value: function _calculatePace(pointA, pointB) {
       var distance = this._calculateDistance(pointA, pointB),
-          timeDiff = pointB.time - pointA.time,
-          pace = timeDiff / distance / MSEC_PER_METER_TO_MIN_PER_KM;
+          timeDiff = pointB.time - pointA.time;
 
-      this._pace = pace;
+      if (distance > 1) {
+        this._pace = timeDiff / distance / MSEC_PER_METER_TO_MIN_PER_KM;
+      }
+
       return this._pace;
     }
     /**
