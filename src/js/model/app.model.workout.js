@@ -181,9 +181,9 @@ window.app = window.app || {};
      */
     modelWorkout.togglePause = function togglePause(){
         if(!workout.isActive()){
+            hardwareDriver.backgroundRunEnable();
             commonEvents.dispatchEvent('model.workout.resumed');
             workout.resume();
-            hardwareDriver.backgroundRunEnable();
         }
         else{
             commonEvents.dispatchEvent('model.workout.paused');

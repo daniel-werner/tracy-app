@@ -46,15 +46,15 @@ window.app = window.app || {};
      */
     var modelBattery = app.model.battery,
 
-    /**
-     * Workout model module reference.
-     *
-     * @private
-     * @type {object}
-     */
-     modelWorkout = app.model.workout,
+        /**
+         * Workout model module reference.
+         *
+         * @private
+         * @type {object}
+         */
+        modelWorkout = app.model.workout,
 
-     modelNetwork = app.model.network,
+        modelNetwork = app.model.network,
 
         /**
          * UI module reference.
@@ -121,6 +121,10 @@ window.app = window.app || {};
         ui.init();
     };
 
-    window.addEventListener('load', app.init);
+    if (typeof cordova !== 'undefined') {
+        document.addEventListener("deviceready", app.init);
+    } else {
+        window.addEventListener('load', app.init);
+    }
 
 })(window.app);

@@ -10,7 +10,7 @@
             if( typeof tizen === 'object' && typeof tizen.systeminfo === 'object'){
                 platform = this.PLATFORM_TIZEN;
             }
-            else if(typeof device === 'object' && device.platform === 'android'){
+            else if(typeof device === 'object' && device.platform === 'Android'){
                 platform = this.PLATFORM_ANDROID;
             }
 

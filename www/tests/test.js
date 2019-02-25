@@ -2562,9 +2562,9 @@ window.app = window.app || {};
 
   modelWorkout.togglePause = function togglePause() {
     if (!workout.isActive()) {
+      hardwareDriver.backgroundRunEnable();
       commonEvents.dispatchEvent('model.workout.resumed');
       workout.resume();
-      hardwareDriver.backgroundRunEnable();
     } else {
       commonEvents.dispatchEvent('model.workout.paused');
       workout.pause();
@@ -2694,20 +2694,21 @@ __webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.d
   var proto = new HardwareDriver();
 
   proto.bind = function () {
-    document.addEventListener("deviceready", function () {
-      cordova.plugins.backgroundMode.on('activate', function () {
-        cordova.plugins.backgroundMode.disableWebViewOptimizations();
-      });
-      window.addEventListener('model.workout.updateui', function (e) {
-        var distance = e.detail.distance;
-
-        if (cordova.plugins.backgroundMode.isActive()) {
-          cordova.plugins.backgroundMode.configure({
-            text: 'Workout active, distance: ' + Math.round(distance * 100) / 100 + ' km'
-          });
-        }
-      });
+    cordova.plugins.backgroundMode.on('activate', function () {
+      cordova.plugins.backgroundMode.disableWebViewOptimizations();
     });
+    window.addEventListener('model.workout.updateui', function (e) {
+      var distance = e.detail.distance;
+
+      if (cordova.plugins.backgroundMode.isActive()) {
+        cordova.plugins.backgroundMode.configure({
+          text: 'Workout active, distance: ' + Math.round(distance * 100) / 100 + ' km'
+        });
+      }
+    });
+    document.addEventListener('backbutton', function (evt) {
+      navigator.app.exitApp();
+    }, false);
   };
 
   proto.isHeartRateAvailable = function () {
@@ -2966,7 +2967,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
       if ((typeof tizen === "undefined" ? "undefined" : _typeof(tizen)) === 'object' && _typeof(tizen.systeminfo) === 'object') {
         platform = this.PLATFORM_TIZEN;
-      } else if ((typeof device === "undefined" ? "undefined" : _typeof(device)) === 'object' && device.platform === 'android') {
+      } else if ((typeof device === "undefined" ? "undefined" : _typeof(device)) === 'object' && device.platform === 'Android') {
         platform = this.PLATFORM_ANDROID;
       }
 
