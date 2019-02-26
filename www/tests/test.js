@@ -2335,7 +2335,9 @@ window.app = window.app || {};
         authHeaders = createAuthHeader();
 
     if (authHeaders === false) {
-      commonEvents.dispatchEvent('model.sync.login.required');
+      commonEvents.dispatchEvent('model.sync.login.required', {
+        syncAfterLogin: true
+      });
       return false;
     }
     /* Check the response status */
@@ -2352,7 +2354,9 @@ window.app = window.app || {};
             break;
 
           case 401:
-            commonEvents.dispatchEvent('model.sync.login.required');
+            commonEvents.dispatchEvent('model.sync.login.required', {
+              syncAfterLogin: true
+            });
             break;
 
           default:

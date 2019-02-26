@@ -42,7 +42,7 @@ window.app = window.app || {};
      * @private
      * @const {string}
      */
-    var PAGE_ID = 'login-popup',
+    let PAGE_ID = 'login-popup',
 
         /**
          * Page element.
@@ -75,6 +75,8 @@ window.app = window.app || {};
          * @type {object}
          */
         commonEvents = app.common.events,
+
+        syncAfterLogin = false,
 
         /**
          * Popup shown when the workout is paused
@@ -144,13 +146,22 @@ window.app = window.app || {};
 
     function onLoginSuccessful() {
         commonEvents.dispatchEvent( 'ui.info.show', 'Successful login!');
+        if(syncAfterLogin){
+            syncAfterLogin = false;
+            modelSync.sync();
+        }
     }
 
     function onLoginFail() {
         commonEvents.dispatchEvent( 'ui.info.show', 'Login failed!');
     }
 
-    function onLoginRequired(){
+    function onLoginRequired(e){
+        let data = e.detail || null;
+
+        if(data && data.hasOwnProperty('syncAfterLogin') && data.syncAfterLogin){
+            syncAfterLogin = data.syncAfterLogin;
+        }
         tau.openPopup(loginPopup);
     }
 

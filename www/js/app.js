@@ -2535,7 +2535,9 @@ window.app = window.app || {};
         authHeaders = createAuthHeader();
 
     if (authHeaders === false) {
-      commonEvents.dispatchEvent('model.sync.login.required');
+      commonEvents.dispatchEvent('model.sync.login.required', {
+        syncAfterLogin: true
+      });
       return false;
     }
     /* Check the response status */
@@ -2552,7 +2554,9 @@ window.app = window.app || {};
             break;
 
           case 401:
-            commonEvents.dispatchEvent('model.sync.login.required');
+            commonEvents.dispatchEvent('model.sync.login.required', {
+              syncAfterLogin: true
+            });
             break;
 
           default:
@@ -4430,6 +4434,7 @@ window.app = window.app || {};
    * @type {object}
    */
   commonEvents = app.common.events,
+      syncAfterLogin = false,
 
   /**
    * Popup shown when the workout is paused
@@ -4496,13 +4501,24 @@ window.app = window.app || {};
 
   function onLoginSuccessful() {
     commonEvents.dispatchEvent('ui.info.show', 'Successful login!');
+
+    if (syncAfterLogin) {
+      syncAfterLogin = false;
+      modelSync.sync();
+    }
   }
 
   function onLoginFail() {
     commonEvents.dispatchEvent('ui.info.show', 'Login failed!');
   }
 
-  function onLoginRequired() {
+  function onLoginRequired(e) {
+    var data = e.detail || null;
+
+    if (data && data.hasOwnProperty('syncAfterLogin') && data.syncAfterLogin) {
+      syncAfterLogin = data.syncAfterLogin;
+    }
+
     tau.openPopup(loginPopup);
   }
   /**
