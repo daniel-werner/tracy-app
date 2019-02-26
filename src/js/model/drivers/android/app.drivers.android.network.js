@@ -16,6 +16,13 @@ class NetworkDriverAndroid extends NetworkDriver {
             function () {
                 _this.onNetworkTypeChange()
             }, false);
+
+        setTimeout(
+            function () {
+                _this.onGetNetworkTypeSuccess();
+            },
+            500);
+
     }
 
     isNetworkAvailable() {

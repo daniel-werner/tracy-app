@@ -2849,6 +2849,9 @@ function (_NetworkDriver) {
       document.addEventListener("online", function () {
         _this.onNetworkTypeChange();
       }, false);
+      setTimeout(function () {
+        _this.onGetNetworkTypeSuccess();
+      }, 500);
     }
   }, {
     key: "isNetworkAvailable",
