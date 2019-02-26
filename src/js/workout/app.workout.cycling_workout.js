@@ -22,8 +22,10 @@ class CyclingWorkout extends BaseWorkout {
         let distance = this._calculateDistance(pointA, pointB),
             timeDiff = pointB.time - pointA.time;
 
-        if( distance > 1 && timeDiff > 0){
+        if (distance > 0.5 && timeDiff > 0) {
             this._speed = timeDiff ? MPS_TO_KMH * distance / timeDiff : 0;
+        } else {
+            this._speed = 0;
         }
 
         return this._speed;
@@ -35,7 +37,7 @@ class CyclingWorkout extends BaseWorkout {
      * @param {Point} pointA
      * @param {Point} pointB
      */
-    calculate(pointA, pointB){
+    calculate(pointA, pointB) {
         this._calculateSpeed(pointA, pointB);
     }
 
@@ -43,7 +45,7 @@ class CyclingWorkout extends BaseWorkout {
      *
      * @returns {number}
      */
-    get speed(){
+    get speed() {
         return this._speed;
     }
 }
