@@ -1,25 +1,26 @@
-;(function(root){
-    var NetworkDriver = function(){
+const NETWORKS = ['2G', '2.5G', '3G', '4G', 'WIFI', 'ETHERNET', 'UNKNOWN'];
+
+class NetworkDriver {
+    constructor() {
         this.commonEvents = window.app.common.events;
         this.networkType = 'NONE';
-    };
+    }
 
-    var NETWORKS = ['2G', '2.5G', '3G', '4G', 'WIFI', 'ETHERNET', 'UNKNOWN'];
+    init() {
+        this.bind();
+    }
 
-    NetworkDriver.prototype = {
-        init: function(){
-            this.bind();
-        },
-        bind: function(){
+    bind() {
 
-        },
-        isNetworkAvailable: function () {
-            return NETWORKS.indexOf(this.networkType) !== -1;
-        },
-        getNetworkType: function () {
-            return this.networkType;
-        }
-    };
+    }
 
-    root.NetworkDriver = NetworkDriver;
-})(window);
+    isNetworkAvailable() {
+        return NETWORKS.indexOf(this.networkType) !== -1;
+    }
+
+    getNetworkType() {
+        return this.networkType;
+    }
+}
+
+export {NetworkDriver}

@@ -1,15 +1,14 @@
-require('../app.drivers.battery')
+import {BatteryDriver} from "../app.drivers.battery";
 
-;(function(root){
-    var BatteryDriverAndroid = function(){
-    };
+class BatteryDriverAndroid extends BatteryDriver {
+    constructor() {
+        super();
+    }
 
-    var proto = new BatteryDriver();
-
-    proto.bind = function(){
+    bind() {
         var _this = this;
 
-        document.addEventListener("deviceready", function(){
+        document.addEventListener("deviceready", function () {
             window.addEventListener("batterystatus", onBatteryStatus, false);
 
             function onBatteryStatus(status) {
@@ -23,7 +22,6 @@ require('../app.drivers.battery')
             }
         }, false);
     }
+}
 
-    BatteryDriverAndroid.prototype = proto;
-    root.BatteryDriverAndroid = BatteryDriverAndroid;
-})(window);
+export {BatteryDriverAndroid}

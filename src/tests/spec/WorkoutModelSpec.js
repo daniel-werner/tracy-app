@@ -1,3 +1,5 @@
+import {Platform} from "../../js/model/drivers/app.drivers.platform";
+
 describe("Workout model", function () {
     var app = window.app || {};
 

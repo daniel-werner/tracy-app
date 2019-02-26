@@ -1,35 +1,37 @@
-require('../app.drivers.hardware')
+import {HardwareDriver} from "../app.drivers.hardware";
 
-;(function (root) {
-    var HardwareDriverAndroid = function () {
+class HardwareDriverAndroid extends HardwareDriver {
+    constructor() {
+        super();
         this.commonEvents = window.app.common.events;
-    };
+    }
 
-    var proto = new HardwareDriver();
-
-    proto.bind = function () {
+    bind() {
         cordova.plugins.backgroundMode.on('activate', function () {
             console.log('activate background mode');
             cordova.plugins.backgroundMode.disableWebViewOptimizations();
         });
-    };
-    proto.isHeartRateAvailable = function () {
+    }
+
+    isHeartRateAvailable() {
         return false;
-    };
-    proto.backgroundRunEnable = function () {
+    }
+
+    backgroundRunEnable() {
         cordova.plugins.backgroundMode.enable();
-    };
-    proto.backgroundRunDisable = function () {
+    }
+
+    backgroundRunDisable() {
         cordova.plugins.backgroundMode.disable();
-    };
-    proto.exit = function(){
+    }
+
+    exit() {
         try {
             navigator.app.exitApp();
         } catch (error) {
             console.warn('Application exit failed.', error.message);
         }
-    };
+    }
+}
 
-    HardwareDriverAndroid.prototype = proto;
-    root.HardwareDriverAndroid = HardwareDriverAndroid;
-})(window);
+export {HardwareDriverAndroid}

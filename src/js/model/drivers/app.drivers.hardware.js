@@ -1,32 +1,36 @@
-;(function(root){
-    var HardwareDriver = function(){
+class HardwareDriver {
+    constructor() {
         this.commonEvents = window.app.common.events;
-    };
+    }
 
-    HardwareDriver.prototype = {
-        init: function(){
-            this.bind();
-        },
-        bind: function(){
+    init() {
+        this.bind();
+    }
 
-        },
-        /**
-         *
-         * @returns {boolean}
-         */
-        isHeartRateAvailable: function () {
-            return false;
-        },
-        backgroundRunEnable: function () {
+    bind() {
 
-        },
-        backgroundRunDisable: function () {
+    }
 
-        },
-        exit: function () {
+    /**
+     *
+     * @returns {boolean}
+     */
+    isHeartRateAvailable() {
+        return false;
+    }
 
-        }
-    };
+    backgroundRunEnable() {
 
-    root.HardwareDriver = HardwareDriver;
-})(window);
+    }
+
+    backgroundRunDisable() {
+
+    }
+
+    exit() {
+
+    }
+}
+
+export {HardwareDriver}
+
