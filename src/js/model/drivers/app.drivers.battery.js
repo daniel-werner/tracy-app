@@ -1,17 +1,16 @@
-;(function(root){
-    var BatteryDriver = function(){
+class BatteryDriver {
+    constructor() {
         this.level = null;
         this.commonEvents = window.app.common.events;
-    };
+    }
 
-    BatteryDriver.prototype = {
-        init: function(){
-            this.bind();
-        },
-        bind: function(){
+    init() {
+        this.bind();
+    }
 
-        }
-    };
+    bind() {
 
-    root.BatteryDriver = BatteryDriver;
-})(window);
+    }
+}
+
+export {BatteryDriver}

@@ -1,13 +1,7 @@
-require('../app.drivers.battery')
+import {BatteryDriver} from "../app.drivers.battery";
 
-;(function(root){
-    var BatteryDriverTizen = function(){
-
-    };
-
-    var proto = new BatteryDriver();
-
-    proto.bind = function(){
+class BatteryDriverTizen extends BatteryDriver {
+    bind() {
         var _this = this,
             systeminfo = null;
 
@@ -35,7 +29,7 @@ require('../app.drivers.battery')
             console.warn('Battery state listener was not set.', error);
         }
     }
+}
 
-    BatteryDriverTizen.prototype = proto;
-    root.BatteryDriverTizen = BatteryDriverTizen;
-})(window);
+export {BatteryDriverTizen}
+

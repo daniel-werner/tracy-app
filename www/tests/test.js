@@ -2335,7 +2335,9 @@ window.app = window.app || {};
         authHeaders = createAuthHeader();
 
     if (authHeaders === false) {
-      commonEvents.dispatchEvent('model.sync.login.required');
+      commonEvents.dispatchEvent('model.sync.login.required', {
+        syncAfterLogin: true
+      });
       return false;
     }
     /* Check the response status */
@@ -2352,7 +2354,9 @@ window.app = window.app || {};
             break;
 
           case 401:
-            commonEvents.dispatchEvent('model.sync.login.required');
+            commonEvents.dispatchEvent('model.sync.login.required', {
+              syncAfterLogin: true
+            });
             break;
 
           default:
@@ -2643,37 +2647,69 @@ window.app = window.app || {};
 /*!*********************************************************************!*\
   !*** ./src/js/model/drivers/android/app.drivers.android.battery.js ***!
   \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: BatteryDriverAndroid */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-__webpack_require__(/*! ../app.drivers.battery */ "./src/js/model/drivers/app.drivers.battery.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BatteryDriverAndroid", function() { return BatteryDriverAndroid; });
+/* harmony import */ var _app_drivers_battery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.drivers.battery */ "./src/js/model/drivers/app.drivers.battery.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-(function (root) {
-  var BatteryDriverAndroid = function BatteryDriverAndroid() {};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  var proto = new BatteryDriver();
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  proto.bind = function () {
-    var _this = this;
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-    document.addEventListener("deviceready", function () {
-      window.addEventListener("batterystatus", onBatteryStatus, false);
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-      function onBatteryStatus(status) {
-        _this.level = status.level;
-      }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-      window.addEventListener("batterylow", onBatteryLow, false);
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-      function onBatteryLow(status) {
-        _this.commonEvents.dispatchEvent('model.battery.low');
-      }
-    }, false);
-  };
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-  BatteryDriverAndroid.prototype = proto;
-  root.BatteryDriverAndroid = BatteryDriverAndroid;
-})(window);
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var BatteryDriverAndroid =
+/*#__PURE__*/
+function (_BatteryDriver) {
+  _inherits(BatteryDriverAndroid, _BatteryDriver);
+
+  function BatteryDriverAndroid() {
+    _classCallCheck(this, BatteryDriverAndroid);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(BatteryDriverAndroid).call(this));
+  }
+
+  _createClass(BatteryDriverAndroid, [{
+    key: "bind",
+    value: function bind() {
+      var _this = this;
+
+      document.addEventListener("deviceready", function () {
+        window.addEventListener("batterystatus", onBatteryStatus, false);
+
+        function onBatteryStatus(status) {
+          _this.level = status.level;
+        }
+
+        window.addEventListener("batterylow", onBatteryLow, false);
+
+        function onBatteryLow(status) {
+          _this.commonEvents.dispatchEvent('model.battery.low');
+        }
+      }, false);
+    }
+  }]);
+
+  return BatteryDriverAndroid;
+}(_app_drivers_battery__WEBPACK_IMPORTED_MODULE_0__["BatteryDriver"]);
+
+
 
 /***/ }),
 
@@ -2681,56 +2717,86 @@ __webpack_require__(/*! ../app.drivers.battery */ "./src/js/model/drivers/app.dr
 /*!**********************************************************************!*\
   !*** ./src/js/model/drivers/android/app.drivers.android.hardware.js ***!
   \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: HardwareDriverAndroid */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-__webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.drivers.hardware.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HardwareDriverAndroid", function() { return HardwareDriverAndroid; });
+/* harmony import */ var _app_drivers_hardware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.drivers.hardware.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-(function (root) {
-  var HardwareDriverAndroid = function HardwareDriverAndroid() {
-    this.commonEvents = window.app.common.events;
-  };
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  var proto = new HardwareDriver();
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  proto.bind = function () {
-    cordova.plugins.backgroundMode.on('activate', function () {
-      cordova.plugins.backgroundMode.disableWebViewOptimizations();
-    });
-    window.addEventListener('model.workout.updateui', function (e) {
-      var distance = e.detail.distance;
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-      if (cordova.plugins.backgroundMode.isActive()) {
-        cordova.plugins.backgroundMode.configure({
-          text: 'Workout active, distance: ' + Math.round(distance * 100) / 100 + ' km'
-        });
-      }
-    });
-  };
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-  proto.isHeartRateAvailable = function () {
-    return false;
-  };
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-  proto.backgroundRunEnable = function () {
-    cordova.plugins.backgroundMode.enable();
-  };
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-  proto.backgroundRunDisable = function () {
-    cordova.plugins.backgroundMode.disable();
-  };
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-  proto.exit = function () {
-    try {
-      navigator.app.exitApp();
-    } catch (error) {
-      console.warn('Application exit failed.', error.message);
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var HardwareDriverAndroid =
+/*#__PURE__*/
+function (_HardwareDriver) {
+  _inherits(HardwareDriverAndroid, _HardwareDriver);
+
+  function HardwareDriverAndroid() {
+    var _this;
+
+    _classCallCheck(this, HardwareDriverAndroid);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(HardwareDriverAndroid).call(this));
+    _this.commonEvents = window.app.common.events;
+    return _this;
+  }
+
+  _createClass(HardwareDriverAndroid, [{
+    key: "bind",
+    value: function bind() {
+      cordova.plugins.backgroundMode.on('activate', function () {
+        console.log('activate background mode');
+        cordova.plugins.backgroundMode.disableWebViewOptimizations();
+      });
     }
-  };
+  }, {
+    key: "isHeartRateAvailable",
+    value: function isHeartRateAvailable() {
+      return false;
+    }
+  }, {
+    key: "backgroundRunEnable",
+    value: function backgroundRunEnable() {
+      cordova.plugins.backgroundMode.enable();
+    }
+  }, {
+    key: "backgroundRunDisable",
+    value: function backgroundRunDisable() {
+      cordova.plugins.backgroundMode.disable();
+    }
+  }, {
+    key: "exit",
+    value: function exit() {
+      try {
+        navigator.app.exitApp();
+      } catch (error) {
+        console.warn('Application exit failed.', error.message);
+      }
+    }
+  }]);
 
-  HardwareDriverAndroid.prototype = proto;
-  root.HardwareDriverAndroid = HardwareDriverAndroid;
-})(window);
+  return HardwareDriverAndroid;
+}(_app_drivers_hardware__WEBPACK_IMPORTED_MODULE_0__["HardwareDriver"]);
+
+
 
 /***/ }),
 
@@ -2738,44 +2804,82 @@ __webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.d
 /*!*********************************************************************!*\
   !*** ./src/js/model/drivers/android/app.drivers.android.network.js ***!
   \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: NetworkDriverAndroid */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-__webpack_require__(/*! ../app.drivers.network */ "./src/js/model/drivers/app.drivers.network.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NetworkDriverAndroid", function() { return NetworkDriverAndroid; });
+/* harmony import */ var _app_drivers_network__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.drivers.network */ "./src/js/model/drivers/app.drivers.network.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-(function (root) {
-  var NetworkDriverAndroid = function NetworkDriverAndroid() {};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  var proto = new NetworkDriver();
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  proto.bind = function () {
-    var _this = this;
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-    document.addEventListener("offline", function () {
-      _this.onNetworkTypeChange();
-    }, false);
-    document.addEventListener("online", function () {
-      _this.onNetworkTypeChange();
-    }, false);
-  };
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-  proto.isNetworkAvailable = function () {
-    return navigator.connection.type !== Connection.NONE;
-  };
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-  proto.onNetworkTypeChange = function (network) {
-    this.networkType = navigator.connection.type;
-    this.commonEvents.dispatchEvent('model.network.type.changed');
-  };
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-  proto.onGetNetworkTypeSuccess = function (network) {
-    this.networkType = navigator.connection.type;
-    this.commonEvents.dispatchEvent('model.network.initialized');
-  };
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
-  NetworkDriverAndroid.prototype = proto;
-  root.NetworkDriverAndroid = NetworkDriverAndroid;
-})(window);
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var NetworkDriverAndroid =
+/*#__PURE__*/
+function (_NetworkDriver) {
+  _inherits(NetworkDriverAndroid, _NetworkDriver);
+
+  function NetworkDriverAndroid() {
+    _classCallCheck(this, NetworkDriverAndroid);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(NetworkDriverAndroid).call(this));
+  }
+
+  _createClass(NetworkDriverAndroid, [{
+    key: "bind",
+    value: function bind() {
+      var _this = this;
+
+      document.addEventListener("offline", function () {
+        _this.onNetworkTypeChange();
+      }, false);
+      document.addEventListener("online", function () {
+        _this.onNetworkTypeChange();
+      }, false);
+      setTimeout(function () {
+        _this.onGetNetworkTypeSuccess();
+      }, 500);
+    }
+  }, {
+    key: "isNetworkAvailable",
+    value: function isNetworkAvailable() {
+      return navigator.connection.type !== Connection.NONE;
+    }
+  }, {
+    key: "onNetworkTypeChange",
+    value: function onNetworkTypeChange() {
+      this.networkType = navigator.connection.type;
+      this.commonEvents.dispatchEvent('model.network.type.changed');
+    }
+  }, {
+    key: "onGetNetworkTypeSuccess",
+    value: function onGetNetworkTypeSuccess() {
+      this.networkType = navigator.connection.type;
+      this.commonEvents.dispatchEvent('model.network.initialized');
+    }
+  }]);
+
+  return NetworkDriverAndroid;
+}(_app_drivers_network__WEBPACK_IMPORTED_MODULE_0__["NetworkDriver"]);
+
+
 
 /***/ }),
 
@@ -2783,22 +2887,31 @@ __webpack_require__(/*! ../app.drivers.network */ "./src/js/model/drivers/app.dr
 /*!****************************************************!*\
   !*** ./src/js/model/drivers/app.driver.factory.js ***!
   \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-__webpack_require__(/*! ./android/app.drivers.android.battery */ "./src/js/model/drivers/android/app.drivers.android.battery.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.drivers.platform */ "./src/js/model/drivers/app.drivers.platform.js");
+/* harmony import */ var _app_drivers_hardware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app.drivers.hardware */ "./src/js/model/drivers/app.drivers.hardware.js");
+/* harmony import */ var _tizen_app_drivers_tizen_hardware__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tizen/app.drivers.tizen.hardware */ "./src/js/model/drivers/tizen/app.drivers.tizen.hardware.js");
+/* harmony import */ var _android_app_drivers_android_hardware__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./android/app.drivers.android.hardware */ "./src/js/model/drivers/android/app.drivers.android.hardware.js");
+/* harmony import */ var _app_drivers_battery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.drivers.battery */ "./src/js/model/drivers/app.drivers.battery.js");
+/* harmony import */ var _tizen_app_drivers_tizen_battery__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tizen/app.drivers.tizen.battery */ "./src/js/model/drivers/tizen/app.drivers.tizen.battery.js");
+/* harmony import */ var _android_app_drivers_android_battery__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./android/app.drivers.android.battery */ "./src/js/model/drivers/android/app.drivers.android.battery.js");
+/* harmony import */ var _app_drivers_network__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.drivers.network */ "./src/js/model/drivers/app.drivers.network.js");
+/* harmony import */ var _tizen_app_drivers_tizen_network__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tizen/app.drivers.tizen.network */ "./src/js/model/drivers/tizen/app.drivers.tizen.network.js");
+/* harmony import */ var _android_app_drivers_android_network__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./android/app.drivers.android.network */ "./src/js/model/drivers/android/app.drivers.android.network.js");
 
-__webpack_require__(/*! ./android/app.drivers.android.network */ "./src/js/model/drivers/android/app.drivers.android.network.js");
 
-__webpack_require__(/*! ./android/app.drivers.android.hardware */ "./src/js/model/drivers/android/app.drivers.android.hardware.js");
 
-__webpack_require__(/*! ./tizen/app.drivers.tizen.battery */ "./src/js/model/drivers/tizen/app.drivers.tizen.battery.js");
 
-__webpack_require__(/*! ./tizen/app.drivers.tizen.network */ "./src/js/model/drivers/tizen/app.drivers.tizen.network.js");
 
-__webpack_require__(/*! ./tizen/app.drivers.tizen.hardware */ "./src/js/model/drivers/tizen/app.drivers.tizen.hardware.js");
 
-;
+
+
+
+
 
 (function (root) {
   var DriverFactory = function DriverFactory(platform) {
@@ -2807,45 +2920,45 @@ __webpack_require__(/*! ./tizen/app.drivers.tizen.hardware */ "./src/js/model/dr
 
   DriverFactory.prototype = {
     buildNetworkDriver: function buildNetworkDriver() {
-      var networkDriver = new NetworkDriver();
+      var networkDriver = new _app_drivers_network__WEBPACK_IMPORTED_MODULE_7__["NetworkDriver"]();
 
       switch (this.platform) {
-        case Platform.PLATFORM_TIZEN:
-          networkDriver = new NetworkDriverTizen();
+        case _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].TIZEN:
+          networkDriver = new _tizen_app_drivers_tizen_network__WEBPACK_IMPORTED_MODULE_8__["NetworkDriverTizen"]();
           break;
 
-        case Platform.PLATFORM_ANDROID:
-          networkDriver = new NetworkDriverAndroid();
+        case _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].ANDROID:
+          networkDriver = new _android_app_drivers_android_network__WEBPACK_IMPORTED_MODULE_9__["NetworkDriverAndroid"]();
           break;
       }
 
       return networkDriver;
     },
     buildBatteryDriver: function buildBatteryDriver() {
-      var batteryDriver = new BatteryDriver();
+      var batteryDriver = new _app_drivers_battery__WEBPACK_IMPORTED_MODULE_4__["BatteryDriver"]();
 
       switch (this.platform) {
-        case Platform.PLATFORM_TIZEN:
-          batteryDriver = new BatteryDriverTizen();
+        case _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].TIZEN:
+          batteryDriver = new _tizen_app_drivers_tizen_battery__WEBPACK_IMPORTED_MODULE_5__["BatteryDriverTizen"]();
           break;
 
-        case Platform.PLATFORM_ANDROID:
-          batteryDriver = new BatteryDriverAndroid();
+        case _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].ANDROID:
+          batteryDriver = new _android_app_drivers_android_battery__WEBPACK_IMPORTED_MODULE_6__["BatteryDriverAndroid"]();
           break;
       }
 
       return batteryDriver;
     },
     buildHardwareDriver: function buildHardwareDriver() {
-      var hardwareDriver = new HardwareDriver();
+      var hardwareDriver = new _app_drivers_hardware__WEBPACK_IMPORTED_MODULE_1__["HardwareDriver"]();
 
       switch (this.platform) {
-        case Platform.PLATFORM_TIZEN:
-          hardwareDriver = new HardwareDriverTizen();
+        case _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].TIZEN:
+          hardwareDriver = new _tizen_app_drivers_tizen_hardware__WEBPACK_IMPORTED_MODULE_2__["HardwareDriverTizen"]();
           break;
 
-        case Platform.PLATFORM_ANDROID:
-          hardwareDriver = new HardwareDriverAndroid();
+        case _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].ANDROID:
+          hardwareDriver = new _android_app_drivers_android_hardware__WEBPACK_IMPORTED_MODULE_3__["HardwareDriverAndroid"]();
           break;
       }
 
@@ -2861,25 +2974,42 @@ __webpack_require__(/*! ./tizen/app.drivers.tizen.hardware */ "./src/js/model/dr
 /*!*****************************************************!*\
   !*** ./src/js/model/drivers/app.drivers.battery.js ***!
   \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: BatteryDriver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-;
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BatteryDriver", function() { return BatteryDriver; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-(function (root) {
-  var BatteryDriver = function BatteryDriver() {
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var BatteryDriver =
+/*#__PURE__*/
+function () {
+  function BatteryDriver() {
+    _classCallCheck(this, BatteryDriver);
+
     this.level = null;
     this.commonEvents = window.app.common.events;
-  };
+  }
 
-  BatteryDriver.prototype = {
-    init: function init() {
+  _createClass(BatteryDriver, [{
+    key: "init",
+    value: function init() {
       this.bind();
-    },
-    bind: function bind() {}
-  };
-  root.BatteryDriver = BatteryDriver;
-})(window);
+    }
+  }, {
+    key: "bind",
+    value: function bind() {}
+  }]);
+
+  return BatteryDriver;
+}();
+
+
 
 /***/ }),
 
@@ -2887,35 +3017,60 @@ __webpack_require__(/*! ./tizen/app.drivers.tizen.hardware */ "./src/js/model/dr
 /*!******************************************************!*\
   !*** ./src/js/model/drivers/app.drivers.hardware.js ***!
   \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: HardwareDriver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-;
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HardwareDriver", function() { return HardwareDriver; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-(function (root) {
-  var HardwareDriver = function HardwareDriver() {
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var HardwareDriver =
+/*#__PURE__*/
+function () {
+  function HardwareDriver() {
+    _classCallCheck(this, HardwareDriver);
+
     this.commonEvents = window.app.common.events;
-  };
+  }
 
-  HardwareDriver.prototype = {
-    init: function init() {
+  _createClass(HardwareDriver, [{
+    key: "init",
+    value: function init() {
       this.bind();
-    },
-    bind: function bind() {},
-
+    }
+  }, {
+    key: "bind",
+    value: function bind() {}
     /**
      *
      * @returns {boolean}
      */
-    isHeartRateAvailable: function isHeartRateAvailable() {
+
+  }, {
+    key: "isHeartRateAvailable",
+    value: function isHeartRateAvailable() {
       return false;
-    },
-    backgroundRunEnable: function backgroundRunEnable() {},
-    backgroundRunDisable: function backgroundRunDisable() {},
-    exit: function exit() {}
-  };
-  root.HardwareDriver = HardwareDriver;
-})(window);
+    }
+  }, {
+    key: "backgroundRunEnable",
+    value: function backgroundRunEnable() {}
+  }, {
+    key: "backgroundRunDisable",
+    value: function backgroundRunDisable() {}
+  }, {
+    key: "exit",
+    value: function exit() {}
+  }]);
+
+  return HardwareDriver;
+}();
+
+
 
 /***/ }),
 
@@ -2923,32 +3078,54 @@ __webpack_require__(/*! ./tizen/app.drivers.tizen.hardware */ "./src/js/model/dr
 /*!*****************************************************!*\
   !*** ./src/js/model/drivers/app.drivers.network.js ***!
   \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: NetworkDriver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-;
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NetworkDriver", function() { return NetworkDriver; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-(function (root) {
-  var NetworkDriver = function NetworkDriver() {
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var NETWORKS = ['2G', '2.5G', '3G', '4G', 'WIFI', 'ETHERNET', 'UNKNOWN'];
+
+var NetworkDriver =
+/*#__PURE__*/
+function () {
+  function NetworkDriver() {
+    _classCallCheck(this, NetworkDriver);
+
     this.commonEvents = window.app.common.events;
     this.networkType = 'NONE';
-  };
+  }
 
-  var NETWORKS = ['2G', '2.5G', '3G', '4G', 'WIFI', 'ETHERNET', 'UNKNOWN'];
-  NetworkDriver.prototype = {
-    init: function init() {
+  _createClass(NetworkDriver, [{
+    key: "init",
+    value: function init() {
       this.bind();
-    },
-    bind: function bind() {},
-    isNetworkAvailable: function isNetworkAvailable() {
+    }
+  }, {
+    key: "bind",
+    value: function bind() {}
+  }, {
+    key: "isNetworkAvailable",
+    value: function isNetworkAvailable() {
       return NETWORKS.indexOf(this.networkType) !== -1;
-    },
-    getNetworkType: function getNetworkType() {
+    }
+  }, {
+    key: "getNetworkType",
+    value: function getNetworkType() {
       return this.networkType;
     }
-  };
-  root.NetworkDriver = NetworkDriver;
-})(window);
+  }]);
+
+  return NetworkDriver;
+}();
+
+
 
 /***/ }),
 
@@ -2956,32 +3133,53 @@ __webpack_require__(/*! ./tizen/app.drivers.tizen.hardware */ "./src/js/model/dr
 /*!******************************************************!*\
   !*** ./src/js/model/drivers/app.drivers.platform.js ***!
   \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: Platform, PLATFORMS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Platform", function() { return Platform; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PLATFORMS", function() { return PLATFORMS; });
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-(function (root) {
-  var Platform = {
-    PLATFORM_TIZEN: 'tizen',
-    PLATFORM_ANDROID: 'android',
-    PLATFORM_BROWSER: 'browser',
-    get: function get() {
-      var platform = this.PLATFORM_BROWSER;
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var PLATFORMS = {
+  TIZEN: 'tizen',
+  ANDROID: 'android',
+  BROWSER: 'browser'
+};
+
+var Platform =
+/*#__PURE__*/
+function () {
+  function Platform() {
+    _classCallCheck(this, Platform);
+  }
+
+  _createClass(Platform, null, [{
+    key: "get",
+    value: function get() {
+      var platform = PLATFORMS.BROWSER;
 
       if ((typeof tizen === "undefined" ? "undefined" : _typeof(tizen)) === 'object' && _typeof(tizen.systeminfo) === 'object') {
-        platform = this.PLATFORM_TIZEN;
+        platform = PLATFORMS.TIZEN;
       } else if ((typeof device === "undefined" ? "undefined" : _typeof(device)) === 'object' && device.platform === 'Android') {
-        platform = this.PLATFORM_ANDROID;
+        platform = PLATFORMS.ANDROID;
       }
 
       return platform;
     }
-  };
-  root.Platform = Platform;
-})(window);
+  }]);
+
+  return Platform;
+}();
+
+
 
 /***/ }),
 
@@ -2989,46 +3187,76 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 /*!*****************************************************************!*\
   !*** ./src/js/model/drivers/tizen/app.drivers.tizen.battery.js ***!
   \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: BatteryDriverTizen */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BatteryDriverTizen", function() { return BatteryDriverTizen; });
+/* harmony import */ var _app_drivers_battery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.drivers.battery */ "./src/js/model/drivers/app.drivers.battery.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-__webpack_require__(/*! ../app.drivers.battery */ "./src/js/model/drivers/app.drivers.battery.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-(function (root) {
-  var BatteryDriverTizen = function BatteryDriverTizen() {};
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  var proto = new BatteryDriver();
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-  proto.bind = function () {
-    var _this = this,
-        systeminfo = null;
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-    if ((typeof tizen === "undefined" ? "undefined" : _typeof(tizen)) === 'object' && _typeof(tizen.systeminfo) === 'object') {
-      var systeminfo = tizen.systeminfo;
-    } else {
-      console.warn('tizen.systeminfo not available');
-    }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-    try {
-      systeminfo.addPropertyValueChangeListener('BATTERY', function change(battery) {
-        _this.level = battery.level;
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-        if (!battery.isCharging && battery.level < _this.LOW_BATTERY) {
-          _this.commonEvents.dispatchEvent('model.battery.low');
-        }
-      }, null, function errorCallback(error) {
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var BatteryDriverTizen =
+/*#__PURE__*/
+function (_BatteryDriver) {
+  _inherits(BatteryDriverTizen, _BatteryDriver);
+
+  function BatteryDriverTizen() {
+    _classCallCheck(this, BatteryDriverTizen);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(BatteryDriverTizen).apply(this, arguments));
+  }
+
+  _createClass(BatteryDriverTizen, [{
+    key: "bind",
+    value: function bind() {
+      var _this = this,
+          systeminfo = null;
+
+      if ((typeof tizen === "undefined" ? "undefined" : _typeof(tizen)) === 'object' && _typeof(tizen.systeminfo) === 'object') {
+        var systeminfo = tizen.systeminfo;
+      } else {
+        console.warn('tizen.systeminfo not available');
+      }
+
+      try {
+        systeminfo.addPropertyValueChangeListener('BATTERY', function change(battery) {
+          _this.level = battery.level;
+
+          if (!battery.isCharging && battery.level < _this.LOW_BATTERY) {
+            _this.commonEvents.dispatchEvent('model.battery.low');
+          }
+        }, null, function errorCallback(error) {
+          console.warn('Battery state listener was not set.', error);
+        });
+      } catch (error) {
         console.warn('Battery state listener was not set.', error);
-      });
-    } catch (error) {
-      console.warn('Battery state listener was not set.', error);
+      }
     }
-  };
+  }]);
 
-  BatteryDriverTizen.prototype = proto;
-  root.BatteryDriverTizen = BatteryDriverTizen;
-})(window);
+  return BatteryDriverTizen;
+}(_app_drivers_battery__WEBPACK_IMPORTED_MODULE_0__["BatteryDriver"]);
+
+
 
 /***/ }),
 
@@ -3036,45 +3264,83 @@ __webpack_require__(/*! ../app.drivers.battery */ "./src/js/model/drivers/app.dr
 /*!******************************************************************!*\
   !*** ./src/js/model/drivers/tizen/app.drivers.tizen.hardware.js ***!
   \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: HardwareDriverTizen */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-__webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.drivers.hardware.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HardwareDriverTizen", function() { return HardwareDriverTizen; });
+/* harmony import */ var _app_drivers_hardware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.drivers.hardware.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-(function (root) {
-  var HardwareDriverTizen = function HardwareDriverTizen() {
-    this.commonEvents = window.app.common.events;
-  };
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  var proto = new HardwareDriver();
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  proto.bind = function () {};
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-  proto.isHeartRateAvailable = function () {
-    return true;
-  };
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-  proto.backgroundRunEnable = function () {
-    tizen.power.request("CPU", "CPU_AWAKE");
-    tizen.power.request('SCREEN', 'SCREEN_NORMAL');
-  };
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-  proto.backgroundRunDisable = function () {
-    tizen.power.release("CPU");
-    tizen.power.release('SCREEN');
-  };
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-  proto.exit = function () {
-    try {
-      tizen.application.getCurrentApplication().exit();
-    } catch (error) {
-      console.warn('Application exit failed.', error.message);
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var HardwareDriverTizen =
+/*#__PURE__*/
+function (_HardwareDriver) {
+  _inherits(HardwareDriverTizen, _HardwareDriver);
+
+  function HardwareDriverTizen() {
+    var _this;
+
+    _classCallCheck(this, HardwareDriverTizen);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(HardwareDriverTizen).call(this));
+    _this.commonEvents = window.app.common.events;
+    return _this;
+  }
+
+  _createClass(HardwareDriverTizen, [{
+    key: "bind",
+    value: function bind() {}
+  }, {
+    key: "isHeartRateAvailable",
+    value: function isHeartRateAvailable() {
+      return true;
     }
-  };
+  }, {
+    key: "backgroundRunEnable",
+    value: function backgroundRunEnable() {
+      tizen.power.request("CPU", "CPU_AWAKE");
+      tizen.power.request('SCREEN', 'SCREEN_NORMAL');
+    }
+  }, {
+    key: "backgroundRunDisable",
+    value: function backgroundRunDisable() {
+      tizen.power.release("CPU");
+      tizen.power.release('SCREEN');
+    }
+  }, {
+    key: "exit",
+    value: function exit() {
+      try {
+        tizen.application.getCurrentApplication().exit();
+      } catch (error) {
+        console.warn('Application exit failed.', error.message);
+      }
+    }
+  }]);
 
-  HardwareDriverTizen.prototype = proto;
-  root.HardwareDriverTizen = HardwareDriverTizen;
-})(window);
+  return HardwareDriverTizen;
+}(_app_drivers_hardware__WEBPACK_IMPORTED_MODULE_0__["HardwareDriver"]);
+
+
 
 /***/ }),
 
@@ -3082,60 +3348,92 @@ __webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.d
 /*!*****************************************************************!*\
   !*** ./src/js/model/drivers/tizen/app.drivers.tizen.network.js ***!
   \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! exports provided: NetworkDriverTizen */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NetworkDriverTizen", function() { return NetworkDriverTizen; });
+/* harmony import */ var _app_drivers_network__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.drivers.network */ "./src/js/model/drivers/app.drivers.network.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-__webpack_require__(/*! ../app.drivers.network */ "./src/js/model/drivers/app.drivers.network.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-(function (root) {
-  var NetworkDriverTizen = function NetworkDriverTizen() {};
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-  var proto = new NetworkDriver();
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-  proto.bind = function () {
-    var _this = this,
-        systeminfo = null;
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-    if ((typeof tizen === "undefined" ? "undefined" : _typeof(tizen)) === 'object' && _typeof(tizen.systeminfo) === 'object') {
-      var systeminfo = tizen.systeminfo;
-    } else {
-      console.warn('tizen.systeminfo not available');
-    }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
-    try {
-      systeminfo.getPropertyValue('NETWORK', function (network) {
-        _this.onGetNetworkTypeSuccess(network);
-      }, function onGetPropertyValueError(error) {
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var NetworkDriverTizen =
+/*#__PURE__*/
+function (_NetworkDriver) {
+  _inherits(NetworkDriverTizen, _NetworkDriver);
+
+  function NetworkDriverTizen() {
+    _classCallCheck(this, NetworkDriverTizen);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(NetworkDriverTizen).call(this));
+  }
+
+  _createClass(NetworkDriverTizen, [{
+    key: "bind",
+    value: function bind() {
+      var _this = this,
+          systeminfo = null;
+
+      if ((typeof tizen === "undefined" ? "undefined" : _typeof(tizen)) === 'object' && _typeof(tizen.systeminfo) === 'object') {
+        var systeminfo = tizen.systeminfo;
+      } else {
+        console.warn('tizen.systeminfo not available');
+      }
+
+      try {
+        systeminfo.getPropertyValue('NETWORK', function (network) {
+          _this.onGetNetworkTypeSuccess(network);
+        }, function onGetPropertyValueError(error) {
+          console.warn('Couldn\'t get network type value.', error);
+        });
+      } catch (error) {
         console.warn('Couldn\'t get network type value.', error);
-      });
-    } catch (error) {
-      console.warn('Couldn\'t get network type value.', error);
+      }
+
+      try {
+        systeminfo.addPropertyValueChangeListener('NETWORK', function (network) {
+          _this.onNetworkTypeChange(network);
+        });
+      } catch (error) {
+        console.warn('Network change listener was not set.', error);
+      }
     }
-
-    try {
-      systeminfo.addPropertyValueChangeListener('NETWORK', function (network) {
-        _this.onNetworkTypeChange(network);
-      });
-    } catch (error) {
-      console.warn('Network change listener was not set.', error);
+  }, {
+    key: "onNetworkTypeChange",
+    value: function onNetworkTypeChange(network) {
+      this.networkType = network.networkType;
+      this.commonEvents.dispatchEvent('model.network.type.changed');
     }
-  };
+  }, {
+    key: "onGetNetworkTypeSuccess",
+    value: function onGetNetworkTypeSuccess(network) {
+      this.networkType = network.networkType;
+      this.commonEvents.dispatchEvent('model.network.initialized');
+    }
+  }]);
 
-  proto.onNetworkTypeChange = function (network) {
-    this.networkType = network.networkType;
-    this.commonEvents.dispatchEvent('model.network.type.changed');
-  };
+  return NetworkDriverTizen;
+}(_app_drivers_network__WEBPACK_IMPORTED_MODULE_0__["NetworkDriver"]);
 
-  proto.onGetNetworkTypeSuccess = function (network) {
-    this.networkType = network.networkType;
-    this.commonEvents.dispatchEvent('model.network.initialized');
-  };
 
-  NetworkDriverTizen.prototype = proto;
-  root.NetworkDriverTizen = NetworkDriverTizen;
-})(window);
 
 /***/ }),
 
@@ -3146,9 +3444,8 @@ __webpack_require__(/*! ../app.drivers.network */ "./src/js/model/drivers/app.dr
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ../common/app.common.events */ "./src/js/common/app.common.events.js");
+__webpack_require__(/*! ../common/app.common.events */ "./src/js/common/app.common.events.js"); // require('./drivers/app.drivers.platform');
 
-__webpack_require__(/*! ./drivers/app.drivers.platform */ "./src/js/model/drivers/app.drivers.platform.js");
 
 __webpack_require__(/*! ./drivers/app.driver.factory */ "./src/js/model/drivers/app.driver.factory.js");
 
@@ -3679,8 +3976,12 @@ function (_BaseWorkout) {
 /*!*****************************************!*\
   !*** ./src/tests/spec/SyncModelSpec.js ***!
   \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _js_model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../js/model/drivers/app.drivers.platform */ "./src/js/model/drivers/app.drivers.platform.js");
 
 describe("Sync", function () {
   var app = window.app || {};
@@ -3703,7 +4004,7 @@ describe("Sync", function () {
     this.modelWorkout = app.model.workout;
     this.modelGeolocation = app.model.geolocation;
     this.modelSync = app.model.sync;
-    var platform = Platform.get(),
+    var platform = _js_model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["Platform"].get(),
         driverFactory = new DriverFactory(platform);
     this.modelWorkout.init(driverFactory.buildHardwareDriver(platform));
     window.addEventListener('model.workout.dbready', function (e) {
@@ -3754,10 +4055,14 @@ describe("Sync", function () {
 /*!********************************************!*\
   !*** ./src/tests/spec/WorkoutModelSpec.js ***!
   \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _js_model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../js/model/drivers/app.drivers.platform */ "./src/js/model/drivers/app.drivers.platform.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 
 describe("Workout model", function () {
   var app = window.app || {};
@@ -3778,7 +4083,7 @@ describe("Workout model", function () {
     xmlhttp.send();
     this.modelWorkout = app.model.workout;
     this.modelGeolocation = app.model.geolocation;
-    var platform = Platform.get(),
+    var platform = _js_model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["Platform"].get(),
         driverFactory = new DriverFactory(platform);
     this.modelWorkout.init(driverFactory.buildHardwareDriver(platform));
     window.addEventListener('model.workout.dbready', function (e) {
@@ -3891,29 +4196,45 @@ describe("Workout model", function () {
 /*!**************************************************!*\
   !*** ./src/tests/spec/unit/DriverFactorySpec.js ***!
   \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _js_model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../js/model/drivers/app.drivers.platform */ "./src/js/model/drivers/app.drivers.platform.js");
+/* harmony import */ var _js_model_drivers_tizen_app_drivers_tizen_hardware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../js/model/drivers/tizen/app.drivers.tizen.hardware */ "./src/js/model/drivers/tizen/app.drivers.tizen.hardware.js");
+/* harmony import */ var _js_model_drivers_android_app_drivers_android_hardware__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../js/model/drivers/android/app.drivers.android.hardware */ "./src/js/model/drivers/android/app.drivers.android.hardware.js");
+/* harmony import */ var _js_model_drivers_tizen_app_drivers_tizen_battery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../js/model/drivers/tizen/app.drivers.tizen.battery */ "./src/js/model/drivers/tizen/app.drivers.tizen.battery.js");
+/* harmony import */ var _js_model_drivers_android_app_drivers_android_battery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../js/model/drivers/android/app.drivers.android.battery */ "./src/js/model/drivers/android/app.drivers.android.battery.js");
+/* harmony import */ var _js_model_drivers_tizen_app_drivers_tizen_network__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../js/model/drivers/tizen/app.drivers.tizen.network */ "./src/js/model/drivers/tizen/app.drivers.tizen.network.js");
+/* harmony import */ var _js_model_drivers_android_app_drivers_android_network__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../js/model/drivers/android/app.drivers.android.network */ "./src/js/model/drivers/android/app.drivers.android.network.js");
+
+
+
+
+
+
 
 describe("DriverFactory", function () {
   it('should create drivers for tizen', function () {
-    var platform = Platform.PLATFORM_TIZEN,
+    var platform = _js_model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].TIZEN,
         driverFactory = new DriverFactory(platform),
         batteryDriver = driverFactory.buildBatteryDriver(platform),
         networkDriver = driverFactory.buildNetworkDriver(platform),
         hardwareDriver = driverFactory.buildHardwareDriver(platform);
-    expect(batteryDriver instanceof BatteryDriverTizen).toBeTruthy();
-    expect(networkDriver instanceof NetworkDriverTizen).toBeTruthy();
-    expect(hardwareDriver instanceof HardwareDriverTizen).toBeTruthy();
+    expect(batteryDriver instanceof _js_model_drivers_tizen_app_drivers_tizen_battery__WEBPACK_IMPORTED_MODULE_3__["BatteryDriverTizen"]).toBeTruthy();
+    expect(networkDriver instanceof _js_model_drivers_tizen_app_drivers_tizen_network__WEBPACK_IMPORTED_MODULE_5__["NetworkDriverTizen"]).toBeTruthy();
+    expect(hardwareDriver instanceof _js_model_drivers_tizen_app_drivers_tizen_hardware__WEBPACK_IMPORTED_MODULE_1__["HardwareDriverTizen"]).toBeTruthy();
   });
   it('should create drivers for android', function () {
-    var platform = Platform.PLATFORM_ANDROID,
+    var platform = _js_model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].ANDROID,
         driverFactory = new DriverFactory(platform),
         batteryDriver = driverFactory.buildBatteryDriver(platform),
         networkDriver = driverFactory.buildNetworkDriver(platform),
         hardwareDriver = driverFactory.buildHardwareDriver(platform);
-    expect(batteryDriver instanceof BatteryDriverAndroid).toBeTruthy();
-    expect(networkDriver instanceof NetworkDriverAndroid).toBeTruthy();
-    expect(hardwareDriver instanceof HardwareDriverAndroid).toBeTruthy();
+    expect(batteryDriver instanceof _js_model_drivers_android_app_drivers_android_battery__WEBPACK_IMPORTED_MODULE_4__["BatteryDriverAndroid"]).toBeTruthy();
+    expect(networkDriver instanceof _js_model_drivers_android_app_drivers_android_network__WEBPACK_IMPORTED_MODULE_6__["NetworkDriverAndroid"]).toBeTruthy();
+    expect(hardwareDriver instanceof _js_model_drivers_android_app_drivers_android_hardware__WEBPACK_IMPORTED_MODULE_2__["HardwareDriverAndroid"]).toBeTruthy();
   });
 });
 

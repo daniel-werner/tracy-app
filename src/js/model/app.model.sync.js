@@ -150,7 +150,7 @@ window.app = window.app || {};
             authHeaders = createAuthHeader();
 
             if(authHeaders === false){
-                commonEvents.dispatchEvent('model.sync.login.required');
+                commonEvents.dispatchEvent('model.sync.login.required', {syncAfterLogin: true});
                return false;
             }
 
@@ -164,7 +164,7 @@ window.app = window.app || {};
                             commonEvents.dispatchEvent('model.sync.upload.successful', true);
                             break;
                         case 401:
-                            commonEvents.dispatchEvent('model.sync.login.required');
+                            commonEvents.dispatchEvent('model.sync.login.required', {syncAfterLogin: true});
                             break;
                         default:
                             commonEvents.dispatchEvent('model.sync.upload.failed');

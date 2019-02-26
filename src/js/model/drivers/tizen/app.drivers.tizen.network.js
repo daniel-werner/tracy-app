@@ -1,13 +1,11 @@
-require('../app.drivers.network')
+import {NetworkDriver} from "../app.drivers.network";
 
-;(function(root){
-    var NetworkDriverTizen = function(){
+class NetworkDriverTizen extends NetworkDriver {
+    constructor() {
+        super();
+    }
 
-    };
-
-    var proto = new NetworkDriver();
-
-    proto.bind = function(){
+    bind() {
         var _this = this,
             systeminfo = null;
 
@@ -20,7 +18,7 @@ require('../app.drivers.network')
         try {
             systeminfo.getPropertyValue(
                 'NETWORK',
-                function(network){
+                function (network) {
                     _this.onGetNetworkTypeSuccess(network);
                 },
                 function onGetPropertyValueError(error) {
@@ -34,26 +32,26 @@ require('../app.drivers.network')
         try {
             systeminfo.addPropertyValueChangeListener(
                 'NETWORK',
-            function(network){
-                _this.onNetworkTypeChange(network);
-            }
-        );
+                function (network) {
+                    _this.onNetworkTypeChange(network);
+                }
+            );
         } catch (error) {
             console.warn('Network change listener was not set.', error);
         }
 
-    };
+    }
 
-    proto.onNetworkTypeChange = function(network) {
+    onNetworkTypeChange(network) {
         this.networkType = network.networkType;
         this.commonEvents.dispatchEvent('model.network.type.changed');
-    };
+    }
 
-    proto.onGetNetworkTypeSuccess = function(network) {
+    onGetNetworkTypeSuccess(network) {
         this.networkType = network.networkType;
         this.commonEvents.dispatchEvent('model.network.initialized');
-    };
+    }
 
-    NetworkDriverTizen.prototype = proto;
-    root.NetworkDriverTizen = NetworkDriverTizen;
-})(window);
+}
+
+export {NetworkDriverTizen}

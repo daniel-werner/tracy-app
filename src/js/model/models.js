@@ -1,6 +1,6 @@
 require('../common/app.common.events');
 
-require('./drivers/app.drivers.platform');
+// require('./drivers/app.drivers.platform');
 require('./drivers/app.driver.factory');
 
 require('./app.model.battery');

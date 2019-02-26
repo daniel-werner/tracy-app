@@ -27,13 +27,18 @@
  * @namespace app
  */
 
+import {Platform} from "./model/drivers/app.drivers.platform";
 require('../../www/tests/lib/geomock/geomock');
 require('./mock');
 require('./model/models');
 require('./ui/app.ui');
 
+
+
 // make sure that "app" namespace is created
 window.app = window.app || {};
+
+window.Platform = Platform;
 
 (function defineApp(app) {
     'use strict';

@@ -1,22 +1,21 @@
-;(function(root){
-    var Platform = {
-        PLATFORM_TIZEN: 'tizen',
-        PLATFORM_ANDROID: 'android',
-        PLATFORM_BROWSER: 'browser',
+const PLATFORMS = {
+    TIZEN: 'tizen',
+    ANDROID: 'android',
+    BROWSER: 'browser'
+};
 
-        get: function(){
-            var platform = this.PLATFORM_BROWSER;
+class Platform {
+    static get() {
+        var platform = PLATFORMS.BROWSER;
 
-            if( typeof tizen === 'object' && typeof tizen.systeminfo === 'object'){
-                platform = this.PLATFORM_TIZEN;
-            }
-            else if(typeof device === 'object' && device.platform === 'Android'){
-                platform = this.PLATFORM_ANDROID;
-            }
-
-            return platform;
+        if (typeof tizen === 'object' && typeof tizen.systeminfo === 'object') {
+            platform = PLATFORMS.TIZEN;
+        } else if (typeof device === 'object' && device.platform === 'Android') {
+            platform = PLATFORMS.ANDROID;
         }
-    };
 
-    root.Platform = Platform;
-})(window);
+        return platform;
+    }
+}
+
+export {Platform, PLATFORMS};

@@ -1,11 +1,18 @@
-require('./android/app.drivers.android.battery');
-require('./android/app.drivers.android.network');
-require('./android/app.drivers.android.hardware');
-require('./tizen/app.drivers.tizen.battery');
-require('./tizen/app.drivers.tizen.network');
-require('./tizen/app.drivers.tizen.hardware');
+import {PLATFORMS} from "./app.drivers.platform";
 
-;(function(root){
+import {HardwareDriver} from "./app.drivers.hardware";
+import {HardwareDriverTizen} from "./tizen/app.drivers.tizen.hardware";
+import {HardwareDriverAndroid} from "./android/app.drivers.android.hardware";
+
+import {BatteryDriver} from "./app.drivers.battery";
+import {BatteryDriverTizen} from "./tizen/app.drivers.tizen.battery";
+import {BatteryDriverAndroid} from "./android/app.drivers.android.battery";
+
+import {NetworkDriver} from "./app.drivers.network";
+import {NetworkDriverTizen} from "./tizen/app.drivers.tizen.network";
+import {NetworkDriverAndroid} from "./android/app.drivers.android.network";
+
+(function(root){
     var DriverFactory = function(platform){
         this.platform = platform;
     };
@@ -15,10 +22,10 @@ require('./tizen/app.drivers.tizen.hardware');
             var networkDriver = new NetworkDriver();
 
             switch(this.platform){
-                case Platform.PLATFORM_TIZEN:
+                case PLATFORMS.TIZEN:
                     networkDriver = new NetworkDriverTizen();
                     break;
-                case Platform.PLATFORM_ANDROID:
+                case PLATFORMS.ANDROID:
                     networkDriver = new NetworkDriverAndroid();
                     break;
             }
@@ -29,10 +36,10 @@ require('./tizen/app.drivers.tizen.hardware');
             var batteryDriver = new BatteryDriver();
 
             switch(this.platform){
-                case Platform.PLATFORM_TIZEN:
+                case PLATFORMS.TIZEN:
                     batteryDriver = new BatteryDriverTizen();
                     break;
-                case Platform.PLATFORM_ANDROID:
+                case PLATFORMS.ANDROID:
                     batteryDriver = new BatteryDriverAndroid();
                     break;
             }
@@ -43,10 +50,10 @@ require('./tizen/app.drivers.tizen.hardware');
             var hardwareDriver = new HardwareDriver();
 
             switch(this.platform){
-                case Platform.PLATFORM_TIZEN:
+                case PLATFORMS.TIZEN:
                     hardwareDriver = new HardwareDriverTizen();
                     break;
-                case Platform.PLATFORM_ANDROID:
+                case PLATFORMS.ANDROID:
                     hardwareDriver = new HardwareDriverAndroid();
                     break;
             }

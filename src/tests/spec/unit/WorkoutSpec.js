@@ -1,6 +1,7 @@
 import {CyclingWorkout} from '../../../../src/js/workout/app.workout.cycling_workout.js';
 import {RunningWorkout} from "../../../../src/js/workout/app.workout.running_workout";
 
+
 describe("Workout", function () {
     it('should calculate distance', function () {
         let timeA = 1551018055000,

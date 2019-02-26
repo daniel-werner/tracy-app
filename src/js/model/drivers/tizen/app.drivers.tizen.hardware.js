@@ -1,34 +1,36 @@
-require('../app.drivers.hardware')
+import {HardwareDriver} from "../app.drivers.hardware";
 
-;(function(root){
-    var HardwareDriverTizen = function(){
+class HardwareDriverTizen extends HardwareDriver {
+    constructor() {
+        super();
         this.commonEvents = window.app.common.events;
+    }
+
+    bind() {
+
+    }
+
+    isHeartRateAvailable() {
+        return true;
+    }
+
+    backgroundRunEnable() {
+        tizen.power.request("CPU", "CPU_AWAKE");
+        tizen.power.request('SCREEN', 'SCREEN_NORMAL');
+    }
+
+    backgroundRunDisable() {
+        tizen.power.release("CPU");
+        tizen.power.release('SCREEN');
+    }
+
+    exit() {
+        try {
+            tizen.application.getCurrentApplication().exit();
+        } catch (error) {
+            console.warn('Application exit failed.', error.message);
+        }
     };
+}
 
-    var proto = new HardwareDriver();
-
-        proto.bind = function(){
-
-        };
-        proto.isHeartRateAvailable = function () {
-            return true;
-        };
-        proto.backgroundRunEnable = function () {
-            tizen.power.request("CPU", "CPU_AWAKE");
-            tizen.power.request('SCREEN', 'SCREEN_NORMAL');
-        };
-        proto.backgroundRunDisable = function () {
-            tizen.power.release("CPU");
-            tizen.power.release('SCREEN');
-        };
-        proto.exit = function(){
-            try {
-                tizen.application.getCurrentApplication().exit();
-            } catch (error) {
-                console.warn('Application exit failed.', error.message);
-            }
-        };
-
-    HardwareDriverTizen.prototype = proto;
-    root.HardwareDriverTizen = HardwareDriverTizen;
-})(window);
+export {HardwareDriverTizen}
