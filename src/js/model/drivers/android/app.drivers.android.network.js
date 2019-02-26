@@ -29,12 +29,12 @@ class NetworkDriverAndroid extends NetworkDriver {
         return navigator.connection.type !== Connection.NONE;
     }
 
-    onNetworkTypeChange(network) {
+    onNetworkTypeChange() {
         this.networkType = navigator.connection.type;
         this.commonEvents.dispatchEvent('model.network.type.changed');
     }
 
-    onGetNetworkTypeSuccess(network) {
+    onGetNetworkTypeSuccess() {
         this.networkType = navigator.connection.type;
         this.commonEvents.dispatchEvent('model.network.initialized');
     }

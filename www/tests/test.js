@@ -2860,13 +2860,13 @@ function (_NetworkDriver) {
     }
   }, {
     key: "onNetworkTypeChange",
-    value: function onNetworkTypeChange(network) {
+    value: function onNetworkTypeChange() {
       this.networkType = navigator.connection.type;
       this.commonEvents.dispatchEvent('model.network.type.changed');
     }
   }, {
     key: "onGetNetworkTypeSuccess",
-    value: function onGetNetworkTypeSuccess(network) {
+    value: function onGetNetworkTypeSuccess() {
       this.networkType = navigator.connection.type;
       this.commonEvents.dispatchEvent('model.network.initialized');
     }
