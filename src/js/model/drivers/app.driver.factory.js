@@ -12,55 +12,56 @@ import {NetworkDriver} from "./app.drivers.network";
 import {NetworkDriverTizen} from "./tizen/app.drivers.tizen.network";
 import {NetworkDriverAndroid} from "./android/app.drivers.android.network";
 
-(function(root){
-    var DriverFactory = function(platform){
+class DriverFactory {
+    constructor(platform) {
         this.platform = platform;
-    };
+    }
 
-    DriverFactory.prototype = {
-        buildNetworkDriver: function(){
-            var networkDriver = new NetworkDriver();
+    buildNetworkDriver() {
+        var networkDriver = new NetworkDriver();
 
-            switch(this.platform){
-                case PLATFORMS.TIZEN:
-                    networkDriver = new NetworkDriverTizen();
-                    break;
-                case PLATFORMS.ANDROID:
-                    networkDriver = new NetworkDriverAndroid();
-                    break;
-            }
-
-            return networkDriver;
-        },
-        buildBatteryDriver: function(){
-            var batteryDriver = new BatteryDriver();
-
-            switch(this.platform){
-                case PLATFORMS.TIZEN:
-                    batteryDriver = new BatteryDriverTizen();
-                    break;
-                case PLATFORMS.ANDROID:
-                    batteryDriver = new BatteryDriverAndroid();
-                    break;
-            }
-
-            return batteryDriver;
-        },
-        buildHardwareDriver: function(){
-            var hardwareDriver = new HardwareDriver();
-
-            switch(this.platform){
-                case PLATFORMS.TIZEN:
-                    hardwareDriver = new HardwareDriverTizen();
-                    break;
-                case PLATFORMS.ANDROID:
-                    hardwareDriver = new HardwareDriverAndroid();
-                    break;
-            }
-
-            return hardwareDriver;
+        switch (this.platform) {
+            case PLATFORMS.TIZEN:
+                networkDriver = new NetworkDriverTizen();
+                break;
+            case PLATFORMS.ANDROID:
+                networkDriver = new NetworkDriverAndroid();
+                break;
         }
-    };
 
-    root.DriverFactory = DriverFactory;
-})(window);
+        return networkDriver;
+    }
+
+
+    buildBatteryDriver() {
+        var batteryDriver = new BatteryDriver();
+
+        switch (this.platform) {
+            case PLATFORMS.TIZEN:
+                batteryDriver = new BatteryDriverTizen();
+                break;
+            case PLATFORMS.ANDROID:
+                batteryDriver = new BatteryDriverAndroid();
+                break;
+        }
+
+        return batteryDriver;
+    }
+
+    buildHardwareDriver() {
+        var hardwareDriver = new HardwareDriver();
+
+        switch (this.platform) {
+            case PLATFORMS.TIZEN:
+                hardwareDriver = new HardwareDriverTizen();
+                break;
+            case PLATFORMS.ANDROID:
+                hardwareDriver = new HardwareDriverAndroid();
+                break;
+        }
+
+        return hardwareDriver;
+    }
+}
+
+export {DriverFactory}

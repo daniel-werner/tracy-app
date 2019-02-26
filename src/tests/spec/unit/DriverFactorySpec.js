@@ -6,6 +6,8 @@ import {BatteryDriverAndroid} from "../../../js/model/drivers/android/app.driver
 import {NetworkDriverTizen} from "../../../js/model/drivers/tizen/app.drivers.tizen.network";
 import {NetworkDriverAndroid} from "../../../js/model/drivers/android/app.drivers.android.network";
 
+import {DriverFactory} from "../../../js/model/drivers/app.driver.factory";
+
 
 describe("DriverFactory", function () {
     it('should create drivers for tizen', function () {
