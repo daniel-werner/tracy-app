@@ -2889,16 +2889,8 @@ __webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.d
 
   proto.bind = function () {
     cordova.plugins.backgroundMode.on('activate', function () {
+      console.log('activate background mode');
       cordova.plugins.backgroundMode.disableWebViewOptimizations();
-    });
-    window.addEventListener('model.workout.updateui', function (e) {
-      var distance = e.detail.distance;
-
-      if (cordova.plugins.backgroundMode.isActive()) {
-        cordova.plugins.backgroundMode.configure({
-          text: 'Workout active, distance: ' + Math.round(distance * 100) / 100 + ' km'
-        });
-      }
     });
   };
 
