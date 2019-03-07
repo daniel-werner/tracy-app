@@ -1,4 +1,5 @@
 import {Platform} from "../../js/model/drivers/app.drivers.platform";
+import {DriverFactory} from "../../js/model/drivers/app.driver.factory";
 
 describe("Sync", function () {
     var app = window.app || {};
@@ -26,6 +27,7 @@ describe("Sync", function () {
         xmlhttp.send();
 
         this.modelWorkout = app.model.workout;
+        this.modelNetwork = app.model.network;
         this.modelGeolocation = app.model.geolocation;
         this.modelSync = app.model.sync;
 
@@ -33,6 +35,7 @@ describe("Sync", function () {
             driverFactory = new DriverFactory(platform);
 
         this.modelWorkout.init(driverFactory.buildHardwareDriver(platform));
+        this.modelNetwork.init(driverFactory.buildNetworkDriver(platform));
 
         window.addEventListener(
             'model.workout.dbready',

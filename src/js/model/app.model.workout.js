@@ -110,7 +110,7 @@ window.app = window.app || {};
                 0,
                 currentPosition.coords.latitude,
                 currentPosition.coords.longitude,
-                0,
+                hardwareDriver.heartRate,
                 currentPosition.coords.altitude || 0,
                 currentPosition.timestamp
             );
@@ -172,6 +172,7 @@ window.app = window.app || {};
 
         workout.start();
         updateUI();
+        hardwareDriver.startHeartRateSensor();
         hardwareDriver.backgroundRunEnable();
     };
 
@@ -182,6 +183,7 @@ window.app = window.app || {};
     modelWorkout.togglePause = function togglePause(){
         if(!workout.isActive()){
             hardwareDriver.backgroundRunEnable();
+            hardwareDriver.startHeartRateSensor();
             commonEvents.dispatchEvent('model.workout.resumed');
             workout.resume();
         }
@@ -189,6 +191,7 @@ window.app = window.app || {};
             commonEvents.dispatchEvent('model.workout.paused');
             workout.pause();
             hardwareDriver.backgroundRunDisable();
+            hardwareDriver.stopHeartRateSensor();
         }
     };
 
@@ -236,7 +239,9 @@ window.app = window.app || {};
                 return item.status == status;
             });
 
-            commonEvents.dispatchEvent('model.workout.getlist.successful', data);
+            if(data.length){
+                commonEvents.dispatchEvent('model.workout.getlist.successful', data);
+            }
         };
         var onerror = function (error) {
             console.log('Workout save failed!', error);

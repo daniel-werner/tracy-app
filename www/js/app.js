@@ -1512,6 +1512,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global windo
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./model/drivers/app.drivers.platform */ "./src/js/model/drivers/app.drivers.platform.js");
+/* harmony import */ var _model_drivers_app_driver_factory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./model/drivers/app.driver.factory */ "./src/js/model/drivers/app.driver.factory.js");
 /*
  * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved.
  *
@@ -1541,10 +1542,8 @@ __webpack_require__.r(__webpack_exports__);
  * @namespace app
  */
 
-
-__webpack_require__(/*! ../../www/tests/lib/geomock/geomock */ "./www/tests/lib/geomock/geomock.js");
-
-__webpack_require__(/*! ./mock */ "./src/js/mock.js");
+ // require('../../www/tests/lib/geomock/geomock');
+// require('./mock');
 
 __webpack_require__(/*! ./model/models */ "./src/js/model/models.js");
 
@@ -1633,7 +1632,7 @@ window.Platform = _model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0
 
   app.init = function init() {
     var platform = _model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["Platform"].get(),
-        driverFactory = new DriverFactory(platform);
+        driverFactory = new _model_drivers_app_driver_factory__WEBPACK_IMPORTED_MODULE_1__["DriverFactory"](platform);
     hardwareDriver = driverFactory.buildHardwareDriver(platform);
     modelBattery.init(driverFactory.buildBatteryDriver(platform));
     modelNetwork.init(driverFactory.buildNetworkDriver(platform));
@@ -1943,57 +1942,6 @@ window.app = window.app || {}; // strict mode wrapper function
     window.dispatchEvent(customEvent);
   };
 })(window.app);
-
-/***/ }),
-
-/***/ "./src/js/mock.js":
-/*!************************!*\
-  !*** ./src/js/mock.js ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-window.addEventListener('load', function () {
-  navigator.geolocation.delay = 1000;
-  navigator.geolocation.repeat = true;
-  var startTime = 1551018055000;
-  navigator.geolocation.waypoints = [{
-    coords: {
-      latitude: 45.8849114,
-      longitude: 19.2545559,
-      accuracy: 65
-    },
-    timestamp: startTime
-  }, {
-    coords: {
-      latitude: 45.8856601,
-      longitude: 19.2553514,
-      accuracy: 65
-    },
-    timestamp: startTime + 30000
-  }, {
-    coords: {
-      latitude: 45.8849114,
-      longitude: 19.2545559,
-      accuracy: 65
-    },
-    timestamp: startTime + 55000
-  }, {
-    coords: {
-      latitude: 45.8856601,
-      longitude: 19.2553514,
-      accuracy: 65
-    },
-    timestamp: startTime + 75000
-  }, {
-    coords: {
-      latitude: 45.8849114,
-      longitude: 19.2545559,
-      accuracy: 65
-    },
-    timestamp: startTime + 90000
-  }];
-});
 
 /***/ }),
 
@@ -2525,9 +2473,9 @@ window.app = window.app || {};
   };
 
   modelSync.sync = function () {
-    // Disabled until network availability is fixed for cordova
-    // if( modelNetwork.isNetworkAvailable() ){
-    modelWorkout.getItemsToSync(); // }
+    if (modelNetwork.isNetworkAvailable()) {
+      modelWorkout.getItemsToSync();
+    }
   };
 
   function uploadWorkouts(workouts) {
@@ -2698,7 +2646,7 @@ window.app = window.app || {};
     var currentPosition = modelGeolocation.getCurrentPosition();
 
     if (workout && workout.isActive()) {
-      var point = new Point(0, currentPosition.coords.latitude, currentPosition.coords.longitude, 0, currentPosition.coords.altitude || 0, currentPosition.timestamp);
+      var point = new Point(0, currentPosition.coords.latitude, currentPosition.coords.longitude, hardwareDriver.heartRate, currentPosition.coords.altitude || 0, currentPosition.timestamp);
       workout.addPoint(point);
       updateUI();
     }
@@ -2756,6 +2704,7 @@ window.app = window.app || {};
 
     workout.start();
     updateUI();
+    hardwareDriver.startHeartRateSensor();
     hardwareDriver.backgroundRunEnable();
   };
   /**
@@ -2767,12 +2716,14 @@ window.app = window.app || {};
   modelWorkout.togglePause = function togglePause() {
     if (!workout.isActive()) {
       hardwareDriver.backgroundRunEnable();
+      hardwareDriver.startHeartRateSensor();
       commonEvents.dispatchEvent('model.workout.resumed');
       workout.resume();
     } else {
       commonEvents.dispatchEvent('model.workout.paused');
       workout.pause();
       hardwareDriver.backgroundRunDisable();
+      hardwareDriver.stopHeartRateSensor();
     }
   };
   /**
@@ -2821,7 +2772,10 @@ window.app = window.app || {};
       data = data.filter(function (item) {
         return item.status == status;
       });
-      commonEvents.dispatchEvent('model.workout.getlist.successful', data);
+
+      if (data.length) {
+        commonEvents.dispatchEvent('model.workout.getlist.successful', data);
+      }
     };
 
     var onerror = function onerror(error) {
@@ -3087,11 +3041,12 @@ function (_NetworkDriver) {
 /*!****************************************************!*\
   !*** ./src/js/model/drivers/app.driver.factory.js ***!
   \****************************************************/
-/*! no exports provided */
+/*! exports provided: DriverFactory */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DriverFactory", function() { return DriverFactory; });
 /* harmony import */ var _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.drivers.platform */ "./src/js/model/drivers/app.drivers.platform.js");
 /* harmony import */ var _app_drivers_hardware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app.drivers.hardware */ "./src/js/model/drivers/app.drivers.hardware.js");
 /* harmony import */ var _tizen_app_drivers_tizen_hardware__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tizen/app.drivers.tizen.hardware */ "./src/js/model/drivers/tizen/app.drivers.tizen.hardware.js");
@@ -3099,9 +3054,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_drivers_battery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.drivers.battery */ "./src/js/model/drivers/app.drivers.battery.js");
 /* harmony import */ var _tizen_app_drivers_tizen_battery__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tizen/app.drivers.tizen.battery */ "./src/js/model/drivers/tizen/app.drivers.tizen.battery.js");
 /* harmony import */ var _android_app_drivers_android_battery__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./android/app.drivers.android.battery */ "./src/js/model/drivers/android/app.drivers.android.battery.js");
-/* harmony import */ var _app_drivers_network__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.drivers.network */ "./src/js/model/drivers/app.drivers.network.js");
+/* harmony import */ var _app_drivers_browser_network__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.drivers.browser.network */ "./src/js/model/drivers/app.drivers.browser.network.js");
 /* harmony import */ var _tizen_app_drivers_tizen_network__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tizen/app.drivers.tizen.network */ "./src/js/model/drivers/tizen/app.drivers.tizen.network.js");
 /* harmony import */ var _android_app_drivers_android_network__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./android/app.drivers.android.network */ "./src/js/model/drivers/android/app.drivers.android.network.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 
 
@@ -3113,14 +3073,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-(function (root) {
-  var DriverFactory = function DriverFactory(platform) {
+
+var DriverFactory =
+/*#__PURE__*/
+function () {
+  function DriverFactory(platform) {
+    _classCallCheck(this, DriverFactory);
+
     this.platform = platform;
-  };
+  }
 
-  DriverFactory.prototype = {
-    buildNetworkDriver: function buildNetworkDriver() {
-      var networkDriver = new _app_drivers_network__WEBPACK_IMPORTED_MODULE_7__["NetworkDriver"]();
+  _createClass(DriverFactory, [{
+    key: "buildNetworkDriver",
+    value: function buildNetworkDriver() {
+      var networkDriver = null;
 
       switch (this.platform) {
         case _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].TIZEN:
@@ -3130,11 +3096,17 @@ __webpack_require__.r(__webpack_exports__);
         case _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].ANDROID:
           networkDriver = new _android_app_drivers_android_network__WEBPACK_IMPORTED_MODULE_9__["NetworkDriverAndroid"]();
           break;
+
+        default:
+          networkDriver = new _app_drivers_browser_network__WEBPACK_IMPORTED_MODULE_7__["NetworkDriverBrowser"]();
+          break;
       }
 
       return networkDriver;
-    },
-    buildBatteryDriver: function buildBatteryDriver() {
+    }
+  }, {
+    key: "buildBatteryDriver",
+    value: function buildBatteryDriver() {
       var batteryDriver = new _app_drivers_battery__WEBPACK_IMPORTED_MODULE_4__["BatteryDriver"]();
 
       switch (this.platform) {
@@ -3148,8 +3120,10 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return batteryDriver;
-    },
-    buildHardwareDriver: function buildHardwareDriver() {
+    }
+  }, {
+    key: "buildHardwareDriver",
+    value: function buildHardwareDriver() {
       var hardwareDriver = new _app_drivers_hardware__WEBPACK_IMPORTED_MODULE_1__["HardwareDriver"]();
 
       switch (this.platform) {
@@ -3164,9 +3138,12 @@ __webpack_require__.r(__webpack_exports__);
 
       return hardwareDriver;
     }
-  };
-  root.DriverFactory = DriverFactory;
-})(window);
+  }]);
+
+  return DriverFactory;
+}();
+
+
 
 /***/ }),
 
@@ -3213,6 +3190,75 @@ function () {
 
 /***/ }),
 
+/***/ "./src/js/model/drivers/app.drivers.browser.network.js":
+/*!*************************************************************!*\
+  !*** ./src/js/model/drivers/app.drivers.browser.network.js ***!
+  \*************************************************************/
+/*! exports provided: NetworkDriverBrowser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NetworkDriverBrowser", function() { return NetworkDriverBrowser; });
+/* harmony import */ var _app_drivers_network__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.drivers.network */ "./src/js/model/drivers/app.drivers.network.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var NetworkDriverBrowser =
+/*#__PURE__*/
+function (_NetworkDriver) {
+  _inherits(NetworkDriverBrowser, _NetworkDriver);
+
+  function NetworkDriverBrowser() {
+    _classCallCheck(this, NetworkDriverBrowser);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(NetworkDriverBrowser).apply(this, arguments));
+  }
+
+  _createClass(NetworkDriverBrowser, [{
+    key: "init",
+    value: function init() {
+      this.bind();
+    }
+  }, {
+    key: "bind",
+    value: function bind() {}
+  }, {
+    key: "isNetworkAvailable",
+    value: function isNetworkAvailable() {
+      return true;
+    }
+  }, {
+    key: "getNetworkType",
+    value: function getNetworkType() {
+      return this.networkType;
+    }
+  }]);
+
+  return NetworkDriverBrowser;
+}(_app_drivers_network__WEBPACK_IMPORTED_MODULE_0__["NetworkDriver"]);
+
+
+
+/***/ }),
+
 /***/ "./src/js/model/drivers/app.drivers.hardware.js":
 /*!******************************************************!*\
   !*** ./src/js/model/drivers/app.drivers.hardware.js ***!
@@ -3236,6 +3282,7 @@ function () {
     _classCallCheck(this, HardwareDriver);
 
     this.commonEvents = window.app.common.events;
+    this._heartRate = 0;
   }
 
   _createClass(HardwareDriver, [{
@@ -3265,6 +3312,17 @@ function () {
   }, {
     key: "exit",
     value: function exit() {}
+  }, {
+    key: "startHeartRateSensor",
+    value: function startHeartRateSensor() {}
+  }, {
+    key: "stopHeartRateSensor",
+    value: function stopHeartRateSensor() {}
+  }, {
+    key: "heartRate",
+    get: function get() {
+      return this._heartRate;
+    }
   }]);
 
   return HardwareDriver;
@@ -3497,13 +3555,9 @@ function (_HardwareDriver) {
   _inherits(HardwareDriverTizen, _HardwareDriver);
 
   function HardwareDriverTizen() {
-    var _this;
-
     _classCallCheck(this, HardwareDriverTizen);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(HardwareDriverTizen).call(this));
-    _this.commonEvents = window.app.common.events;
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(HardwareDriverTizen).call(this));
   }
 
   _createClass(HardwareDriverTizen, [{
@@ -3534,6 +3588,25 @@ function (_HardwareDriver) {
       } catch (error) {
         console.warn('Application exit failed.', error.message);
       }
+    }
+  }, {
+    key: "_storeHeartRate",
+    value: function _storeHeartRate(heartRate) {
+      this._heartRate = heartRate;
+    }
+  }, {
+    key: "startHeartRateSensor",
+    value: function startHeartRateSensor() {
+      var _this = this;
+
+      tizen.humanactivitymonitor.start('HRM', function (hrmInfo) {
+        _this._storeHeartRate(hrmInfo.heartRate);
+      });
+    }
+  }, {
+    key: "stopHeartRateSensor",
+    value: function stopHeartRateSensor() {
+      tizen.humanactivitymonitor.stop('HRM');
     }
   }]);
 
@@ -3644,10 +3717,7 @@ function (_NetworkDriver) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ../common/app.common.events */ "./src/js/common/app.common.events.js"); // require('./drivers/app.drivers.platform');
-
-
-__webpack_require__(/*! ./drivers/app.driver.factory */ "./src/js/model/drivers/app.driver.factory.js");
+__webpack_require__(/*! ../common/app.common.events */ "./src/js/common/app.common.events.js");
 
 __webpack_require__(/*! ./app.model.battery */ "./src/js/model/app.model.battery.js");
 
@@ -5254,7 +5324,7 @@ function () {
         latitude: pointB.lat,
         longitude: pointB.lng
       });
-      this._distance += distance.raw;
+      this._distance += !isNaN(distance.raw) ? distance.raw : 0;
       return distance.raw;
     }
     /**
@@ -5431,8 +5501,10 @@ function (_BaseWorkout) {
       var distance = this._calculateDistance(pointA, pointB),
           timeDiff = pointB.time - pointA.time;
 
-      if (distance > 1 && timeDiff > 0) {
+      if (distance > 0.5 && timeDiff > 0) {
         this._speed = timeDiff ? MPS_TO_KMH * distance / timeDiff : 0;
+      } else {
+        this._speed = 0;
       }
 
       return this._speed;
@@ -5567,8 +5639,10 @@ function (_BaseWorkout) {
       var distance = this._calculateDistance(pointA, pointB),
           timeDiff = pointB.time - pointA.time;
 
-      if (distance > 1 && timeDiff > 0) {
+      if (distance > 0.5 && timeDiff > 0) {
         this._pace = timeDiff / distance / MSEC_PER_METER_TO_MIN_PER_KM;
+      } else {
+        this._speed = 0;
       }
 
       return this._pace;
@@ -5621,144 +5695,6 @@ function (_BaseWorkout) {
 }(_app_workout_base_workout__WEBPACK_IMPORTED_MODULE_0__["BaseWorkout"]);
 
 
-
-/***/ }),
-
-/***/ "./www/tests/lib/geomock/geomock.js":
-/*!******************************************!*\
-  !*** ./www/tests/lib/geomock/geomock.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// Generated by CoffeeScript 2.3.1
-(function () {
-  /*
-  (c) 2011 Jan Monschke
-  v1.0.2
-  GeoMock is licensed under the MIT license.
-  */
-  (function () {
-    if (typeof navigator === "undefined" || navigator === null) {
-      window.navigator = {};
-    }
-
-    if (navigator.geolocation == null) {
-      window.navigator.geolocation = {};
-    }
-
-    navigator.geolocation.delay = 1000;
-    navigator.geolocation.shouldFail = false;
-    navigator.geolocation.repeat = true;
-    navigator.geolocation.failsAt = -1;
-    navigator.geolocation.errorMessage = "There was an error retrieving the position!";
-    navigator.geolocation.currentTimeout = -1;
-    navigator.geolocation.lastPosReturned = 0;
-
-    navigator.geolocation._sanitizeLastReturned = function () {
-      if (this.lastPosReturned > this.waypoints.length - 1) {
-        this.lastPosReturned = 0;
-
-        if (this.repeat === false) {
-          return clearInterval(this.currentTimeout);
-        }
-      }
-    };
-
-    navigator.geolocation._geoCall = function (method, success, error) {
-      var _this = this;
-
-      if (this.shouldFail && error != null) {
-        return this.currentTimeout = window[method].call(null, function () {
-          return error(_this.errorMessage);
-        }, this.delay);
-      } else {
-        if (success != null) {
-          return this.currentTimeout = window[method].call(null, function () {
-            success(_this.waypoints[_this.lastPosReturned++]);
-            return _this._sanitizeLastReturned();
-          }, this.delay);
-        }
-      }
-    };
-
-    navigator.geolocation.getCurrentPosition = function (success, error) {
-      return this._geoCall("setTimeout", success, error);
-    };
-
-    navigator.geolocation.watchPosition = function (success, error) {
-      this._geoCall("setInterval", success, error);
-
-      return this.currentTimeout;
-    };
-
-    navigator.geolocation.clearWatch = function (id) {
-      return clearInterval(id);
-    };
-
-    return navigator.geolocation.waypoints = [{
-      coords: {
-        latitude: 52.5168,
-        longitude: 13.3889,
-        accuracy: 1500
-      }
-    }, {
-      coords: {
-        latitude: 52.5162,
-        longitude: 13.3890,
-        accuracy: 1334
-      }
-    }, {
-      coords: {
-        latitude: 52.5154,
-        longitude: 13.3890,
-        accuracy: 631
-      }
-    }, {
-      coords: {
-        latitude: 52.5150,
-        longitude: 13.3890,
-        accuracy: 361
-      }
-    }, {
-      coords: {
-        latitude: 52.5144,
-        longitude: 13.3890,
-        accuracy: 150
-      }
-    }, {
-      coords: {
-        latitude: 52.5138,
-        longitude: 13.3890,
-        accuracy: 65
-      }
-    }, {
-      coords: {
-        latitude: 52.5138,
-        longitude: 13.3895,
-        accuracy: 65
-      }
-    }, {
-      coords: {
-        latitude: 52.5139,
-        longitude: 13.3899,
-        accuracy: 65
-      }
-    }, {
-      coords: {
-        latitude: 52.5140,
-        longitude: 13.3906,
-        accuracy: 65
-      }
-    }, {
-      coords: {
-        latitude: 52.5140,
-        longitude: 13.3910,
-        accuracy: 65
-      }
-    }];
-  })();
-}).call(this);
 
 /***/ }),
 

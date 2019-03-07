@@ -2325,9 +2325,9 @@ window.app = window.app || {};
   };
 
   modelSync.sync = function () {
-    // Disabled until network availability is fixed for cordova
-    // if( modelNetwork.isNetworkAvailable() ){
-    modelWorkout.getItemsToSync(); // }
+    if (modelNetwork.isNetworkAvailable()) {
+      modelWorkout.getItemsToSync();
+    }
   };
 
   function uploadWorkouts(workouts) {
@@ -2498,7 +2498,7 @@ window.app = window.app || {};
     var currentPosition = modelGeolocation.getCurrentPosition();
 
     if (workout && workout.isActive()) {
-      var point = new Point(0, currentPosition.coords.latitude, currentPosition.coords.longitude, 0, currentPosition.coords.altitude || 0, currentPosition.timestamp);
+      var point = new Point(0, currentPosition.coords.latitude, currentPosition.coords.longitude, hardwareDriver.heartRate, currentPosition.coords.altitude || 0, currentPosition.timestamp);
       workout.addPoint(point);
       updateUI();
     }
@@ -2556,6 +2556,7 @@ window.app = window.app || {};
 
     workout.start();
     updateUI();
+    hardwareDriver.startHeartRateSensor();
     hardwareDriver.backgroundRunEnable();
   };
   /**
@@ -2567,12 +2568,14 @@ window.app = window.app || {};
   modelWorkout.togglePause = function togglePause() {
     if (!workout.isActive()) {
       hardwareDriver.backgroundRunEnable();
+      hardwareDriver.startHeartRateSensor();
       commonEvents.dispatchEvent('model.workout.resumed');
       workout.resume();
     } else {
       commonEvents.dispatchEvent('model.workout.paused');
       workout.pause();
       hardwareDriver.backgroundRunDisable();
+      hardwareDriver.stopHeartRateSensor();
     }
   };
   /**
@@ -2621,7 +2624,10 @@ window.app = window.app || {};
       data = data.filter(function (item) {
         return item.status == status;
       });
-      commonEvents.dispatchEvent('model.workout.getlist.successful', data);
+
+      if (data.length) {
+        commonEvents.dispatchEvent('model.workout.getlist.successful', data);
+      }
     };
 
     var onerror = function onerror(error) {
@@ -2887,11 +2893,12 @@ function (_NetworkDriver) {
 /*!****************************************************!*\
   !*** ./src/js/model/drivers/app.driver.factory.js ***!
   \****************************************************/
-/*! no exports provided */
+/*! exports provided: DriverFactory */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DriverFactory", function() { return DriverFactory; });
 /* harmony import */ var _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.drivers.platform */ "./src/js/model/drivers/app.drivers.platform.js");
 /* harmony import */ var _app_drivers_hardware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app.drivers.hardware */ "./src/js/model/drivers/app.drivers.hardware.js");
 /* harmony import */ var _tizen_app_drivers_tizen_hardware__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tizen/app.drivers.tizen.hardware */ "./src/js/model/drivers/tizen/app.drivers.tizen.hardware.js");
@@ -2899,9 +2906,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_drivers_battery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.drivers.battery */ "./src/js/model/drivers/app.drivers.battery.js");
 /* harmony import */ var _tizen_app_drivers_tizen_battery__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tizen/app.drivers.tizen.battery */ "./src/js/model/drivers/tizen/app.drivers.tizen.battery.js");
 /* harmony import */ var _android_app_drivers_android_battery__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./android/app.drivers.android.battery */ "./src/js/model/drivers/android/app.drivers.android.battery.js");
-/* harmony import */ var _app_drivers_network__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.drivers.network */ "./src/js/model/drivers/app.drivers.network.js");
+/* harmony import */ var _app_drivers_browser_network__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.drivers.browser.network */ "./src/js/model/drivers/app.drivers.browser.network.js");
 /* harmony import */ var _tizen_app_drivers_tizen_network__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tizen/app.drivers.tizen.network */ "./src/js/model/drivers/tizen/app.drivers.tizen.network.js");
 /* harmony import */ var _android_app_drivers_android_network__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./android/app.drivers.android.network */ "./src/js/model/drivers/android/app.drivers.android.network.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 
 
@@ -2913,14 +2925,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-(function (root) {
-  var DriverFactory = function DriverFactory(platform) {
+
+var DriverFactory =
+/*#__PURE__*/
+function () {
+  function DriverFactory(platform) {
+    _classCallCheck(this, DriverFactory);
+
     this.platform = platform;
-  };
+  }
 
-  DriverFactory.prototype = {
-    buildNetworkDriver: function buildNetworkDriver() {
-      var networkDriver = new _app_drivers_network__WEBPACK_IMPORTED_MODULE_7__["NetworkDriver"]();
+  _createClass(DriverFactory, [{
+    key: "buildNetworkDriver",
+    value: function buildNetworkDriver() {
+      var networkDriver = null;
 
       switch (this.platform) {
         case _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].TIZEN:
@@ -2930,11 +2948,17 @@ __webpack_require__.r(__webpack_exports__);
         case _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].ANDROID:
           networkDriver = new _android_app_drivers_android_network__WEBPACK_IMPORTED_MODULE_9__["NetworkDriverAndroid"]();
           break;
+
+        default:
+          networkDriver = new _app_drivers_browser_network__WEBPACK_IMPORTED_MODULE_7__["NetworkDriverBrowser"]();
+          break;
       }
 
       return networkDriver;
-    },
-    buildBatteryDriver: function buildBatteryDriver() {
+    }
+  }, {
+    key: "buildBatteryDriver",
+    value: function buildBatteryDriver() {
       var batteryDriver = new _app_drivers_battery__WEBPACK_IMPORTED_MODULE_4__["BatteryDriver"]();
 
       switch (this.platform) {
@@ -2948,8 +2972,10 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return batteryDriver;
-    },
-    buildHardwareDriver: function buildHardwareDriver() {
+    }
+  }, {
+    key: "buildHardwareDriver",
+    value: function buildHardwareDriver() {
       var hardwareDriver = new _app_drivers_hardware__WEBPACK_IMPORTED_MODULE_1__["HardwareDriver"]();
 
       switch (this.platform) {
@@ -2964,9 +2990,12 @@ __webpack_require__.r(__webpack_exports__);
 
       return hardwareDriver;
     }
-  };
-  root.DriverFactory = DriverFactory;
-})(window);
+  }]);
+
+  return DriverFactory;
+}();
+
+
 
 /***/ }),
 
@@ -3013,6 +3042,75 @@ function () {
 
 /***/ }),
 
+/***/ "./src/js/model/drivers/app.drivers.browser.network.js":
+/*!*************************************************************!*\
+  !*** ./src/js/model/drivers/app.drivers.browser.network.js ***!
+  \*************************************************************/
+/*! exports provided: NetworkDriverBrowser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NetworkDriverBrowser", function() { return NetworkDriverBrowser; });
+/* harmony import */ var _app_drivers_network__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.drivers.network */ "./src/js/model/drivers/app.drivers.network.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var NetworkDriverBrowser =
+/*#__PURE__*/
+function (_NetworkDriver) {
+  _inherits(NetworkDriverBrowser, _NetworkDriver);
+
+  function NetworkDriverBrowser() {
+    _classCallCheck(this, NetworkDriverBrowser);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(NetworkDriverBrowser).apply(this, arguments));
+  }
+
+  _createClass(NetworkDriverBrowser, [{
+    key: "init",
+    value: function init() {
+      this.bind();
+    }
+  }, {
+    key: "bind",
+    value: function bind() {}
+  }, {
+    key: "isNetworkAvailable",
+    value: function isNetworkAvailable() {
+      return true;
+    }
+  }, {
+    key: "getNetworkType",
+    value: function getNetworkType() {
+      return this.networkType;
+    }
+  }]);
+
+  return NetworkDriverBrowser;
+}(_app_drivers_network__WEBPACK_IMPORTED_MODULE_0__["NetworkDriver"]);
+
+
+
+/***/ }),
+
 /***/ "./src/js/model/drivers/app.drivers.hardware.js":
 /*!******************************************************!*\
   !*** ./src/js/model/drivers/app.drivers.hardware.js ***!
@@ -3036,6 +3134,7 @@ function () {
     _classCallCheck(this, HardwareDriver);
 
     this.commonEvents = window.app.common.events;
+    this._heartRate = 0;
   }
 
   _createClass(HardwareDriver, [{
@@ -3065,6 +3164,17 @@ function () {
   }, {
     key: "exit",
     value: function exit() {}
+  }, {
+    key: "startHeartRateSensor",
+    value: function startHeartRateSensor() {}
+  }, {
+    key: "stopHeartRateSensor",
+    value: function stopHeartRateSensor() {}
+  }, {
+    key: "heartRate",
+    get: function get() {
+      return this._heartRate;
+    }
   }]);
 
   return HardwareDriver;
@@ -3297,13 +3407,9 @@ function (_HardwareDriver) {
   _inherits(HardwareDriverTizen, _HardwareDriver);
 
   function HardwareDriverTizen() {
-    var _this;
-
     _classCallCheck(this, HardwareDriverTizen);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(HardwareDriverTizen).call(this));
-    _this.commonEvents = window.app.common.events;
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(HardwareDriverTizen).call(this));
   }
 
   _createClass(HardwareDriverTizen, [{
@@ -3334,6 +3440,25 @@ function (_HardwareDriver) {
       } catch (error) {
         console.warn('Application exit failed.', error.message);
       }
+    }
+  }, {
+    key: "_storeHeartRate",
+    value: function _storeHeartRate(heartRate) {
+      this._heartRate = heartRate;
+    }
+  }, {
+    key: "startHeartRateSensor",
+    value: function startHeartRateSensor() {
+      var _this = this;
+
+      tizen.humanactivitymonitor.start('HRM', function (hrmInfo) {
+        _this._storeHeartRate(hrmInfo.heartRate);
+      });
+    }
+  }, {
+    key: "stopHeartRateSensor",
+    value: function stopHeartRateSensor() {
+      tizen.humanactivitymonitor.stop('HRM');
     }
   }]);
 
@@ -3444,10 +3569,7 @@ function (_NetworkDriver) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! ../common/app.common.events */ "./src/js/common/app.common.events.js"); // require('./drivers/app.drivers.platform');
-
-
-__webpack_require__(/*! ./drivers/app.driver.factory */ "./src/js/model/drivers/app.driver.factory.js");
+__webpack_require__(/*! ../common/app.common.events */ "./src/js/common/app.common.events.js");
 
 __webpack_require__(/*! ./app.model.battery */ "./src/js/model/app.model.battery.js");
 
@@ -3602,7 +3724,7 @@ function () {
         latitude: pointB.lat,
         longitude: pointB.lng
       });
-      this._distance += distance.raw;
+      this._distance += !isNaN(distance.raw) ? distance.raw : 0;
       return distance.raw;
     }
     /**
@@ -3779,8 +3901,10 @@ function (_BaseWorkout) {
       var distance = this._calculateDistance(pointA, pointB),
           timeDiff = pointB.time - pointA.time;
 
-      if (distance > 1 && timeDiff > 0) {
+      if (distance > 0.5 && timeDiff > 0) {
         this._speed = timeDiff ? MPS_TO_KMH * distance / timeDiff : 0;
+      } else {
+        this._speed = 0;
       }
 
       return this._speed;
@@ -3915,8 +4039,10 @@ function (_BaseWorkout) {
       var distance = this._calculateDistance(pointA, pointB),
           timeDiff = pointB.time - pointA.time;
 
-      if (distance > 1 && timeDiff > 0) {
+      if (distance > 0.5 && timeDiff > 0) {
         this._pace = timeDiff / distance / MSEC_PER_METER_TO_MIN_PER_KM;
+      } else {
+        this._speed = 0;
       }
 
       return this._pace;
@@ -3982,6 +4108,8 @@ function (_BaseWorkout) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../js/model/drivers/app.drivers.platform */ "./src/js/model/drivers/app.drivers.platform.js");
+/* harmony import */ var _js_model_drivers_app_driver_factory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/model/drivers/app.driver.factory */ "./src/js/model/drivers/app.driver.factory.js");
+
 
 describe("Sync", function () {
   var app = window.app || {};
@@ -4002,11 +4130,13 @@ describe("Sync", function () {
     xmlhttp.open("GET", "tests/data/455.json", true);
     xmlhttp.send();
     this.modelWorkout = app.model.workout;
+    this.modelNetwork = app.model.network;
     this.modelGeolocation = app.model.geolocation;
     this.modelSync = app.model.sync;
     var platform = _js_model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["Platform"].get(),
-        driverFactory = new DriverFactory(platform);
+        driverFactory = new _js_model_drivers_app_driver_factory__WEBPACK_IMPORTED_MODULE_1__["DriverFactory"](platform);
     this.modelWorkout.init(driverFactory.buildHardwareDriver(platform));
+    this.modelNetwork.init(driverFactory.buildNetworkDriver(platform));
     window.addEventListener('model.workout.dbready', function (e) {
       _this.modelWorkout.clear();
     });
@@ -4061,7 +4191,9 @@ describe("Sync", function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../js/model/drivers/app.drivers.platform */ "./src/js/model/drivers/app.drivers.platform.js");
+/* harmony import */ var _js_model_drivers_app_driver_factory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../js/model/drivers/app.driver.factory */ "./src/js/model/drivers/app.driver.factory.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 
 
 describe("Workout model", function () {
@@ -4084,7 +4216,7 @@ describe("Workout model", function () {
     this.modelWorkout = app.model.workout;
     this.modelGeolocation = app.model.geolocation;
     var platform = _js_model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["Platform"].get(),
-        driverFactory = new DriverFactory(platform);
+        driverFactory = new _js_model_drivers_app_driver_factory__WEBPACK_IMPORTED_MODULE_1__["DriverFactory"](platform);
     this.modelWorkout.init(driverFactory.buildHardwareDriver(platform));
     window.addEventListener('model.workout.dbready', function (e) {
       _this.modelWorkout.clear();
@@ -4208,6 +4340,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _js_model_drivers_android_app_drivers_android_battery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../js/model/drivers/android/app.drivers.android.battery */ "./src/js/model/drivers/android/app.drivers.android.battery.js");
 /* harmony import */ var _js_model_drivers_tizen_app_drivers_tizen_network__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../js/model/drivers/tizen/app.drivers.tizen.network */ "./src/js/model/drivers/tizen/app.drivers.tizen.network.js");
 /* harmony import */ var _js_model_drivers_android_app_drivers_android_network__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../js/model/drivers/android/app.drivers.android.network */ "./src/js/model/drivers/android/app.drivers.android.network.js");
+/* harmony import */ var _js_model_drivers_app_driver_factory__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../js/model/drivers/app.driver.factory */ "./src/js/model/drivers/app.driver.factory.js");
+
 
 
 
@@ -4218,7 +4352,7 @@ __webpack_require__.r(__webpack_exports__);
 describe("DriverFactory", function () {
   it('should create drivers for tizen', function () {
     var platform = _js_model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].TIZEN,
-        driverFactory = new DriverFactory(platform),
+        driverFactory = new _js_model_drivers_app_driver_factory__WEBPACK_IMPORTED_MODULE_7__["DriverFactory"](platform),
         batteryDriver = driverFactory.buildBatteryDriver(platform),
         networkDriver = driverFactory.buildNetworkDriver(platform),
         hardwareDriver = driverFactory.buildHardwareDriver(platform);
@@ -4228,7 +4362,7 @@ describe("DriverFactory", function () {
   });
   it('should create drivers for android', function () {
     var platform = _js_model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].ANDROID,
-        driverFactory = new DriverFactory(platform),
+        driverFactory = new _js_model_drivers_app_driver_factory__WEBPACK_IMPORTED_MODULE_7__["DriverFactory"](platform),
         batteryDriver = driverFactory.buildBatteryDriver(platform),
         networkDriver = driverFactory.buildNetworkDriver(platform),
         hardwareDriver = driverFactory.buildHardwareDriver(platform);

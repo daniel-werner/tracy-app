@@ -28,8 +28,10 @@
  */
 
 import {Platform} from "./model/drivers/app.drivers.platform";
-require('../../www/tests/lib/geomock/geomock');
-require('./mock');
+import {DriverFactory} from "./model/drivers/app.driver.factory";
+
+// require('../../www/tests/lib/geomock/geomock');
+// require('./mock');
 require('./model/models');
 require('./ui/app.ui');
 

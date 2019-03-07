@@ -1,6 +1,7 @@
 class HardwareDriver {
     constructor() {
         this.commonEvents = window.app.common.events;
+        this._heartRate = 0;
     }
 
     init() {
@@ -28,6 +29,18 @@ class HardwareDriver {
     }
 
     exit() {
+
+    }
+
+    get heartRate(){
+        return this._heartRate;
+    }
+
+    startHeartRateSensor(){
+
+    }
+
+    stopHeartRateSensor(){
 
     }
 }

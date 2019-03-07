@@ -1,8 +1,8 @@
 {
   "name": "info.wernerd.tracyapp",
   "displayName": "TracyApp",
-  "version": "1.0.0",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "version": "1.1.0",
+  "description": "Fitness tracking mobile app. Record running and cycling on a GSP enabled mobile device.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
