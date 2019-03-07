@@ -236,7 +236,9 @@ window.app = window.app || {};
                 return item.status == status;
             });
 
-            commonEvents.dispatchEvent('model.workout.getlist.successful', data);
+            if(data.length){
+                commonEvents.dispatchEvent('model.workout.getlist.successful', data);
+            }
         };
         var onerror = function (error) {
             console.log('Workout save failed!', error);

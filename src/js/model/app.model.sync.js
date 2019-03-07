@@ -138,11 +138,9 @@ window.app = window.app || {};
     };
 
     modelSync.sync = function(){
-        // Disabled until network availability is fixed for cordova
-        // if( modelNetwork.isNetworkAvailable() ){
+        if( modelNetwork.isNetworkAvailable() ){
             modelWorkout.getItemsToSync();
-        // }
-
+        }
     }
 
     function uploadWorkouts(workouts){
