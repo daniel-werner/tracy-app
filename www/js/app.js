@@ -2646,7 +2646,7 @@ window.app = window.app || {};
     var currentPosition = modelGeolocation.getCurrentPosition();
 
     if (workout && workout.isActive()) {
-      var point = new Point(0, currentPosition.coords.latitude, currentPosition.coords.longitude, 0, currentPosition.coords.altitude || 0, currentPosition.timestamp);
+      var point = new Point(0, currentPosition.coords.latitude, currentPosition.coords.longitude, hardwareDriver.heartRate, currentPosition.coords.altitude || 0, currentPosition.timestamp);
       workout.addPoint(point);
       updateUI();
     }
@@ -2704,6 +2704,7 @@ window.app = window.app || {};
 
     workout.start();
     updateUI();
+    hardwareDriver.startHeartRateSensor();
     hardwareDriver.backgroundRunEnable();
   };
   /**
@@ -2715,12 +2716,14 @@ window.app = window.app || {};
   modelWorkout.togglePause = function togglePause() {
     if (!workout.isActive()) {
       hardwareDriver.backgroundRunEnable();
+      hardwareDriver.startHeartRateSensor();
       commonEvents.dispatchEvent('model.workout.resumed');
       workout.resume();
     } else {
       commonEvents.dispatchEvent('model.workout.paused');
       workout.pause();
       hardwareDriver.backgroundRunDisable();
+      hardwareDriver.stopHeartRateSensor();
     }
   };
   /**
@@ -3279,6 +3282,7 @@ function () {
     _classCallCheck(this, HardwareDriver);
 
     this.commonEvents = window.app.common.events;
+    this._heartRate = 0;
   }
 
   _createClass(HardwareDriver, [{
@@ -3308,6 +3312,17 @@ function () {
   }, {
     key: "exit",
     value: function exit() {}
+  }, {
+    key: "startHeartRateSensor",
+    value: function startHeartRateSensor() {}
+  }, {
+    key: "stopHeartRateSensor",
+    value: function stopHeartRateSensor() {}
+  }, {
+    key: "heartRate",
+    get: function get() {
+      return this._heartRate;
+    }
   }]);
 
   return HardwareDriver;
@@ -3540,13 +3555,9 @@ function (_HardwareDriver) {
   _inherits(HardwareDriverTizen, _HardwareDriver);
 
   function HardwareDriverTizen() {
-    var _this;
-
     _classCallCheck(this, HardwareDriverTizen);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(HardwareDriverTizen).call(this));
-    _this.commonEvents = window.app.common.events;
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(HardwareDriverTizen).call(this));
   }
 
   _createClass(HardwareDriverTizen, [{
@@ -3577,6 +3588,25 @@ function (_HardwareDriver) {
       } catch (error) {
         console.warn('Application exit failed.', error.message);
       }
+    }
+  }, {
+    key: "_storeHeartRate",
+    value: function _storeHeartRate(heartRate) {
+      this._heartRate = heartRate;
+    }
+  }, {
+    key: "startHeartRateSensor",
+    value: function startHeartRateSensor() {
+      var _this = this;
+
+      tizen.humanactivitymonitor.start('HRM', function (hrmInfo) {
+        _this._storeHeartRate(hrmInfo.heartRate);
+      });
+    }
+  }, {
+    key: "stopHeartRateSensor",
+    value: function stopHeartRateSensor() {
+      tizen.humanactivitymonitor.stop('HRM');
     }
   }]);
 

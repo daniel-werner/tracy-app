@@ -3,7 +3,6 @@ import {HardwareDriver} from "../app.drivers.hardware";
 class HardwareDriverTizen extends HardwareDriver {
     constructor() {
         super();
-        this.commonEvents = window.app.common.events;
     }
 
     bind() {
@@ -31,6 +30,23 @@ class HardwareDriverTizen extends HardwareDriver {
             console.warn('Application exit failed.', error.message);
         }
     };
+
+    _storeHeartRate(heartRate){
+        this._heartRate = heartRate;
+    }
+
+    startHeartRateSensor(){
+        let _this = this;
+
+        tizen.humanactivitymonitor.start('HRM', function(hrmInfo){
+            _this._storeHeartRate(hrmInfo.heartRate);
+        });
+
+    }
+
+    stopHeartRateSensor(){
+        tizen.humanactivitymonitor.stop('HRM');
+    }
 }
 
 export {HardwareDriverTizen}
