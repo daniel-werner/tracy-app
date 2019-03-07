@@ -107,7 +107,7 @@ class BaseWorkout {
             {latitude: pointB.lat, longitude: pointB.lng}
         );
 
-        this._distance += distance.raw;
+        this._distance += !isNaN(distance.raw) ? distance.raw : 0;
 
         return distance.raw;
     }
