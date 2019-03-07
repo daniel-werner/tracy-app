@@ -1,2 +1,5684 @@
-!function(e){var t={};function n(o){if(t[o])return t[o].exports;var r=t[o]={i:o,l:!1,exports:{}};return e[o].call(r.exports,r,r.exports,n),r.l=!0,r.exports}n.m=e,n.c=t,n.d=function(e,t,o){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:o})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var o=Object.create(null);if(n.r(o),Object.defineProperty(o,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var r in e)n.d(o,r,function(t){return e[t]}.bind(null,r));return o},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="/",n(n.s=24)}([function(e,t,n){"use strict";function o(e){return(o="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function r(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}n.d(t,"b",function(){return a}),n.d(t,"a",function(){return i});var i={TIZEN:"tizen",ANDROID:"android",BROWSER:"browser"},a=function(){function e(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e)}var t,n,a;return t=e,a=[{key:"get",value:function(){var e=i.BROWSER;return"object"===("undefined"==typeof tizen?"undefined":o(tizen))&&"object"===o(tizen.systeminfo)?e=i.TIZEN:"object"===("undefined"==typeof device?"undefined":o(device))&&"Android"===device.platform&&(e=i.ANDROID),e}}],(n=null)&&r(t.prototype,n),a&&r(t,a),e}()},function(e,t,n){"use strict";function o(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}n.d(t,"c",function(){return a}),n.d(t,"b",function(){return u}),n.d(t,"a",function(){return c}),n(21),n(14);var r=0,i=0,a=1,u=2,c=function(){function e(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.type=null,this.status=r,this._points=[],this._distance=0,this._segmentIndex=0,this._state=i}var t,n,a;return t=e,(n=[{key:"init",value:function(){}},{key:"start",value:function(){this._state=1}},{key:"pause",value:function(){this._state=2,this._segmentIndex++}},{key:"save",value:function(){this.status=1}},{key:"resume",value:function(){this._state=1}},{key:"isActive",value:function(){return 1===this._state}},{key:"addPoint",value:function(e){e.segment_index=this._segmentIndex,this._points.push(e);var t=this._getCalculationPoints();t&&this.calculate(t.pointA,t.pointB)}},{key:"_getCalculationPoints",value:function(){var e=null;return this._points.length>=2&&(e={pointA:this._points[this._points.length-2],pointB:this._points[this._points.length-1]}),e}},{key:"_calculateDistance",value:function(e,t){var n=window.app.common.calculations.calculateDistance({latitude:e.lat,longitude:e.lng},{latitude:t.lat,longitude:t.lng});return this._distance+=n.raw,n.raw}},{key:"calculate",value:function(e,t){}},{key:"toObject",value:function(){return{type:this.type,status:this.status,points:this._points}}},{key:"speedUnit",get:function(){return"km/h"}},{key:"speedLabel",get:function(){return"Speed"}},{key:"speed",get:function(){return 0}},{key:"distance",get:function(){return this._distance/1e3},set:function(e){this._distance=e}},{key:"points",get:function(){return this._points}},{key:"heartRate",get:function(){return this._points.length?this._points[this._points.length-1].heart_rate:0}},{key:"altitude",get:function(){return this._points.length?this._points[this._points.length-1].elevation:0}}])&&o(t.prototype,n),a&&o(t,a),e}()},function(e,t,n){"use strict";function o(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}n.d(t,"a",function(){return r});var r=function(){function e(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.commonEvents=window.app.common.events}var t,n,r;return t=e,(n=[{key:"init",value:function(){this.bind()}},{key:"bind",value:function(){}},{key:"isHeartRateAvailable",value:function(){return!1}},{key:"backgroundRunEnable",value:function(){}},{key:"backgroundRunDisable",value:function(){}},{key:"exit",value:function(){}}])&&o(t.prototype,n),r&&o(t,r),e}()},function(e,t,n){"use strict";function o(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}n.d(t,"a",function(){return r});var r=function(){function e(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.level=null,this.commonEvents=window.app.common.events}var t,n,r;return t=e,(n=[{key:"init",value:function(){this.bind()}},{key:"bind",value:function(){}}])&&o(t.prototype,n),r&&o(t,r),e}()},function(e,t,n){"use strict";function o(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}n.d(t,"a",function(){return i});var r=["2G","2.5G","3G","4G","WIFI","ETHERNET","UNKNOWN"],i=function(){function e(){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.commonEvents=window.app.common.events,this.networkType="NONE"}var t,n,i;return t=e,(n=[{key:"init",value:function(){this.bind()}},{key:"bind",value:function(){}},{key:"isNetworkAvailable",value:function(){return-1!==r.indexOf(this.networkType)}},{key:"getNetworkType",value:function(){return this.networkType}}])&&o(t.prototype,n),i&&o(t,i),e}()},function(e,t,n){"use strict";n.d(t,"a",function(){return y});var o=n(0),r=n(2),i=n(8),a=n(9),u=n(3),c=n(10),s=n(11),l=n(4),f=n(12),d=n(13);function p(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}var y=function(){function e(t){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.platform=t}var t,n,y;return t=e,(n=[{key:"buildNetworkDriver",value:function(){var e=new l.a;switch(this.platform){case o.a.TIZEN:e=new f.a;break;case o.a.ANDROID:e=new d.a}return e}},{key:"buildBatteryDriver",value:function(){var e=new u.a;switch(this.platform){case o.a.TIZEN:e=new c.a;break;case o.a.ANDROID:e=new s.a}return e}},{key:"buildHardwareDriver",value:function(){var e=new r.a;switch(this.platform){case o.a.TIZEN:e=new i.a;break;case o.a.ANDROID:e=new a.a}return e}}])&&p(t.prototype,n),y&&p(t,y),e}()},function(e,t,n){"use strict";n.d(t,"a",function(){return s});var o=n(1);function r(e){return(r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function i(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}function a(e,t){return!t||"object"!==r(t)&&"function"!=typeof t?function(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}(e):t}function u(e){return(u=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}function c(e,t){return(c=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var s=function(e){function t(){var e;return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),(e=a(this,u(t).call(this))).type=o.b,e._speed=0,e}var n,r,s;return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&c(e,t)}(t,o["a"]),n=t,(r=[{key:"_calculateSpeed",value:function(e,t){var n=this._calculateDistance(e,t),o=t.time-e.time;return this._speed=n>.5&&o>0&&o?3600*n/o:0,this._speed}},{key:"calculate",value:function(e,t){this._calculateSpeed(e,t)}},{key:"speed",get:function(){return this._speed}}])&&i(n.prototype,r),s&&i(n,s),t}()},function(e,t,n){"use strict";n.d(t,"a",function(){return s});var o=n(1);function r(e){return(r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function i(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}function a(e,t){return!t||"object"!==r(t)&&"function"!=typeof t?function(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}(e):t}function u(e){return(u=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}function c(e,t){return(c=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var s=function(e){function t(){var e;return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),(e=a(this,u(t).call(this))).type=o.c,e._pace=0,e}var n,r,s;return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&c(e,t)}(t,o["a"]),n=t,(r=[{key:"_calculatePace",value:function(e,t){var n=this._calculateDistance(e,t),o=t.time-e.time;return n>.5&&o>0?this._pace=o/n/60:this._speed=0,this._pace}},{key:"calculate",value:function(e,t){this._calculatePace(e,t)}},{key:"speedUnit",get:function(){return"min/km"}},{key:"speedLabel",get:function(){return"Pace"}},{key:"speed",get:function(){return this._pace}}])&&i(n.prototype,r),s&&i(n,s),t}()},function(e,t,n){"use strict";n.d(t,"a",function(){return s});var o=n(2);function r(e){return(r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function i(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}function a(e,t){return!t||"object"!==r(t)&&"function"!=typeof t?function(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}(e):t}function u(e){return(u=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}function c(e,t){return(c=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var s=function(e){function t(){var e;return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),(e=a(this,u(t).call(this))).commonEvents=window.app.common.events,e}var n,r,s;return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&c(e,t)}(t,o["a"]),n=t,(r=[{key:"bind",value:function(){}},{key:"isHeartRateAvailable",value:function(){return!0}},{key:"backgroundRunEnable",value:function(){tizen.power.request("CPU","CPU_AWAKE"),tizen.power.request("SCREEN","SCREEN_NORMAL")}},{key:"backgroundRunDisable",value:function(){tizen.power.release("CPU"),tizen.power.release("SCREEN")}},{key:"exit",value:function(){try{tizen.application.getCurrentApplication().exit()}catch(e){console.warn("Application exit failed.",e.message)}}}])&&i(n.prototype,r),s&&i(n,s),t}()},function(e,t,n){"use strict";n.d(t,"a",function(){return s});var o=n(2);function r(e){return(r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function i(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}function a(e,t){return!t||"object"!==r(t)&&"function"!=typeof t?function(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}(e):t}function u(e){return(u=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}function c(e,t){return(c=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var s=function(e){function t(){var e;return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),(e=a(this,u(t).call(this))).commonEvents=window.app.common.events,e}var n,r,s;return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&c(e,t)}(t,o["a"]),n=t,(r=[{key:"bind",value:function(){cordova.plugins.backgroundMode.on("activate",function(){console.log("activate background mode"),cordova.plugins.backgroundMode.disableWebViewOptimizations()})}},{key:"isHeartRateAvailable",value:function(){return!1}},{key:"backgroundRunEnable",value:function(){cordova.plugins.backgroundMode.enable()}},{key:"backgroundRunDisable",value:function(){cordova.plugins.backgroundMode.disable()}},{key:"exit",value:function(){try{navigator.app.exitApp()}catch(e){console.warn("Application exit failed.",e.message)}}}])&&i(n.prototype,r),s&&i(n,s),t}()},function(e,t,n){"use strict";n.d(t,"a",function(){return s});var o=n(3);function r(e){return(r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function i(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}function a(e,t){return!t||"object"!==r(t)&&"function"!=typeof t?function(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}(e):t}function u(e){return(u=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}function c(e,t){return(c=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var s=function(e){function t(){return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),a(this,u(t).apply(this,arguments))}var n,s,l;return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&c(e,t)}(t,o["a"]),n=t,(s=[{key:"bind",value:function(){var e=this,t=null;if("object"===("undefined"==typeof tizen?"undefined":r(tizen))&&"object"===r(tizen.systeminfo))t=tizen.systeminfo;else console.warn("tizen.systeminfo not available");try{t.addPropertyValueChangeListener("BATTERY",function(t){e.level=t.level,!t.isCharging&&t.level<e.LOW_BATTERY&&e.commonEvents.dispatchEvent("model.battery.low")},null,function(e){console.warn("Battery state listener was not set.",e)})}catch(e){console.warn("Battery state listener was not set.",e)}}}])&&i(n.prototype,s),l&&i(n,l),t}()},function(e,t,n){"use strict";n.d(t,"a",function(){return s});var o=n(3);function r(e){return(r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function i(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}function a(e,t){return!t||"object"!==r(t)&&"function"!=typeof t?function(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}(e):t}function u(e){return(u=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}function c(e,t){return(c=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var s=function(e){function t(){return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),a(this,u(t).call(this))}var n,r,s;return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&c(e,t)}(t,o["a"]),n=t,(r=[{key:"bind",value:function(){var e=this;document.addEventListener("deviceready",function(){window.addEventListener("batterystatus",function(t){e.level=t.level},!1),window.addEventListener("batterylow",function(t){e.commonEvents.dispatchEvent("model.battery.low")},!1)},!1)}}])&&i(n.prototype,r),s&&i(n,s),t}()},function(e,t,n){"use strict";n.d(t,"a",function(){return s});var o=n(4);function r(e){return(r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function i(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}function a(e,t){return!t||"object"!==r(t)&&"function"!=typeof t?function(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}(e):t}function u(e){return(u=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}function c(e,t){return(c=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var s=function(e){function t(){return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),a(this,u(t).call(this))}var n,s,l;return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&c(e,t)}(t,o["a"]),n=t,(s=[{key:"bind",value:function(){var e=this,t=null;if("object"===("undefined"==typeof tizen?"undefined":r(tizen))&&"object"===r(tizen.systeminfo))t=tizen.systeminfo;else console.warn("tizen.systeminfo not available");try{t.getPropertyValue("NETWORK",function(t){e.onGetNetworkTypeSuccess(t)},function(e){console.warn("Couldn't get network type value.",e)})}catch(e){console.warn("Couldn't get network type value.",e)}try{t.addPropertyValueChangeListener("NETWORK",function(t){e.onNetworkTypeChange(t)})}catch(e){console.warn("Network change listener was not set.",e)}}},{key:"onNetworkTypeChange",value:function(e){this.networkType=e.networkType,this.commonEvents.dispatchEvent("model.network.type.changed")}},{key:"onGetNetworkTypeSuccess",value:function(e){this.networkType=e.networkType,this.commonEvents.dispatchEvent("model.network.initialized")}}])&&i(n.prototype,s),l&&i(n,l),t}()},function(e,t,n){"use strict";n.d(t,"a",function(){return s});var o=n(4);function r(e){return(r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function i(e,t){for(var n=0;n<t.length;n++){var o=t[n];o.enumerable=o.enumerable||!1,o.configurable=!0,"value"in o&&(o.writable=!0),Object.defineProperty(e,o.key,o)}}function a(e,t){return!t||"object"!==r(t)&&"function"!=typeof t?function(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}(e):t}function u(e){return(u=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}function c(e,t){return(c=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var s=function(e){function t(){return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),a(this,u(t).call(this))}var n,r,s;return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&c(e,t)}(t,o["a"]),n=t,(r=[{key:"bind",value:function(){var e=this;document.addEventListener("offline",function(){e.onNetworkTypeChange()},!1),document.addEventListener("online",function(){e.onNetworkTypeChange()},!1),setTimeout(function(){e.onGetNetworkTypeSuccess()},500)}},{key:"isNetworkAvailable",value:function(){return navigator.connection.type!==Connection.NONE}},{key:"onNetworkTypeChange",value:function(){this.networkType=navigator.connection.type,this.commonEvents.dispatchEvent("model.network.type.changed")}},{key:"onGetNetworkTypeSuccess",value:function(){this.networkType=navigator.connection.type,this.commonEvents.dispatchEvent("model.network.initialized")}}])&&i(n.prototype,r),s&&i(n,s),t}()},function(e,t){window.app=window.app||{},function(e){"use strict";var t="m",n="km",o=null;function r(e){return e*Math.PI/180}function i(e){return e>=1e3&&(e/=1e3),e.toFixed(0)}function a(e){return e>=1e3?n:t}e.common=e.common||{},e.common.calculations=e.common.calculations||{},(o=e.common.calculations).calculateAngle=function(e,t){var n=r(e.longitude),o=r(t.longitude),i=r(e.latitude),a=r(t.latitude),u=o-n;return u>Math.PI?u-=2*Math.PI:u<-Math.PI&&(u+=2*Math.PI),180*Math.atan2(u,Math.log(Math.tan(a/2+Math.PI/4)/Math.tan(i/2+Math.PI/4)))/Math.PI},o.calculateDistance=function(e,t){var n=r(e.longitude),o=r(t.longitude),u=r(e.latitude),c=r(t.latitude),s=6371e3*Math.acos(Math.sin(u)*Math.sin(c)+Math.cos(u)*Math.cos(c)*Math.cos(o-n));return{raw:s,formatted:i(s),unit:a(s)}},o.angleFromRotation=function(e){var t=-e%360;return t<0&&(t+=360),t},o.calculatePathAngle=function(e,t,n){return e*n/t}}(window.app)},function(e,t,n){n(16),n(17),n(18),n(19),n(20),n(23)},function(e,t){window.app=window.app||{},function(e){"use strict";e.common=e.common||{},e.common.events=e.common.events||{},e.common.events.dispatchEvent=function(e,t){var n=new window.CustomEvent(e,{detail:t});window.dispatchEvent(n)}}(window.app)},function(e,t){window.app=window.app||{},function(e){"use strict";e.common.events;e.model=e.model||{},e.model.battery=e.model.battery||{},e.model.battery.init=function(e){(e=e).init()}}(window.app)},function(e,t){window.app=window.app||{},function(e){"use strict";e.common.events;var t=null;e.model=e.model||{},e.model.network=e.model.network||{},(t=e.model.network).driver=null,t.isNetworkAvailable=function(){return t.driver.isNetworkAvailable()},t.getNetworkType=function(){return t.driver.getNetworkType()},t.init=function(e){t.driver=e,t.driver.init()}}(window.app)},function(e,t){window.app=window.app||{},function(e){"use strict";var t=1e3,n=5,o=null,r=e.common.events,i=(e.common.calculations,null),a=null,u=0;function c(e){(function(e){return!(!a||a.coords.latitude!==e.coords.latitude&&a.coords.longitude!==e.coords.longitude)})(e)||(a=e,r.dispatchEvent("model.geolocation.current.position.changed")),r.dispatchEvent("model.geolocation.position.available"),u=0}function s(e){r.dispatchEvent("model.geolocation.position.unavailable"),(u+=1)===n&&r.dispatchEvent("model.geolocation.position.lost"),console.warn(e)}e.model=e.model||{},e.model.geolocation=e.model.geolocation||{},(o=e.model.geolocation).getCurrentPosition=function(){return a},o.init=function(){navigator.geolocation?(i=navigator.geolocation,r.dispatchEvent("model.geolocation.available"),function(){try{i.watchPosition(c,s,{maximumAge:t,enableHighAccuracy:!0,timeout:t})}catch(e){console.warn("Couldn't get geolocation position.",e)}}()):r.dispatchEvent("model.geolocation.unavailable")}}(window.app)},function(e,t,n){"use strict";n.r(t);var o=n(6),r=n(7),i=n(1),a=n(22);n(14),window.app=window.app||{},function(e){var t=null,n=e.model.geolocation,u=e.common.events,c=null,s=null,l=null;function f(){s&&u.dispatchEvent("model.workout.updateui",s)}function d(){var e=n.getCurrentPosition();if(s&&s.isActive()){var t=new Point(0,e.coords.latitude,e.coords.longitude,0,e.coords.altitude||0,e.timestamp);s.addPoint(t),f()}}e.model=e.model||{},e.model.workout=e.model.workout||{},(t=e.model.workout).WORKOUT_TYPE_RUNNING=1,t.WORKOUT_TYPE_CYCLING=2,t.WORKOUT_STATUS_UNSAVED=0,t.WORKOUT_STATUS_SAVED=1,t.WORKOUT_STATUS_SYNCED=2,t.init=function(e){(c=e).init(),window.addEventListener("model.geolocation.position.available",d),l=new a({dbVersion:1,storeName:"workouts",keyPath:"id",autoIncrement:!0,onStoreReady:function(){u.dispatchEvent("model.workout.dbready"),!0}})},t.start=function(e){switch(e){case i.b:s=new o.a;break;case i.c:s=new r.a}s.start(),f(),c.backgroundRunEnable()},t.togglePause=function(){s.isActive()?(u.dispatchEvent("model.workout.paused"),s.pause(),c.backgroundRunDisable()):(c.backgroundRunEnable(),u.dispatchEvent("model.workout.resumed"),s.resume())},t.isHeartRateAvailable=function(){return c.isHeartRateAvailable()},t.save=function(){s.save();return l.put(s.toObject(),function(e){console.log("Successfully inserted! insertId is: "+e),u.dispatchEvent("model.workout.save.successful",!0)},function(e){console.log("Workout save failed!",e),u.dispatchEvent("model.workout.save.failed")}),!1},t.clear=function(){l.clear(function(){console.log("Database celared"),u.dispatchEvent("model.workout.clear.successful")},function(e){console.log("Database clear failed!",e),u.dispatchEvent("model.workout.clear.failed")})},t.getList=function(e){l.getAll(function(t){t=t.filter(function(t){return t.status==e}),u.dispatchEvent("model.workout.getlist.successful",t)},function(e){console.log("Workout save failed!",e),u.dispatchEvent("model.workout.getlist.failed")})},t.getItemsToSync=function(){return t.getList(t.WORKOUT_STATUS_SAVED)},t.getWorkout=function(){return s}}(window.app)},function(e,t){var n,o;n=window,(o=function(e,t,n,o,r,i){this.segment_index=e,this.lat=t,this.lng=n,this.heart_rate=o,this.elevation=r,this.time=i}).prototype={init:function(){}},n.Point=o},function(e,t,n){var o,r;!function(i,a,u){"use strict";void 0===(r="function"==typeof(o=function(){var e=function(e){throw e},t=function(){},n={storeName:"Store",storePrefix:"IDBWrapper-",dbVersion:1,keyPath:"id",autoIncrement:!0,onStoreReady:function(){},onError:e,indexes:[],implementationPreference:["indexedDB","webkitIndexedDB","mozIndexedDB","shimIndexedDB"]},o=function(e,t){for(var o in void 0===t&&"function"==typeof e&&(t=e),"[object Object]"!=Object.prototype.toString.call(e)&&(e={}),n)this[o]=void 0!==e[o]?e[o]:n[o];this.dbName=this.storePrefix+this.storeName,this.dbVersion=parseInt(this.dbVersion,10)||1,t&&(this.onStoreReady=t);var r="object"==typeof window?window:self,i=this.implementationPreference.filter(function(e){return e in r});this.implementation=i[0],this.idb=r[this.implementation],this.keyRange=r.IDBKeyRange||r.webkitIDBKeyRange||r.mozIDBKeyRange,this.consts={READ_ONLY:"readonly",READ_WRITE:"readwrite",VERSION_CHANGE:"versionchange",NEXT:"next",NEXT_NO_DUPLICATE:"nextunique",PREV:"prev",PREV_NO_DUPLICATE:"prevunique"},this.openDB()},r={constructor:o,version:"1.7.2",db:null,dbName:null,dbVersion:null,store:null,storeName:null,storePrefix:null,keyPath:null,autoIncrement:null,indexes:null,implementationPreference:null,implementation:"",onStoreReady:null,onError:null,_insertIdCount:0,openDB:function(){var e=this.idb.open(this.dbName,this.dbVersion),t=!1;e.onerror=function(e){if(function(e){if("error"in e.target)return"VersionError"==e.target.error.name;if("errorCode"in e.target)return 12==e.target.errorCode;return!1}(e))this.onError(new Error("The version number provided is lower than the existing one."));else{var t;if(e.target.error)t=e.target.error;else{var n="IndexedDB unknown error occurred when opening DB "+this.dbName+" version "+this.dbVersion;"errorCode"in e.target&&(n+=" with error code "+e.target.errorCode),t=new Error(n)}this.onError(t)}}.bind(this),e.onsuccess=function(e){if(!t)if(this.db)this.onStoreReady();else if(this.db=e.target.result,"string"!=typeof this.db.version)if(this.db.objectStoreNames.contains(this.storeName)){var n=this.db.transaction([this.storeName],this.consts.READ_ONLY);this.store=n.objectStore(this.storeName);var o=Array.prototype.slice.call(this.getIndexList());this.indexes.forEach(function(e){var n=e.name;if(!n)return t=!0,void this.onError(new Error("Cannot create index: No index name given."));if(this.normalizeIndexData(e),this.hasIndex(n)){var r=this.store.index(n),i=this.indexComplies(r,e);i||(t=!0,this.onError(new Error('Cannot modify index "'+n+'" for current version. Please bump version number to '+(this.dbVersion+1)+"."))),o.splice(o.indexOf(n),1)}else t=!0,this.onError(new Error('Cannot create new index "'+n+'" for current version. Please bump version number to '+(this.dbVersion+1)+"."))},this),o.length&&(t=!0,this.onError(new Error('Cannot delete index(es) "'+o.toString()+'" for current version. Please bump version number to '+(this.dbVersion+1)+"."))),t||this.onStoreReady()}else this.onError(new Error("Object store couldn't be created."));else this.onError(new Error("The IndexedDB implementation in this browser is outdated. Please upgrade your browser."))}.bind(this),e.onupgradeneeded=function(e){if(this.db=e.target.result,this.db.objectStoreNames.contains(this.storeName))this.store=e.target.transaction.objectStore(this.storeName);else{var n={autoIncrement:this.autoIncrement};null!==this.keyPath&&(n.keyPath=this.keyPath),this.store=this.db.createObjectStore(this.storeName,n)}var o=Array.prototype.slice.call(this.getIndexList());this.indexes.forEach(function(e){var n=e.name;if(n||(t=!0,this.onError(new Error("Cannot create index: No index name given."))),this.normalizeIndexData(e),this.hasIndex(n)){var r=this.store.index(n),i=this.indexComplies(r,e);i||(this.store.deleteIndex(n),this.store.createIndex(n,e.keyPath,{unique:e.unique,multiEntry:e.multiEntry})),o.splice(o.indexOf(n),1)}else this.store.createIndex(n,e.keyPath,{unique:e.unique,multiEntry:e.multiEntry})},this),o.length&&o.forEach(function(e){this.store.deleteIndex(e)},this)}.bind(this)},deleteDatabase:function(e,t){if(this.idb.deleteDatabase){this.db.close();var n=this.idb.deleteDatabase(this.dbName);n.onsuccess=e,n.onerror=t}else t(new Error("Browser does not support IndexedDB deleteDatabase!"))},put:function(n,o,r,i){null!==this.keyPath&&(i=r,r=o,o=n),i||(i=e),r||(r=t);var a,u=!1,c=null,s=this.db.transaction([this.storeName],this.consts.READ_WRITE);return s.oncomplete=function(){var e=u?r:i;e(c)},s.onabort=i,s.onerror=i,null!==this.keyPath?(this._addIdPropertyIfNeeded(o),a=s.objectStore(this.storeName).put(o)):a=s.objectStore(this.storeName).put(o,n),a.onsuccess=function(e){u=!0,c=e.target.result},a.onerror=i,s},get:function(n,o,r){r||(r=e),o||(o=t);var i=!1,a=null,u=this.db.transaction([this.storeName],this.consts.READ_ONLY);u.oncomplete=function(){var e=i?o:r;e(a)},u.onabort=r,u.onerror=r;var c=u.objectStore(this.storeName).get(n);return c.onsuccess=function(e){i=!0,a=e.target.result},c.onerror=r,u},remove:function(n,o,r){r||(r=e),o||(o=t);var i=!1,a=null,u=this.db.transaction([this.storeName],this.consts.READ_WRITE);u.oncomplete=function(){var e=i?o:r;e(a)},u.onabort=r,u.onerror=r;var c=u.objectStore(this.storeName).delete(n);return c.onsuccess=function(e){i=!0,a=e.target.result},c.onerror=r,u},batch:function(n,o,r){if(r||(r=e),o||(o=t),"[object Array]"!=Object.prototype.toString.call(n))r(new Error("dataArray argument must be of type Array."));else if(0===n.length)return o(!0);var i=n.length,a=!1,u=!1,c=this.db.transaction([this.storeName],this.consts.READ_WRITE);c.oncomplete=function(){var e=u?o:r;e(u)},c.onabort=r,c.onerror=r;var s=function(){0!==--i||a||(a=!0,u=!0)};return n.forEach(function(e){var t=e.type,n=e.key,o=e.value,i=function(e){c.abort(),a||(a=!0,r(e,t,n))};if("remove"==t){var u=c.objectStore(this.storeName).delete(n);u.onsuccess=s,u.onerror=i}else if("put"==t){var l;null!==this.keyPath?(this._addIdPropertyIfNeeded(o),l=c.objectStore(this.storeName).put(o)):l=c.objectStore(this.storeName).put(o,n),l.onsuccess=s,l.onerror=i}},this),c},putBatch:function(e,t,n){var o=e.map(function(e){return{type:"put",value:e}});return this.batch(o,t,n)},upsertBatch:function(n,o,r,i){"function"==typeof o&&(i=r=o,o={}),i||(i=e),r||(r=t),o||(o={}),"[object Array]"!=Object.prototype.toString.call(n)&&i(new Error("dataArray argument must be of type Array."));var a=o.keyField||this.keyPath,u=n.length,c=!1,s=!1,l=0,f=this.db.transaction([this.storeName],this.consts.READ_WRITE);f.oncomplete=function(){s?r(n):i(!1)},f.onabort=i,f.onerror=i;var d=function(e){var t=n[l++];t[a]=e.target.result,0!==--u||c||(c=!0,s=!0)};return n.forEach(function(e){var t,n=e.key;null!==this.keyPath?(this._addIdPropertyIfNeeded(e),t=f.objectStore(this.storeName).put(e)):t=f.objectStore(this.storeName).put(e,n),t.onsuccess=d,t.onerror=function(e){f.abort(),c||(c=!0,i(e))}},this),f},removeBatch:function(e,t,n){var o=e.map(function(e){return{type:"remove",key:e}});return this.batch(o,t,n)},getBatch:function(n,o,r,i){if(r||(r=e),o||(o=t),i||(i="sparse"),"[object Array]"!=Object.prototype.toString.call(n))r(new Error("keyArray argument must be of type Array."));else if(0===n.length)return o([]);var a=[],u=n.length,c=!1,s=null,l=this.db.transaction([this.storeName],this.consts.READ_ONLY);l.oncomplete=function(){var e=c?o:r;e(s)},l.onabort=r,l.onerror=r;var f=function(e){e.target.result||"dense"==i?a.push(e.target.result):"sparse"==i&&a.length++,0===--u&&(!0,c=!0,s=a)};return n.forEach(function(e){var t=l.objectStore(this.storeName).get(e);t.onsuccess=f,t.onerror=function(e){!0,s=e,r(e),l.abort()}},this),l},getAll:function(n,o){o||(o=e),n||(n=t);var r=this.db.transaction([this.storeName],this.consts.READ_ONLY),i=r.objectStore(this.storeName);return i.getAll?this._getAllNative(r,i,n,o):this._getAllCursor(r,i,n,o),r},_getAllNative:function(e,t,n,o){var r=!1,i=null;e.oncomplete=function(){var e=r?n:o;e(i)},e.onabort=o,e.onerror=o;var a=t.getAll();a.onsuccess=function(e){r=!0,i=e.target.result},a.onerror=o},_getAllCursor:function(e,t,n,o){var r=[],i=!1,a=null;e.oncomplete=function(){var e=i?n:o;e(a)},e.onabort=o,e.onerror=o;var u=t.openCursor();u.onsuccess=function(e){var t=e.target.result;t?(r.push(t.value),t.continue()):(i=!0,a=r)},u.onError=o},clear:function(n,o){o||(o=e),n||(n=t);var r=!1,i=null,a=this.db.transaction([this.storeName],this.consts.READ_WRITE);a.oncomplete=function(){var e=r?n:o;e(i)},a.onabort=o,a.onerror=o;var u=a.objectStore(this.storeName).clear();return u.onsuccess=function(e){r=!0,i=e.target.result},u.onerror=o,a},_addIdPropertyIfNeeded:function(e){void 0===e[this.keyPath]&&(e[this.keyPath]=this._insertIdCount+++Date.now())},getIndexList:function(){return this.store.indexNames},hasIndex:function(e){return this.store.indexNames.contains(e)},normalizeIndexData:function(e){e.keyPath=e.keyPath||e.name,e.unique=!!e.unique,e.multiEntry=!!e.multiEntry},indexComplies:function(e,t){var n=["keyPath","unique","multiEntry"].every(function(n){if("multiEntry"==n&&void 0===e[n]&&!1===t[n])return!0;if("keyPath"==n&&"[object Array]"==Object.prototype.toString.call(t[n])){var o=t.keyPath,r=e.keyPath;if("string"==typeof r)return o.toString()==r;if("function"!=typeof r.contains&&"function"!=typeof r.indexOf)return!1;if(r.length!==o.length)return!1;for(var i=0,a=o.length;i<a;i++)if(!(r.contains&&r.contains(o[i])||r.indexOf(-1!==o[i])))return!1;return!0}return t[n]==e[n]});return n},iterate:function(t,n){var o="desc"==(n=a({index:null,order:"ASC",autoContinue:!0,filterDuplicates:!1,keyRange:null,writeAccess:!1,onEnd:null,onError:e,limit:1/0,offset:0,allowItemRejection:!1},n||{})).order.toLowerCase()?"PREV":"NEXT";n.filterDuplicates&&(o+="_NO_DUPLICATE");var r=!1,i=this.db.transaction([this.storeName],this.consts[n.writeAccess?"READ_WRITE":"READ_ONLY"]),u=i.objectStore(this.storeName);n.index&&(u=u.index(n.index));var c=0;i.oncomplete=function(){r?n.onEnd?n.onEnd():t(null):n.onError(null)},i.onabort=n.onError,i.onerror=n.onError;var s=u.openCursor(n.keyRange,this.consts[o]);return s.onerror=n.onError,s.onsuccess=function(e){var o=e.target.result;if(o)if(n.offset)o.advance(n.offset),n.offset=0;else{var a=t(o.value,o,i);n.allowItemRejection&&!1===a||c++,n.autoContinue&&(c+n.offset<n.limit?o.continue():r=!0)}else r=!0},i},query:function(e,t){var n=[],o=0;return(t=t||{}).autoContinue=!0,t.writeAccess=!1,t.allowItemRejection=!!t.filter,t.onEnd=function(){e(n,o)},this.iterate(function(e){o++;var r=!t.filter||t.filter(e);return!1!==r&&n.push(e),r},t)},count:function(t,n){var o=(n=a({index:null,keyRange:null},n||{})).onError||e,r=!1,i=null,u=this.db.transaction([this.storeName],this.consts.READ_ONLY);u.oncomplete=function(){var e=r?t:o;e(i)},u.onabort=o,u.onerror=o;var c=u.objectStore(this.storeName);n.index&&(c=c.index(n.index));var s=c.count(n.keyRange);return s.onsuccess=function(e){r=!0,i=e.target.result},s.onError=o,u},makeKeyRange:function(e){var t,n=void 0!==e.lower,o=void 0!==e.upper,r=void 0!==e.only;switch(!0){case r:t=this.keyRange.only(e.only);break;case n&&o:t=this.keyRange.bound(e.lower,e.upper,e.excludeLower,e.excludeUpper);break;case n:t=this.keyRange.lowerBound(e.lower,e.excludeLower);break;case o:t=this.keyRange.upperBound(e.upper,e.excludeUpper);break;default:throw new Error('Cannot create KeyRange. Provide one or both of "lower" or "upper" value, or an "only" value.')}return t}},i={};function a(e,t){var n,o;for(n in t)(o=t[n])!==i[n]&&o!==e[n]&&(e[n]=o);return e}return o.prototype=r,o.version=r.version,o})?o.call(t,n,t,e):o)||(e.exports=r)}()},function(e,t){window.app=window.app||{},function(e){"use strict";var t=null,n=e.model.workout,o=e.common.events,r=(e.model.network,{login:"",upload:""});function i(){window.addEventListener("model.workout.getlist.successful",function(e){e.stopPropagation(),function(e){var t=new XMLHttpRequest,i=(a=localStorage.getItem("token")||"",u={key:"Authorization",value:"Bearer "+a},!!a.length&&u);var a,u;if(!1===i)return o.dispatchEvent("model.sync.login.required",{syncAfterLogin:!0}),!1;t.onreadystatechange=function(){if(4==t.readyState)switch(console.log("Response: "+t.status),t.status){case 200:n.clear(),o.dispatchEvent("model.sync.upload.successful",!0);break;case 401:o.dispatchEvent("model.sync.login.required",{syncAfterLogin:!0});break;default:o.dispatchEvent("model.sync.upload.failed")}},t.open("POST",r.upload,!0);var c=JSON.stringify({data:e});t.setRequestHeader("Content-Type","application/json;charset=UTF-8"),t.setRequestHeader("Accept","application/json"),t.setRequestHeader(i.key,i.value),console.log("Sending data to the server"),t.send(c)}(e.detail)},"model.workout.getlist.failed",function(e){e.stopPropagation(),o.dispatchEvent("model.sync.upload.failed")})}e.model=e.model||{},e.model.sync=e.model.sync||{},(t=e.model.sync).init=function(e,t){r.login=e,r.upload=t,i()},t.login=function(e,t){var n=new XMLHttpRequest,i=window.localStorage;n.onreadystatechange=function(){4==n.readyState&&(200==n.status?(i.setItem("token",JSON.parse(n.response)),o.dispatchEvent("model.sync.login.successful",{token:n.response})):o.dispatchEvent("model.sync.login.failed"))},n.onerror=function(e){console.log(e)};var a="email="+e+"&password="+t;n.open("POST",r.login,!0),n.setRequestHeader("Content-Type","application/x-www-form-urlencoded"),n.send(a)},t.sync=function(){n.getItemsToSync()}}(window.app)},function(e,t,n){e.exports=n(25)},function(e,t,n){"use strict";n.r(t);var o=n(0),r=n(5);n(15),n(26),window.app=window.app||{},window.Platform=o.b,function(e){var t=e.model.battery,n=e.model.workout,i=e.model.network,a=null,u=e.ui;function c(e){"back"===e.keyName&&u.toggleClosePopup()}e.exit=function(){a.exit()},e.init=function(){var e=o.b.get(),s=new r.a(e);a=s.buildHardwareDriver(e),t.init(s.buildBatteryDriver(e)),i.init(s.buildNetworkDriver(e)),n.init(a),document.addEventListener("tizenhwkey",c),document.addEventListener("backbutton",function(e){u.toggleClosePopup()},!1),u.init()},"undefined"!=typeof cordova?document.addEventListener("deviceready",e.init):window.addEventListener("load",e.init)}(window.app)},function(e,t,n){n(27),n(28),n(29),n(30),n(31),window.app=window.app||{},function(e){"use strict";var t=null,n=null,o=null,r=null,i=null,a=null,u=null,c=null,s=null,l=null,f=null,d=null,p=null,y=null;function h(){v()}function v(){for(var e=0;e<p.length;++e){var t=p[e];t.classList.contains("network-status-active")&&t.classList.remove("network-status-active"),o.isNetworkAvailable()&&!t.classList.contains("network-status-active")&&t.classList.add("network-status-active")}}function m(){for(var e=0;e<d.length;++e){var t=d[e];t.classList.contains("gps-status-active")||t.classList.add("gps-status-active")}}function b(){for(var e=0;e<d.length;++e){var t=d[e];t.classList.contains("gps-status-active")&&t.classList.remove("gps-status-active")}}function w(){e.exit()}e.ui=e.ui||{},(t=e.ui).toggleClosePopup=function(){l.classList.contains("ui-popup-active")?tau.closePopup(l):tau.openPopup(l)},t.init=function(){n=e.model.geolocation,o=e.model.network,e.model.workout,r=e.model.sync,i=e.ui.intro,a=e.ui.main,u=e.ui.workout,c=e.ui.login,s=e.ui.info,y=e.common.events,l=document.getElementById("close-popup"),f=l.querySelector("#close-popup-yes-btn"),d=document.querySelectorAll(".gps-status"),p=document.querySelectorAll(".network-status"),f.addEventListener("click",w),window.addEventListener("model.network.initialized",h),window.addEventListener("model.network.type.changed",v),window.addEventListener("model.geolocation.position.available",m),window.addEventListener("model.geolocation.position.unavailable",b),window.addEventListener("model.geolocation.position.lost",b),s.init(),i.init(),a.init(),u.init(),c.init(),n.init(),r.init("https://tracy.wernerd.info/api/login","https://tracy.wernerd.info/api/workouts"),window.addEventListener("model.workout.dbready",function(e){r.sync()}),window.addEventListener("model.workout.save.successful",function(e){r.sync()}),window.addEventListener("model.sync.upload.successful",function(e){y.dispatchEvent("ui.info.show","Workouts synced successfully!")}),window.addEventListener("model.sync.upload.failed",function(e){y.dispatchEvent("ui.info.show","Workout sync failed!")})}}(window.app)},function(e,t){window.app=window.app||{},function(e){"use strict";var t="workout",n=null,o=null,r=null,i=null,a=null,u=null,c=null,s=null,l=null,f=null,d=null,p=null,y=null,h=null,v=null,m=null,b=null,w=null,g=null;function k(e){a.innerText=Math.round(10*e.speed)/10,u.innerText=e.speedLabel,c.innerText=e.speedUnit,s.innerText=Math.round(10*e.distance)/10,l.innerText=Math.round(e.heartRate),f.innerText=Math.round(e.altitude)}function E(){p&&k(p),o.isHeartRateAvailable()||(l.style.display="none"),i.style.display="none"}function _(e){p=e.detail,tau.activePage.id===t&&k(p)}function P(e){tau.activePage.id===t&&"back"===e.keyName&&(o.togglePause(),e.stopPropagation())}function O(e){tau.activePage.id===t&&(i.style.display="inline",tau.openPopup(y))}function S(e){tau.activePage.id===t&&(i.style.display="none",tau.closePopup(y))}function N(){tau.openPopup(m)}function j(e){o.togglePause()}function T(){o.togglePause()}function R(){o.save(),tau.changePage("#main")}function x(){tau.changePage("#main")}function I(){g.dispatchEvent("ui.info.show","Workout saved sucessfully!")}function A(){g.dispatchEvent("ui.info.show","Workout saved failed!")}e.ui=e.ui||{},e.ui.workout=e.ui.workout||{},(r=e.ui.workout).show=function(){tau.changePage("#"+t)},r.init=function(){e.common.calculations,g=e.common.events,o=e.model.workout,n=document.getElementById(t),i=n.querySelector(".workout-status"),a=n.querySelector(".workout-speed"),u=n.querySelector(".workout-speed-label"),c=n.querySelector(".workout-speed-unit"),s=n.querySelector(".workout-distance"),l=n.querySelector(".workout-hr"),f=n.querySelector(".workout-altitude"),d=n.querySelector("#workout-pause-btn"),y=document.getElementById("pause-popup"),h=y.querySelector("#pause-popup-yes-btn"),v=y.querySelector("#pause-popup-no-btn"),m=document.getElementById("save-popup"),w=m.querySelector("#save-popup-yes-btn"),b=m.querySelector("#save-popup-no-btn"),n.addEventListener("pagebeforeshow",E),document.addEventListener("tizenhwkey",P),window.addEventListener("model.workout.updateui",_),window.addEventListener("model.workout.paused",O),window.addEventListener("model.workout.resumed",S),window.addEventListener("model.workout.save.successful",I),window.addEventListener("model.workout.save.failed",A),d.addEventListener("click",j),h.addEventListener("click",N),v.addEventListener("click",T),w.addEventListener("click",R),b.addEventListener("click",x)}}(window.app)},function(e,t){window.app=window.app||{},function(e){"use strict";var t="login-popup",n=null,o=null,r=null,i=e.common.events,a=!1,u=null,c=null,s=null;function l(){}function f(){var e=u.querySelector("#login-email").value,t=u.querySelector("#login-password").value;o.login(e,t)}function d(){}function p(){i.dispatchEvent("ui.info.show","Successful login!"),a&&(a=!1,o.sync())}function y(){i.dispatchEvent("ui.info.show","Login failed!")}function h(e){var t=e.detail||null;t&&t.hasOwnProperty("syncAfterLogin")&&t.syncAfterLogin&&(a=t.syncAfterLogin),tau.openPopup(u)}e.ui=e.ui||{},e.ui.login=e.ui.login||{},(r=e.ui.login).show=function(){tau.changePage("#"+t)},r.init=function(){o=e.model.sync,n=document.getElementById(t),u=document.getElementById("login-popup"),c=u.querySelector("#login-popup-login-btn"),s=u.querySelector("#login-popup-cancel-btn"),n.addEventListener("pagebeforeshow",l),c.addEventListener("click",f),s.addEventListener("click",d),window.addEventListener("model.sync.login.successful",p),window.addEventListener("model.sync.login.failed",y),window.addEventListener("model.sync.login.required",h)}}(window.app)},function(e,t){window.app=window.app||{},function(e){"use strict";var t=null,n=null,o=null,r=null,i=null;function a(){}function u(){n.start(n.WORKOUT_TYPE_CYCLING),tau.changePage("#workout")}function c(){n.start(n.WORKOUT_TYPE_RUNNING),tau.changePage("#workout")}e.ui=e.ui||{},e.ui.main=e.ui.main||{},(o=e.ui.main).show=function(e){tau.changePage("#main")},o.init=function(){e.model.geolocation,e.model.network,n=e.model.workout,e.ui.waiting,t=document.getElementById("main"),r=t.querySelector(".workout-start-cycling"),i=t.querySelector(".workout-start-running"),t.addEventListener("pagebeforeshow",a),r.addEventListener("click",u),i.addEventListener("click",c)}}(window.app)},function(e,t){window.app=window.app||{},function(e){"use strict";var t="intro",n="LOST\nCONNECTION",o="WAITING FOR\nGPS DATA",r="lost",i=3e3,a=null,u=null,c=null,s=null,l=!1;function f(){tau.activePage.id===t&&(l?tau.back():u.show())}function d(){s.classList.remove(r),s.innerText=o}function p(){s.classList.add(r),s.innerText=n,setTimeout(function(){d()},i)}e.ui=e.ui||{},e.ui.intro=e.ui.intro||{},(a=e.ui.intro).show=function(){l=!0,tau.changePage("#"+t)},a.init=function(){u=e.ui.main,a=e.ui.intro,c=document.getElementById(t),s=c.querySelector("#waiting-message"),d(),c.addEventListener("pagebeforeshow",p),window.addEventListener("model.geolocation.position.available",f)}}(window.app)},function(e,t){window.app=window.app||{},function(e){"use strict";var t=null,n=null,o=null,r=null;function i(){}function a(e){r.innerHTML=e.detail,tau.openPopup(o)}e.ui=e.ui||{},e.ui.info=e.ui.info||{},(n=e.ui.info).show=function(){tau.changePage("#info-popup")},n.init=function(){t=document.getElementById("info-popup"),o=document.getElementById("info-popup"),r=document.getElementById("info-content"),t.addEventListener("pagebeforeshow",i),window.addEventListener("ui.info.show",a)}}(window.app)}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./node_modules/idb-wrapper/idbstore.js":
+/*!**********************************************!*\
+  !*** ./node_modules/idb-wrapper/idbstore.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*global window:false, self:false, define:false, module:false */
+
+/**
+ * @license IDBWrapper - A cross-browser wrapper for IndexedDB
+ * Version 1.7.2
+ * Copyright (c) 2011 - 2017 Jens Arps
+ * http://jensarps.de/
+ *
+ * Licensed under the MIT license
+ */
+
+(function (name, definition, global) {
+
+    'use strict';
+
+    if (true) {
+        !(__WEBPACK_AMD_DEFINE_FACTORY__ = (definition),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+    } else {}
+})('IDBStore', function () {
+
+    'use strict';
+
+    var defaultErrorHandler = function (error) {
+        throw error;
+    };
+    var defaultSuccessHandler = function () {
+    };
+
+    var defaults = {
+        storeName: 'Store',
+        storePrefix: 'IDBWrapper-',
+        dbVersion: 1,
+        keyPath: 'id',
+        autoIncrement: true,
+        onStoreReady: function () {
+        },
+        onError: defaultErrorHandler,
+        indexes: [],
+        implementationPreference: [
+            'indexedDB',
+            'webkitIndexedDB',
+            'mozIndexedDB',
+            'shimIndexedDB'
+        ]
+    };
+
+    /**
+     *
+     * The IDBStore constructor
+     *
+     * @constructor
+     * @name IDBStore
+     * @version 1.7.2
+     *
+     * @param {Object} [kwArgs] An options object used to configure the store and
+     *  set callbacks
+     * @param {String} [kwArgs.storeName='Store'] The name of the store
+     * @param {String} [kwArgs.storePrefix='IDBWrapper-'] A prefix that is
+     *  internally used to construct the name of the database, which will be
+     *  kwArgs.storePrefix + kwArgs.storeName
+     * @param {Number} [kwArgs.dbVersion=1] The version of the store
+     * @param {String} [kwArgs.keyPath='id'] The key path to use. If you want to
+     *  setup IDBWrapper to work with out-of-line keys, you need to set this to
+     *  `null`
+     * @param {Boolean} [kwArgs.autoIncrement=true] If set to true, IDBStore will
+     *  automatically make sure a unique keyPath value is present on each object
+     *  that is stored.
+     * @param {Function} [kwArgs.onStoreReady] A callback to be called when the
+     *  store is ready to be used.
+     * @param {Function} [kwArgs.onError=throw] A callback to be called when an
+     *  error occurred during instantiation of the store.
+     * @param {Array} [kwArgs.indexes=[]] An array of indexData objects
+     *  defining the indexes to use with the store. For every index to be used
+     *  one indexData object needs to be passed in the array.
+     *  An indexData object is defined as follows:
+     * @param {Object} [kwArgs.indexes.indexData] An object defining the index to
+     *  use
+     * @param {String} kwArgs.indexes.indexData.name The name of the index
+     * @param {String} [kwArgs.indexes.indexData.keyPath] The key path of the index
+     * @param {Boolean} [kwArgs.indexes.indexData.unique] Whether the index is unique
+     * @param {Boolean} [kwArgs.indexes.indexData.multiEntry] Whether the index is multi entry
+     * @param {Array} [kwArgs.implementationPreference=['indexedDB','webkitIndexedDB','mozIndexedDB','shimIndexedDB']] An array of strings naming implementations to be used, in order or preference
+     * @param {Function} [onStoreReady] A callback to be called when the store
+     * is ready to be used.
+     * @example
+     // create a store for customers with an additional index over the
+     // `lastname` property.
+     var myCustomerStore = new IDBStore({
+         dbVersion: 1,
+         storeName: 'customer-index',
+         keyPath: 'customerid',
+         autoIncrement: true,
+         onStoreReady: populateTable,
+         indexes: [
+             { name: 'lastname', keyPath: 'lastname', unique: false, multiEntry: false }
+         ]
+     });
+     * @example
+     // create a generic store
+     var myCustomerStore = new IDBStore({
+         storeName: 'my-data-store',
+         onStoreReady: function(){
+             // start working with the store.
+         }
+     });
+     */
+    var IDBStore = function (kwArgs, onStoreReady) {
+
+        if (typeof onStoreReady == 'undefined' && typeof kwArgs == 'function') {
+            onStoreReady = kwArgs;
+        }
+        if (Object.prototype.toString.call(kwArgs) != '[object Object]') {
+            kwArgs = {};
+        }
+
+        for (var key in defaults) {
+            this[key] = typeof kwArgs[key] != 'undefined' ? kwArgs[key] : defaults[key];
+        }
+
+        this.dbName = this.storePrefix + this.storeName;
+        this.dbVersion = parseInt(this.dbVersion, 10) || 1;
+
+        onStoreReady && (this.onStoreReady = onStoreReady);
+
+        var env = typeof window == 'object' ? window : self;
+        var availableImplementations = this.implementationPreference.filter(function (implName) {
+            return implName in env;
+        });
+        this.implementation = availableImplementations[0];
+        this.idb = env[this.implementation];
+        this.keyRange = env.IDBKeyRange || env.webkitIDBKeyRange || env.mozIDBKeyRange;
+
+        this.consts = {
+            'READ_ONLY': 'readonly',
+            'READ_WRITE': 'readwrite',
+            'VERSION_CHANGE': 'versionchange',
+            'NEXT': 'next',
+            'NEXT_NO_DUPLICATE': 'nextunique',
+            'PREV': 'prev',
+            'PREV_NO_DUPLICATE': 'prevunique'
+        };
+
+        this.openDB();
+    };
+
+    /** @lends IDBStore.prototype */
+    var proto = {
+
+        /**
+         * A pointer to the IDBStore ctor
+         *
+         * @private
+         * @type {Function}
+         * @constructs
+         */
+        constructor: IDBStore,
+
+        /**
+         * The version of IDBStore
+         *
+         * @type {String}
+         */
+        version: '1.7.2',
+
+        /**
+         * A reference to the IndexedDB object
+         *
+         * @type {IDBDatabase}
+         */
+        db: null,
+
+        /**
+         * The full name of the IndexedDB used by IDBStore, composed of
+         * this.storePrefix + this.storeName
+         *
+         * @type {String}
+         */
+        dbName: null,
+
+        /**
+         * The version of the IndexedDB used by IDBStore
+         *
+         * @type {Number}
+         */
+        dbVersion: null,
+
+        /**
+         * A reference to the objectStore used by IDBStore
+         *
+         * @type {IDBObjectStore}
+         */
+        store: null,
+
+        /**
+         * The store name
+         *
+         * @type {String}
+         */
+        storeName: null,
+
+        /**
+         * The prefix to prepend to the store name
+         *
+         * @type {String}
+         */
+        storePrefix: null,
+
+        /**
+         * The key path
+         *
+         * @type {String}
+         */
+        keyPath: null,
+
+        /**
+         * Whether IDBStore uses autoIncrement
+         *
+         * @type {Boolean}
+         */
+        autoIncrement: null,
+
+        /**
+         * The indexes used by IDBStore
+         *
+         * @type {Array}
+         */
+        indexes: null,
+
+        /**
+         * The implemantations to try to use, in order of preference
+         *
+         * @type {Array}
+         */
+        implementationPreference: null,
+
+        /**
+         * The actual implementation being used
+         *
+         * @type {String}
+         */
+        implementation: '',
+
+        /**
+         * The callback to be called when the store is ready to be used
+         *
+         * @type {Function}
+         */
+        onStoreReady: null,
+
+        /**
+         * The callback to be called if an error occurred during instantiation
+         * of the store
+         *
+         * @type {Function}
+         */
+        onError: null,
+
+        /**
+         * The internal insertID counter
+         *
+         * @type {Number}
+         * @private
+         */
+        _insertIdCount: 0,
+
+        /**
+         * Opens an IndexedDB; called by the constructor.
+         *
+         * Will check if versions match and compare provided index configuration
+         * with existing ones, and update indexes if necessary.
+         *
+         * Will call this.onStoreReady() if everything went well and the store
+         * is ready to use, and this.onError() is something went wrong.
+         *
+         * @private
+         *
+         */
+        openDB: function () {
+
+            var openRequest = this.idb.open(this.dbName, this.dbVersion);
+            var preventSuccessCallback = false;
+
+            openRequest.onerror = function (errorEvent) {
+
+                if (hasVersionError(errorEvent)) {
+                    this.onError(new Error('The version number provided is lower than the existing one.'));
+                } else {
+                    var error;
+
+                    if (errorEvent.target.error) {
+                        error = errorEvent.target.error;
+                    } else {
+                        var errorMessage = 'IndexedDB unknown error occurred when opening DB ' + this.dbName + ' version ' + this.dbVersion;
+                        if ('errorCode' in errorEvent.target) {
+                            errorMessage += ' with error code ' + errorEvent.target.errorCode;
+                        }
+                        error = new Error(errorMessage);
+                    }
+
+                    this.onError(error);
+                }
+            }.bind(this);
+
+            openRequest.onsuccess = function (event) {
+
+                if (preventSuccessCallback) {
+                    return;
+                }
+
+                if (this.db) {
+                    this.onStoreReady();
+                    return;
+                }
+
+                this.db = event.target.result;
+
+                if (typeof this.db.version == 'string') {
+                    this.onError(new Error('The IndexedDB implementation in this browser is outdated. Please upgrade your browser.'));
+                    return;
+                }
+
+                if (!this.db.objectStoreNames.contains(this.storeName)) {
+                    // We should never ever get here.
+                    // Lets notify the user anyway.
+                    this.onError(new Error('Object store couldn\'t be created.'));
+                    return;
+                }
+
+                var emptyTransaction = this.db.transaction([this.storeName], this.consts.READ_ONLY);
+                this.store = emptyTransaction.objectStore(this.storeName);
+
+                // check indexes
+                var existingIndexes = Array.prototype.slice.call(this.getIndexList());
+                this.indexes.forEach(function (indexData) {
+                    var indexName = indexData.name;
+
+                    if (!indexName) {
+                        preventSuccessCallback = true;
+                        this.onError(new Error('Cannot create index: No index name given.'));
+                        return;
+                    }
+
+                    this.normalizeIndexData(indexData);
+
+                    if (this.hasIndex(indexName)) {
+                        // check if it complies
+                        var actualIndex = this.store.index(indexName);
+                        var complies = this.indexComplies(actualIndex, indexData);
+                        if (!complies) {
+                            preventSuccessCallback = true;
+                            this.onError(new Error('Cannot modify index "' + indexName + '" for current version. Please bump version number to ' + ( this.dbVersion + 1 ) + '.'));
+                        }
+
+                        existingIndexes.splice(existingIndexes.indexOf(indexName), 1);
+                    } else {
+                        preventSuccessCallback = true;
+                        this.onError(new Error('Cannot create new index "' + indexName + '" for current version. Please bump version number to ' + ( this.dbVersion + 1 ) + '.'));
+                    }
+
+                }, this);
+
+                if (existingIndexes.length) {
+                    preventSuccessCallback = true;
+                    this.onError(new Error('Cannot delete index(es) "' + existingIndexes.toString() + '" for current version. Please bump version number to ' + ( this.dbVersion + 1 ) + '.'));
+                }
+
+                preventSuccessCallback || this.onStoreReady();
+            }.bind(this);
+
+            openRequest.onupgradeneeded = function (/* IDBVersionChangeEvent */ event) {
+
+                this.db = event.target.result;
+
+                if (this.db.objectStoreNames.contains(this.storeName)) {
+                    this.store = event.target.transaction.objectStore(this.storeName);
+                } else {
+                    var optionalParameters = {autoIncrement: this.autoIncrement};
+                    if (this.keyPath !== null) {
+                        optionalParameters.keyPath = this.keyPath;
+                    }
+                    this.store = this.db.createObjectStore(this.storeName, optionalParameters);
+                }
+
+                var existingIndexes = Array.prototype.slice.call(this.getIndexList());
+                this.indexes.forEach(function (indexData) {
+                    var indexName = indexData.name;
+
+                    if (!indexName) {
+                        preventSuccessCallback = true;
+                        this.onError(new Error('Cannot create index: No index name given.'));
+                    }
+
+                    this.normalizeIndexData(indexData);
+
+                    if (this.hasIndex(indexName)) {
+                        // check if it complies
+                        var actualIndex = this.store.index(indexName);
+                        var complies = this.indexComplies(actualIndex, indexData);
+                        if (!complies) {
+                            // index differs, need to delete and re-create
+                            this.store.deleteIndex(indexName);
+                            this.store.createIndex(indexName, indexData.keyPath, {
+                                unique: indexData.unique,
+                                multiEntry: indexData.multiEntry
+                            });
+                        }
+
+                        existingIndexes.splice(existingIndexes.indexOf(indexName), 1);
+                    } else {
+                        this.store.createIndex(indexName, indexData.keyPath, {
+                            unique: indexData.unique,
+                            multiEntry: indexData.multiEntry
+                        });
+                    }
+
+                }, this);
+
+                if (existingIndexes.length) {
+                    existingIndexes.forEach(function (_indexName) {
+                        this.store.deleteIndex(_indexName);
+                    }, this);
+                }
+
+            }.bind(this);
+        },
+
+        /**
+         * Deletes the database used for this store if the IDB implementations
+         * provides that functionality.
+         *
+         * @param {Function} [onSuccess] A callback that is called if deletion
+         *  was successful.
+         * @param {Function} [onError] A callback that is called if deletion
+         *  failed.
+         */
+        deleteDatabase: function (onSuccess, onError) {
+            if (this.idb.deleteDatabase) {
+                this.db.close();
+                var deleteRequest = this.idb.deleteDatabase(this.dbName);
+                deleteRequest.onsuccess = onSuccess;
+                deleteRequest.onerror = onError;
+            } else {
+                onError(new Error('Browser does not support IndexedDB deleteDatabase!'));
+            }
+        },
+
+        /*********************
+         * data manipulation *
+         *********************/
+
+        /**
+         * Puts an object into the store. If an entry with the given id exists,
+         * it will be overwritten. This method has a different signature for inline
+         * keys and out-of-line keys; please see the examples below.
+         *
+         * @param {*} [key] The key to store. This is only needed if IDBWrapper
+         *  is set to use out-of-line keys. For inline keys - the default scenario -
+         *  this can be omitted.
+         * @param {Object} value The data object to store.
+         * @param {Function} [onSuccess] A callback that is called if insertion
+         *  was successful.
+         * @param {Function} [onError] A callback that is called if insertion
+         *  failed.
+         * @returns {IDBTransaction} The transaction used for this operation.
+         * @example
+         // Storing an object, using inline keys (the default scenario):
+         var myCustomer = {
+             customerid: 2346223,
+             lastname: 'Doe',
+             firstname: 'John'
+         };
+         myCustomerStore.put(myCustomer, mySuccessHandler, myErrorHandler);
+         // Note that passing success- and error-handlers is optional.
+         * @example
+         // Storing an object, using out-of-line keys:
+         var myCustomer = {
+             lastname: 'Doe',
+             firstname: 'John'
+         };
+         myCustomerStore.put(2346223, myCustomer, mySuccessHandler, myErrorHandler);
+         // Note that passing success- and error-handlers is optional.
+         */
+        put: function (key, value, onSuccess, onError) {
+            if (this.keyPath !== null) {
+                onError = onSuccess;
+                onSuccess = value;
+                value = key;
+            }
+            onError || (onError = defaultErrorHandler);
+            onSuccess || (onSuccess = defaultSuccessHandler);
+
+            var hasSuccess = false,
+                result = null,
+                putRequest;
+
+            var putTransaction = this.db.transaction([this.storeName], this.consts.READ_WRITE);
+            putTransaction.oncomplete = function () {
+                var callback = hasSuccess ? onSuccess : onError;
+                callback(result);
+            };
+            putTransaction.onabort = onError;
+            putTransaction.onerror = onError;
+
+            if (this.keyPath !== null) { // in-line keys
+                this._addIdPropertyIfNeeded(value);
+                putRequest = putTransaction.objectStore(this.storeName).put(value);
+            } else { // out-of-line keys
+                putRequest = putTransaction.objectStore(this.storeName).put(value, key);
+            }
+            putRequest.onsuccess = function (event) {
+                hasSuccess = true;
+                result = event.target.result;
+            };
+            putRequest.onerror = onError;
+
+            return putTransaction;
+        },
+
+        /**
+         * Retrieves an object from the store. If no entry exists with the given id,
+         * the success handler will be called with null as first and only argument.
+         *
+         * @param {*} key The id of the object to fetch.
+         * @param {Function} [onSuccess] A callback that is called if fetching
+         *  was successful. Will receive the object as only argument.
+         * @param {Function} [onError] A callback that will be called if an error
+         *  occurred during the operation.
+         * @returns {IDBTransaction} The transaction used for this operation.
+         */
+        get: function (key, onSuccess, onError) {
+            onError || (onError = defaultErrorHandler);
+            onSuccess || (onSuccess = defaultSuccessHandler);
+
+            var hasSuccess = false,
+                result = null;
+
+            var getTransaction = this.db.transaction([this.storeName], this.consts.READ_ONLY);
+            getTransaction.oncomplete = function () {
+                var callback = hasSuccess ? onSuccess : onError;
+                callback(result);
+            };
+            getTransaction.onabort = onError;
+            getTransaction.onerror = onError;
+            var getRequest = getTransaction.objectStore(this.storeName).get(key);
+            getRequest.onsuccess = function (event) {
+                hasSuccess = true;
+                result = event.target.result;
+            };
+            getRequest.onerror = onError;
+
+            return getTransaction;
+        },
+
+        /**
+         * Removes an object from the store.
+         *
+         * @param {*} key The id of the object to remove.
+         * @param {Function} [onSuccess] A callback that is called if the removal
+         *  was successful.
+         * @param {Function} [onError] A callback that will be called if an error
+         *  occurred during the operation.
+         * @returns {IDBTransaction} The transaction used for this operation.
+         */
+        remove: function (key, onSuccess, onError) {
+            onError || (onError = defaultErrorHandler);
+            onSuccess || (onSuccess = defaultSuccessHandler);
+
+            var hasSuccess = false,
+                result = null;
+
+            var removeTransaction = this.db.transaction([this.storeName], this.consts.READ_WRITE);
+            removeTransaction.oncomplete = function () {
+                var callback = hasSuccess ? onSuccess : onError;
+                callback(result);
+            };
+            removeTransaction.onabort = onError;
+            removeTransaction.onerror = onError;
+
+            var deleteRequest = removeTransaction.objectStore(this.storeName)['delete'](key);
+            deleteRequest.onsuccess = function (event) {
+                hasSuccess = true;
+                result = event.target.result;
+            };
+            deleteRequest.onerror = onError;
+
+            return removeTransaction;
+        },
+
+        /**
+         * Runs a batch of put and/or remove operations on the store.
+         *
+         * @param {Array} dataArray An array of objects containing the operation to run
+         *  and the data object (for put operations).
+         * @param {Function} [onSuccess] A callback that is called if all operations
+         *  were successful.
+         * @param {Function} [onError] A callback that is called if an error
+         *  occurred during one of the operations.
+         * @returns {IDBTransaction} The transaction used for this operation.
+         */
+        batch: function (dataArray, onSuccess, onError) {
+            onError || (onError = defaultErrorHandler);
+            onSuccess || (onSuccess = defaultSuccessHandler);
+
+            if (Object.prototype.toString.call(dataArray) != '[object Array]') {
+                onError(new Error('dataArray argument must be of type Array.'));
+            } else if (dataArray.length === 0) {
+                return onSuccess(true);
+            }
+
+            var count = dataArray.length;
+            var called = false;
+            var hasSuccess = false;
+
+            var batchTransaction = this.db.transaction([this.storeName], this.consts.READ_WRITE);
+            batchTransaction.oncomplete = function () {
+                var callback = hasSuccess ? onSuccess : onError;
+                callback(hasSuccess);
+            };
+            batchTransaction.onabort = onError;
+            batchTransaction.onerror = onError;
+
+
+            var onItemSuccess = function () {
+                count--;
+                if (count === 0 && !called) {
+                    called = true;
+                    hasSuccess = true;
+                }
+            };
+
+            dataArray.forEach(function (operation) {
+                var type = operation.type;
+                var key = operation.key;
+                var value = operation.value;
+
+                var onItemError = function (err) {
+                    batchTransaction.abort();
+                    if (!called) {
+                        called = true;
+                        onError(err, type, key);
+                    }
+                };
+
+                if (type == 'remove') {
+                    var deleteRequest = batchTransaction.objectStore(this.storeName)['delete'](key);
+                    deleteRequest.onsuccess = onItemSuccess;
+                    deleteRequest.onerror = onItemError;
+                } else if (type == 'put') {
+                    var putRequest;
+                    if (this.keyPath !== null) { // in-line keys
+                        this._addIdPropertyIfNeeded(value);
+                        putRequest = batchTransaction.objectStore(this.storeName).put(value);
+                    } else { // out-of-line keys
+                        putRequest = batchTransaction.objectStore(this.storeName).put(value, key);
+                    }
+                    putRequest.onsuccess = onItemSuccess;
+                    putRequest.onerror = onItemError;
+                }
+            }, this);
+
+            return batchTransaction;
+        },
+
+        /**
+         * Takes an array of objects and stores them in a single transaction.
+         *
+         * @param {Array} dataArray An array of objects to store
+         * @param {Function} [onSuccess] A callback that is called if all operations
+         *  were successful.
+         * @param {Function} [onError] A callback that is called if an error
+         *  occurred during one of the operations.
+         * @returns {IDBTransaction} The transaction used for this operation.
+         */
+        putBatch: function (dataArray, onSuccess, onError) {
+            var batchData = dataArray.map(function (item) {
+                return {type: 'put', value: item};
+            });
+
+            return this.batch(batchData, onSuccess, onError);
+        },
+
+        /**
+         * Like putBatch, takes an array of objects and stores them in a single
+         * transaction, but allows processing of the result values.  Returns the
+         * processed records containing the key for newly created records to the
+         * onSuccess calllback instead of only returning true or false for success.
+         * In addition, added the option for the caller to specify a key field that
+         * should be set to the newly created key.
+         *
+         * @param {Array} dataArray An array of objects to store
+         * @param {Object} [options] An object containing optional options
+         * @param {String} [options.keyField=this.keyPath] Specifies a field in the record to update
+         *  with the auto-incrementing key. Defaults to the store's keyPath.
+         * @param {Function} [onSuccess] A callback that is called if all operations
+         *  were successful.
+         * @param {Function} [onError] A callback that is called if an error
+         *  occurred during one of the operations.
+         * @returns {IDBTransaction} The transaction used for this operation.
+         *
+         */
+        upsertBatch: function (dataArray, options, onSuccess, onError) {
+            // handle `dataArray, onSuccess, onError` signature
+            if (typeof options == 'function') {
+                onSuccess = options;
+                onError = onSuccess;
+                options = {};
+            }
+
+            onError || (onError = defaultErrorHandler);
+            onSuccess || (onSuccess = defaultSuccessHandler);
+            options || (options = {});
+
+            if (Object.prototype.toString.call(dataArray) != '[object Array]') {
+                onError(new Error('dataArray argument must be of type Array.'));
+            }
+
+            var keyField = options.keyField || this.keyPath;
+            var count = dataArray.length;
+            var called = false;
+            var hasSuccess = false;
+            var index = 0; // assume success callbacks are executed in order
+
+            var batchTransaction = this.db.transaction([this.storeName], this.consts.READ_WRITE);
+            batchTransaction.oncomplete = function () {
+                if (hasSuccess) {
+                    onSuccess(dataArray);
+                } else {
+                    onError(false);
+                }
+            };
+            batchTransaction.onabort = onError;
+            batchTransaction.onerror = onError;
+
+            var onItemSuccess = function (event) {
+                var record = dataArray[index++];
+                record[keyField] = event.target.result;
+
+                count--;
+                if (count === 0 && !called) {
+                    called = true;
+                    hasSuccess = true;
+                }
+            };
+
+            dataArray.forEach(function (record) {
+                var key = record.key;
+
+                var onItemError = function (err) {
+                    batchTransaction.abort();
+                    if (!called) {
+                        called = true;
+                        onError(err);
+                    }
+                };
+
+                var putRequest;
+                if (this.keyPath !== null) { // in-line keys
+                    this._addIdPropertyIfNeeded(record);
+                    putRequest = batchTransaction.objectStore(this.storeName).put(record);
+                } else { // out-of-line keys
+                    putRequest = batchTransaction.objectStore(this.storeName).put(record, key);
+                }
+                putRequest.onsuccess = onItemSuccess;
+                putRequest.onerror = onItemError;
+            }, this);
+
+            return batchTransaction;
+        },
+
+        /**
+         * Takes an array of keys and removes matching objects in a single
+         * transaction.
+         *
+         * @param {Array} keyArray An array of keys to remove
+         * @param {Function} [onSuccess] A callback that is called if all operations
+         *  were successful.
+         * @param {Function} [onError] A callback that is called if an error
+         *  occurred during one of the operations.
+         * @returns {IDBTransaction} The transaction used for this operation.
+         */
+        removeBatch: function (keyArray, onSuccess, onError) {
+            var batchData = keyArray.map(function (key) {
+                return {type: 'remove', key: key};
+            });
+
+            return this.batch(batchData, onSuccess, onError);
+        },
+
+        /**
+         * Takes an array of keys and fetches matching objects
+         *
+         * @param {Array} keyArray An array of keys identifying the objects to fetch
+         * @param {Function} [onSuccess] A callback that is called if all operations
+         *  were successful.
+         * @param {Function} [onError] A callback that is called if an error
+         *  occurred during one of the operations.
+         * @param {String} [arrayType='sparse'] The type of array to pass to the
+         *  success handler. May be one of 'sparse', 'dense' or 'skip'. Defaults to
+         *  'sparse'. This parameter specifies how to handle the situation if a get
+         *  operation did not throw an error, but there was no matching object in
+         *  the database. In most cases, 'sparse' provides the most desired
+         *  behavior. See the examples for details.
+         * @returns {IDBTransaction} The transaction used for this operation.
+         * @example
+         // given that there are two objects in the database with the keypath
+         // values 1 and 2, and the call looks like this:
+         myStore.getBatch([1, 5, 2], onError, function (data) { … }, arrayType);
+
+         // this is what the `data` array will be like:
+
+         // arrayType == 'sparse':
+         // data is a sparse array containing two entries and having a length of 3:
+         [Object, 2: Object]
+         0: Object
+         2: Object
+         length: 3
+         // calling forEach on data will result in the callback being called two
+         // times, with the index parameter matching the index of the key in the
+         // keyArray.
+
+         // arrayType == 'dense':
+         // data is a dense array containing three entries and having a length of 3,
+         // where data[1] is of type undefined:
+         [Object, undefined, Object]
+         0: Object
+         1: undefined
+         2: Object
+         length: 3
+         // calling forEach on data will result in the callback being called three
+         // times, with the index parameter matching the index of the key in the
+         // keyArray, but the second call will have undefined as first argument.
+
+         // arrayType == 'skip':
+         // data is a dense array containing two entries and having a length of 2:
+         [Object, Object]
+         0: Object
+         1: Object
+         length: 2
+         // calling forEach on data will result in the callback being called two
+         // times, with the index parameter not matching the index of the key in the
+         // keyArray.
+         */
+        getBatch: function (keyArray, onSuccess, onError, arrayType) {
+            onError || (onError = defaultErrorHandler);
+            onSuccess || (onSuccess = defaultSuccessHandler);
+            arrayType || (arrayType = 'sparse');
+
+            if (Object.prototype.toString.call(keyArray) != '[object Array]') {
+                onError(new Error('keyArray argument must be of type Array.'));
+            } else if (keyArray.length === 0) {
+                return onSuccess([]);
+            }
+
+            var data = [];
+            var count = keyArray.length;
+            var called = false;
+            var hasSuccess = false;
+            var result = null;
+
+            var batchTransaction = this.db.transaction([this.storeName], this.consts.READ_ONLY);
+            batchTransaction.oncomplete = function () {
+                var callback = hasSuccess ? onSuccess : onError;
+                callback(result);
+            };
+            batchTransaction.onabort = onError;
+            batchTransaction.onerror = onError;
+
+            var onItemSuccess = function (event) {
+                if (event.target.result || arrayType == 'dense') {
+                    data.push(event.target.result);
+                } else if (arrayType == 'sparse') {
+                    data.length++;
+                }
+                count--;
+                if (count === 0) {
+                    called = true;
+                    hasSuccess = true;
+                    result = data;
+                }
+            };
+
+            keyArray.forEach(function (key) {
+
+                var onItemError = function (err) {
+                    called = true;
+                    result = err;
+                    onError(err);
+                    batchTransaction.abort();
+                };
+
+                var getRequest = batchTransaction.objectStore(this.storeName).get(key);
+                getRequest.onsuccess = onItemSuccess;
+                getRequest.onerror = onItemError;
+
+            }, this);
+
+            return batchTransaction;
+        },
+
+        /**
+         * Fetches all entries in the store.
+         *
+         * @param {Function} [onSuccess] A callback that is called if the operation
+         *  was successful. Will receive an array of objects.
+         * @param {Function} [onError] A callback that will be called if an error
+         *  occurred during the operation.
+         * @returns {IDBTransaction} The transaction used for this operation.
+         */
+        getAll: function (onSuccess, onError) {
+            onError || (onError = defaultErrorHandler);
+            onSuccess || (onSuccess = defaultSuccessHandler);
+            var getAllTransaction = this.db.transaction([this.storeName], this.consts.READ_ONLY);
+            var store = getAllTransaction.objectStore(this.storeName);
+            if (store.getAll) {
+                this._getAllNative(getAllTransaction, store, onSuccess, onError);
+            } else {
+                this._getAllCursor(getAllTransaction, store, onSuccess, onError);
+            }
+
+            return getAllTransaction;
+        },
+
+        /**
+         * Implements getAll for IDB implementations that have a non-standard
+         * getAll() method.
+         *
+         * @param {IDBTransaction} getAllTransaction An open READ transaction.
+         * @param {IDBObjectStore} store A reference to the store.
+         * @param {Function} onSuccess A callback that will be called if the
+         *  operation was successful.
+         * @param {Function} onError A callback that will be called if an
+         *  error occurred during the operation.
+         * @private
+         */
+        _getAllNative: function (getAllTransaction, store, onSuccess, onError) {
+            var hasSuccess = false,
+                result = null;
+
+            getAllTransaction.oncomplete = function () {
+                var callback = hasSuccess ? onSuccess : onError;
+                callback(result);
+            };
+            getAllTransaction.onabort = onError;
+            getAllTransaction.onerror = onError;
+
+            var getAllRequest = store.getAll();
+            getAllRequest.onsuccess = function (event) {
+                hasSuccess = true;
+                result = event.target.result;
+            };
+            getAllRequest.onerror = onError;
+        },
+
+        /**
+         * Implements getAll for IDB implementations that do not have a getAll()
+         * method.
+         *
+         * @param {IDBTransaction} getAllTransaction An open READ transaction.
+         * @param {IDBObjectStore} store A reference to the store.
+         * @param {Function} onSuccess A callback that will be called if the
+         *  operation was successful.
+         * @param {Function} onError A callback that will be called if an
+         *  error occurred during the operation.
+         * @private
+         */
+        _getAllCursor: function (getAllTransaction, store, onSuccess, onError) {
+            var all = [],
+                hasSuccess = false,
+                result = null;
+
+            getAllTransaction.oncomplete = function () {
+                var callback = hasSuccess ? onSuccess : onError;
+                callback(result);
+            };
+            getAllTransaction.onabort = onError;
+            getAllTransaction.onerror = onError;
+
+            var cursorRequest = store.openCursor();
+            cursorRequest.onsuccess = function (event) {
+                var cursor = event.target.result;
+                if (cursor) {
+                    all.push(cursor.value);
+                    cursor['continue']();
+                }
+                else {
+                    hasSuccess = true;
+                    result = all;
+                }
+            };
+            cursorRequest.onError = onError;
+        },
+
+        /**
+         * Clears the store, i.e. deletes all entries in the store.
+         *
+         * @param {Function} [onSuccess] A callback that will be called if the
+         *  operation was successful.
+         * @param {Function} [onError] A callback that will be called if an
+         *  error occurred during the operation.
+         * @returns {IDBTransaction} The transaction used for this operation.
+         */
+        clear: function (onSuccess, onError) {
+            onError || (onError = defaultErrorHandler);
+            onSuccess || (onSuccess = defaultSuccessHandler);
+
+            var hasSuccess = false,
+                result = null;
+
+            var clearTransaction = this.db.transaction([this.storeName], this.consts.READ_WRITE);
+            clearTransaction.oncomplete = function () {
+                var callback = hasSuccess ? onSuccess : onError;
+                callback(result);
+            };
+            clearTransaction.onabort = onError;
+            clearTransaction.onerror = onError;
+
+            var clearRequest = clearTransaction.objectStore(this.storeName).clear();
+            clearRequest.onsuccess = function (event) {
+                hasSuccess = true;
+                result = event.target.result;
+            };
+            clearRequest.onerror = onError;
+
+            return clearTransaction;
+        },
+
+        /**
+         * Checks if an id property needs to present on a object and adds one if
+         * necessary.
+         *
+         * @param {Object} dataObj The data object that is about to be stored
+         * @private
+         */
+        _addIdPropertyIfNeeded: function (dataObj) {
+            if (typeof dataObj[this.keyPath] == 'undefined') {
+                dataObj[this.keyPath] = this._insertIdCount++ + Date.now();
+            }
+        },
+
+        /************
+         * indexing *
+         ************/
+
+        /**
+         * Returns a DOMStringList of index names of the store.
+         *
+         * @return {DOMStringList} The list of index names
+         */
+        getIndexList: function () {
+            return this.store.indexNames;
+        },
+
+        /**
+         * Checks if an index with the given name exists in the store.
+         *
+         * @param {String} indexName The name of the index to look for
+         * @return {Boolean} Whether the store contains an index with the given name
+         */
+        hasIndex: function (indexName) {
+            return this.store.indexNames.contains(indexName);
+        },
+
+        /**
+         * Normalizes an object containing index data and assures that all
+         * properties are set.
+         *
+         * @param {Object} indexData The index data object to normalize
+         * @param {String} indexData.name The name of the index
+         * @param {String} [indexData.keyPath] The key path of the index
+         * @param {Boolean} [indexData.unique] Whether the index is unique
+         * @param {Boolean} [indexData.multiEntry] Whether the index is multi entry
+         */
+        normalizeIndexData: function (indexData) {
+            indexData.keyPath = indexData.keyPath || indexData.name;
+            indexData.unique = !!indexData.unique;
+            indexData.multiEntry = !!indexData.multiEntry;
+        },
+
+        /**
+         * Checks if an actual index complies with an expected index.
+         *
+         * @param {IDBIndex} actual The actual index found in the store
+         * @param {Object} expected An Object describing an expected index
+         * @return {Boolean} Whether both index definitions are identical
+         */
+        indexComplies: function (actual, expected) {
+            var complies = ['keyPath', 'unique', 'multiEntry'].every(function (key) {
+                // IE10 returns undefined for no multiEntry
+                if (key == 'multiEntry' && actual[key] === undefined && expected[key] === false) {
+                    return true;
+                }
+                // Compound keys
+                if (key == 'keyPath' && Object.prototype.toString.call(expected[key]) == '[object Array]') {
+                    var exp = expected.keyPath;
+                    var act = actual.keyPath;
+
+                    // IE10 can't handle keyPath sequences and stores them as a string.
+                    // The index will be unusable there, but let's still return true if
+                    // the keyPath sequence matches.
+                    if (typeof act == 'string') {
+                        return exp.toString() == act;
+                    }
+
+                    // Chrome/Opera stores keyPath squences as DOMStringList, Firefox
+                    // as Array
+                    if (!(typeof act.contains == 'function' || typeof act.indexOf == 'function')) {
+                        return false;
+                    }
+
+                    if (act.length !== exp.length) {
+                        return false;
+                    }
+
+                    for (var i = 0, m = exp.length; i < m; i++) {
+                        if (!( (act.contains && act.contains(exp[i])) || act.indexOf(exp[i] !== -1) )) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                return expected[key] == actual[key];
+            });
+            return complies;
+        },
+
+        /**********
+         * cursor *
+         **********/
+
+        /**
+         * Iterates over the store using the given options and calling onItem
+         * for each entry matching the options.
+         *
+         * @param {Function} onItem A callback to be called for each match
+         * @param {Object} [options] An object defining specific options
+         * @param {String} [options.index=null] A name of an IDBIndex to operate on
+         * @param {String} [options.order=ASC] The order in which to provide the
+         *  results, can be 'DESC' or 'ASC'
+         * @param {Boolean} [options.autoContinue=true] Whether to automatically
+         *  iterate the cursor to the next result
+         * @param {Boolean} [options.filterDuplicates=false] Whether to exclude
+         *  duplicate matches
+         * @param {IDBKeyRange} [options.keyRange=null] An IDBKeyRange to use
+         * @param {Boolean} [options.writeAccess=false] Whether grant write access
+         *  to the store in the onItem callback
+         * @param {Function} [options.onEnd=null] A callback to be called after
+         *  iteration has ended
+         * @param {Function} [options.onError=throw] A callback to be called
+         *  if an error occurred during the operation.
+         * @param {Number} [options.limit=Infinity] Limit the number of returned
+         *  results to this number
+         * @param {Number} [options.offset=0] Skip the provided number of results
+         *  in the resultset
+         * @param {Boolean} [options.allowItemRejection=false] Allows the onItem
+         * function to return a Boolean to accept or reject the current item
+         * @returns {IDBTransaction} The transaction used for this operation.
+         */
+        iterate: function (onItem, options) {
+            options = mixin({
+                index: null,
+                order: 'ASC',
+                autoContinue: true,
+                filterDuplicates: false,
+                keyRange: null,
+                writeAccess: false,
+                onEnd: null,
+                onError: defaultErrorHandler,
+                limit: Infinity,
+                offset: 0,
+                allowItemRejection: false
+            }, options || {});
+
+            var directionType = options.order.toLowerCase() == 'desc' ? 'PREV' : 'NEXT';
+            if (options.filterDuplicates) {
+                directionType += '_NO_DUPLICATE';
+            }
+
+            var hasSuccess = false;
+            var cursorTransaction = this.db.transaction([this.storeName], this.consts[options.writeAccess ? 'READ_WRITE' : 'READ_ONLY']);
+            var cursorTarget = cursorTransaction.objectStore(this.storeName);
+            if (options.index) {
+                cursorTarget = cursorTarget.index(options.index);
+            }
+            var recordCount = 0;
+
+            cursorTransaction.oncomplete = function () {
+                if (!hasSuccess) {
+                    options.onError(null);
+                    return;
+                }
+                if (options.onEnd) {
+                    options.onEnd();
+                } else {
+                    onItem(null);
+                }
+            };
+            cursorTransaction.onabort = options.onError;
+            cursorTransaction.onerror = options.onError;
+
+            var cursorRequest = cursorTarget.openCursor(options.keyRange, this.consts[directionType]);
+            cursorRequest.onerror = options.onError;
+            cursorRequest.onsuccess = function (event) {
+                var cursor = event.target.result;
+                if (cursor) {
+                    if (options.offset) {
+                        cursor.advance(options.offset);
+                        options.offset = 0;
+                    } else {
+                        var onItemReturn = onItem(cursor.value, cursor, cursorTransaction);
+                        if (!options.allowItemRejection || onItemReturn !== false) {
+                            recordCount++;
+                        }
+                        if (options.autoContinue) {
+                            if (recordCount + options.offset < options.limit) {
+                                cursor['continue']();
+                            } else {
+                                hasSuccess = true;
+                            }
+                        }
+                    }
+                } else {
+                    hasSuccess = true;
+                }
+            };
+
+            return cursorTransaction;
+        },
+
+        /**
+         * Runs a query against the store and passes an array containing matched
+         * objects to the success handler.
+         *
+         * @param {Function} onSuccess A callback to be called when the operation
+         *  was successful.
+         * @param {Object} [options] An object defining specific options
+         * @param {String} [options.index=null] A name of an IDBIndex to operate on
+         * @param {String} [options.order=ASC] The order in which to provide the
+         *  results, can be 'DESC' or 'ASC'
+         * @param {Boolean} [options.filterDuplicates=false] Whether to exclude
+         *  duplicate matches
+         * @param {IDBKeyRange} [options.keyRange=null] An IDBKeyRange to use
+         * @param {Function} [options.onError=throw] A callback to be called
+         *  if an error occurred during the operation.
+         * @param {Number} [options.limit=Infinity] Limit the number of returned
+         *  results to this number
+         * @param {Number} [options.offset=0] Skip the provided number of results
+         *  in the resultset
+         * @param {Function} [options.filter=null] A custom filter function to
+         *  apply to query resuts before returning. Must return `false` to reject
+         *  an item. Can be combined with keyRanges.
+         * @returns {IDBTransaction} The transaction used for this operation.
+         */
+        query: function (onSuccess, options) {
+            var result = [],
+                processedItems = 0;
+            options = options || {};
+            options.autoContinue = true;
+            options.writeAccess = false;
+            options.allowItemRejection = !!options.filter;
+            options.onEnd = function () {
+                onSuccess(result, processedItems);
+            };
+            return this.iterate(function (item) {
+                processedItems++;
+                var accept = options.filter ? options.filter(item) : true;
+                if (accept !== false) {
+                    result.push(item);
+                }
+                return accept;
+            }, options);
+        },
+
+        /**
+         *
+         * Runs a query against the store, but only returns the number of matches
+         * instead of the matches itself.
+         *
+         * @param {Function} onSuccess A callback to be called if the opration
+         *  was successful.
+         * @param {Object} [options] An object defining specific options
+         * @param {String} [options.index=null] A name of an IDBIndex to operate on
+         * @param {IDBKeyRange} [options.keyRange=null] An IDBKeyRange to use
+         * @param {Function} [options.onError=throw] A callback to be called if an error
+         *  occurred during the operation.
+         * @returns {IDBTransaction} The transaction used for this operation.
+         */
+        count: function (onSuccess, options) {
+
+            options = mixin({
+                index: null,
+                keyRange: null
+            }, options || {});
+
+            var onError = options.onError || defaultErrorHandler;
+
+            var hasSuccess = false,
+                result = null;
+
+            var cursorTransaction = this.db.transaction([this.storeName], this.consts.READ_ONLY);
+            cursorTransaction.oncomplete = function () {
+                var callback = hasSuccess ? onSuccess : onError;
+                callback(result);
+            };
+            cursorTransaction.onabort = onError;
+            cursorTransaction.onerror = onError;
+
+            var cursorTarget = cursorTransaction.objectStore(this.storeName);
+            if (options.index) {
+                cursorTarget = cursorTarget.index(options.index);
+            }
+            var countRequest = cursorTarget.count(options.keyRange);
+            countRequest.onsuccess = function (evt) {
+                hasSuccess = true;
+                result = evt.target.result;
+            };
+            countRequest.onError = onError;
+
+            return cursorTransaction;
+        },
+
+        /**************/
+        /* key ranges */
+        /**************/
+
+        /**
+         * Creates a key range using specified options. This key range can be
+         * handed over to the count() and iterate() methods.
+         *
+         * Note: You must provide at least one or both of "lower" or "upper" value.
+         *
+         * @param {Object} options The options for the key range to create
+         * @param {*} [options.lower] The lower bound
+         * @param {Boolean} [options.excludeLower] Whether to exclude the lower
+         *  bound passed in options.lower from the key range
+         * @param {*} [options.upper] The upper bound
+         * @param {Boolean} [options.excludeUpper] Whether to exclude the upper
+         *  bound passed in options.upper from the key range
+         * @param {*} [options.only] A single key value. Use this if you need a key
+         *  range that only includes one value for a key. Providing this
+         *  property invalidates all other properties.
+         * @return {IDBKeyRange} The IDBKeyRange representing the specified options
+         */
+        makeKeyRange: function (options) {
+            /*jshint onecase:true */
+            var keyRange,
+                hasLower = typeof options.lower != 'undefined',
+                hasUpper = typeof options.upper != 'undefined',
+                isOnly = typeof options.only != 'undefined';
+
+            switch (true) {
+                case isOnly:
+                    keyRange = this.keyRange.only(options.only);
+                    break;
+                case hasLower && hasUpper:
+                    keyRange = this.keyRange.bound(options.lower, options.upper, options.excludeLower, options.excludeUpper);
+                    break;
+                case hasLower:
+                    keyRange = this.keyRange.lowerBound(options.lower, options.excludeLower);
+                    break;
+                case hasUpper:
+                    keyRange = this.keyRange.upperBound(options.upper, options.excludeUpper);
+                    break;
+                default:
+                    throw new Error('Cannot create KeyRange. Provide one or both of "lower" or "upper" value, or an "only" value.');
+            }
+
+            return keyRange;
+
+        }
+
+    };
+
+    /** helpers **/
+    var empty = {};
+
+    function mixin (target, source) {
+        var name, s;
+        for (name in source) {
+            s = source[name];
+            if (s !== empty[name] && s !== target[name]) {
+                target[name] = s;
+            }
+        }
+        return target;
+    }
+
+    function hasVersionError(errorEvent) {
+        if ('error' in errorEvent.target) {
+            return errorEvent.target.error.name == 'VersionError';
+        } else if ('errorCode' in errorEvent.target) {
+            return errorEvent.target.errorCode == 12;
+        }
+        return false;
+    }
+
+    IDBStore.prototype = proto;
+    IDBStore.version = proto.version;
+
+    return IDBStore;
+
+}, this);
+
+
+/***/ }),
+
+/***/ "./src/js/app.js":
+/*!***********************!*\
+  !*** ./src/js/app.js ***!
+  \***********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./model/drivers/app.drivers.platform */ "./src/js/model/drivers/app.drivers.platform.js");
+/* harmony import */ var _model_drivers_app_driver_factory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./model/drivers/app.driver.factory */ "./src/js/model/drivers/app.driver.factory.js");
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*global document, tizen, console, window*/
+
+/**
+ * Main application module.
+ * Provides a namespace for other application modules.
+ * Handles application life cycle.
+ *
+ * @module app
+ * @requires {@link app.model.battery}
+ * @requires {@link app.ui}
+ * @namespace app
+ */
+
+ // require('../../www/tests/lib/geomock/geomock');
+// require('./mock');
+
+__webpack_require__(/*! ./model/models */ "./src/js/model/models.js");
+
+__webpack_require__(/*! ./ui/app.ui */ "./src/js/ui/app.ui.js"); // make sure that "app" namespace is created
+
+
+window.app = window.app || {};
+window.Platform = _model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["Platform"];
+
+(function defineApp(app) {
+  'use strict';
+  /**
+   * Battery model module reference.
+   *
+   * @private
+   * @type {object}
+   */
+
+  var modelBattery = app.model.battery,
+
+  /**
+   * Workout model module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  modelWorkout = app.model.workout,
+      modelNetwork = app.model.network,
+      hardwareDriver = null,
+
+  /**
+   * UI module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  ui = app.ui;
+  /**
+   * Closes application.
+   *
+   * @memberof app
+   * @public
+   */
+
+  app.exit = function exit() {
+    hardwareDriver.exit();
+  };
+  /**
+   * Handles tizenhwkey event.
+   *
+   * Closes application if the back device button is pressed.
+   *
+   * @private
+   * @param {Event} e
+   */
+
+
+  function onHwKeyEvent(e) {
+    if (e.keyName === 'back') {
+      ui.toggleClosePopup();
+    }
+  }
+  /**
+   * Registers event listeners.
+   *
+   * @private
+   */
+
+
+  function bindEvents() {
+    document.addEventListener('tizenhwkey', onHwKeyEvent);
+    document.addEventListener('backbutton', function (evt) {
+      ui.toggleClosePopup();
+    }, false);
+  }
+  /**
+   * Initializes app module.
+   *
+   * Calls a method responsible for event listeners registering.
+   * Starts the battery model initialization.
+   *
+   * @memberof app
+   * @public
+   */
+
+
+  app.init = function init() {
+    var platform = _model_drivers_app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["Platform"].get(),
+        driverFactory = new _model_drivers_app_driver_factory__WEBPACK_IMPORTED_MODULE_1__["DriverFactory"](platform);
+    hardwareDriver = driverFactory.buildHardwareDriver(platform);
+    modelBattery.init(driverFactory.buildBatteryDriver(platform));
+    modelNetwork.init(driverFactory.buildNetworkDriver(platform));
+    modelWorkout.init(hardwareDriver);
+    bindEvents();
+    ui.init();
+  };
+
+  if (typeof cordova !== 'undefined') {
+    document.addEventListener("deviceready", app.init);
+  } else {
+    window.addEventListener('load', app.init);
+  }
+})(window.app);
+
+/***/ }),
+
+/***/ "./src/js/common/app.common.calculations.js":
+/*!**************************************************!*\
+  !*** ./src/js/common/app.common.calculations.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* global window*/
+
+/**
+ * Application common calculations module.
+ * Provides methods that are necessary for navigation.
+ *
+ * @module app.common.calculations
+ * @namespace app.common.calculations
+ * @memberof app.common
+ */
+// make sure that "app" namespace is created
+window.app = window.app || {}; // strict mode wrapper function
+
+(function defineAppCommonCalculations(app) {
+  'use strict';
+  /**
+   * Earth radius constant.
+   *
+   * @private
+   * @const {number}
+   */
+
+  var EARTH_RADIUS = 6371000,
+
+  /**
+   * Meters unit constant.
+   *
+   * @private
+   * @const {string}
+   */
+  METERS_UNIT = 'm',
+
+  /**
+   * Kilometers unit constant.
+   *
+   * @private
+   * @const {string}
+   */
+  KILOMETERS_UNIT = 'km',
+
+  /**
+   * Calculations module reference.
+   *
+   * @memberof app.common.calculations
+   * @private
+   * @type {object}
+   */
+  calculations = null; // create namespace for the module
+
+  app.common = app.common || {};
+  app.common.calculations = app.common.calculations || {};
+  calculations = app.common.calculations;
+  /**
+   * Converts the number value expressed in radians to degrees.
+   *
+   * @private
+   * @param {number} value
+   * @returns {number}
+   */
+
+  function toDegrees(value) {
+    return value * 180 / Math.PI;
+  }
+  /**
+   * Converts the number value expressed in degrees to radians.
+   *
+   * @private
+   * @param {number} value
+   * @returns {number}
+   */
+
+
+  function toRadians(value) {
+    return value * Math.PI / 180;
+  }
+  /**
+   * Formats distance value to be displayed in meters or kilometers.
+   *
+   * @private
+   * @param {number} distance Distance in meters.
+   * @returns {number}
+   */
+
+
+  function formatDistance(distance) {
+    if (distance >= 1000) {
+      distance /= 1000;
+    }
+
+    return distance.toFixed(0);
+  }
+  /**
+   * Formats unit value to represent meters or kilometers.
+   *
+   * @private
+   * @param {number} distance Distance in meters.
+   * @returns {string}
+   */
+
+
+  function formatUnit(distance) {
+    if (distance >= 1000) {
+      return KILOMETERS_UNIT;
+    }
+
+    return METERS_UNIT;
+  }
+  /**
+   * Calculates the angle based on the start and destination position.
+   *
+   * @memberof app.common.calculations
+   * @public
+   * @param {object} start
+   * @param {number} start.latitude
+   * @param {number} start.longitude
+   * @param {object} destination
+   * @param {number} destination.latitude
+   * @param {number} destination.longitude
+   * @returns {number}
+   */
+
+
+  calculations.calculateAngle = function calculateAngle(start, destination) {
+    var sLon = toRadians(start.longitude),
+        dLon = toRadians(destination.longitude),
+        sLat = toRadians(start.latitude),
+        dLat = toRadians(destination.latitude),
+        deltaLon = dLon - sLon;
+
+    if (deltaLon > Math.PI) {
+      deltaLon -= 2 * Math.PI;
+    } else if (deltaLon < -Math.PI) {
+      deltaLon += 2 * Math.PI;
+    }
+
+    return toDegrees(Math.atan2(deltaLon, Math.log(Math.tan(dLat / 2 + Math.PI / 4) / Math.tan(sLat / 2 + Math.PI / 4))));
+  };
+  /**
+   * Calculates the distance between two positions
+   * based on its coordinates.
+   *
+   * @memberof app.common.calculations
+   * @public
+   * @see http://www.sunearthtools.com/tools/distance.php
+   * @param {object} start
+   * @param {number} start.latitude
+   * @param {number} start.longitude
+   * @param {object} destination
+   * @param {number} destination.latitude
+   * @param {number} destination.longitude
+   * @returns {number}
+   */
+
+
+  calculations.calculateDistance = function calculateDistance(start, destination) {
+    var sLon = toRadians(start.longitude),
+        dLon = toRadians(destination.longitude),
+        sLat = toRadians(start.latitude),
+        dLat = toRadians(destination.latitude),
+        distance = EARTH_RADIUS * Math.acos(Math.sin(sLat) * Math.sin(dLat) + Math.cos(sLat) * Math.cos(dLat) * Math.cos(dLon - sLon));
+    return {
+      raw: distance,
+      formatted: formatDistance(distance),
+      unit: formatUnit(distance)
+    };
+  };
+  /**
+   * Obtains angle from rotation.
+   *
+   * @memberof app.common.calculations
+   * @param {number} value
+   * @returns {number}
+   */
+
+
+  calculations.angleFromRotation = function angleFromRotation(value) {
+    var angle = -value % 360;
+
+    if (angle < 0) {
+      angle += 360;
+    }
+
+    return angle;
+  };
+  /**
+   * Calculates angle for navigation path indicator.
+   *
+   * @memberof app.common.calculations
+   * @param {number} partialPath
+   * @param {number} totalPath
+   * @param {number} totalAngle
+   * @returns {number}
+   */
+
+
+  calculations.calculatePathAngle = function calculatePathAngle(partialPath, totalPath, totalAngle) {
+    return partialPath * totalAngle / totalPath;
+  };
+})(window.app);
+
+/***/ }),
+
+/***/ "./src/js/common/app.common.events.js":
+/*!********************************************!*\
+  !*** ./src/js/common/app.common.events.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* global window*/
+
+/**
+ * Application common events module.
+ * Provides common methods related to events triggering.
+ *
+ * @module app.common.events
+ * @namespace app.common.events
+ * @memberof app.common
+ */
+// make sure that "app" namespace is created
+window.app = window.app || {}; // strict mode wrapper function
+
+(function defineAppCommonEvents(app) {
+  'use strict';
+  /**
+   * Events module reference.
+   *
+   * @memberof app.common
+   * @private
+   * @type {object}
+   */
+
+  var events = null; // create namespace for the module
+
+  app.common = app.common || {};
+  app.common.events = app.common.events || {};
+  events = app.common.events;
+  /**
+   * Dispatches an event.
+   *
+   * @memberof app.common.events
+   * @public
+   * @param {string} eventName Event name.
+   * @param {*} data Detailed data.
+   */
+
+  events.dispatchEvent = function dispatchEvent(eventName, data) {
+    var customEvent = new window.CustomEvent(eventName, {
+      detail: data
+    });
+    window.dispatchEvent(customEvent);
+  };
+})(window.app);
+
+/***/ }),
+
+/***/ "./src/js/model/app.model.battery.js":
+/*!*******************************************!*\
+  !*** ./src/js/model/app.model.battery.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*global console, window, tizen*/
+
+/**
+ * Application battery model module.
+ * It is responsible for obtaining information about device battery state.
+ *
+ * @module app.model.battery
+ * @requires {@link app.common.events}
+ * @namespace app.model.battery
+ * @memberof app.model
+ */
+// make sure that "app" namespace is created
+window.app = window.app || {};
+
+(function defineAppModelBattery(app) {
+  'use strict';
+  /**
+   * Battery model module reference.
+   *
+   * @private
+   * @type {object}
+   */
+
+  var modelBattery = null,
+
+  /**
+   * Common events module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  commonEvents = app.common.events,
+      driver = null; // create namespace for the module
+
+  app.model = app.model || {};
+  app.model.battery = app.model.battery || {};
+  modelBattery = app.model.battery;
+  /**
+   * Initializes the battery model module.
+   *
+   * @memberof app.model.battery
+   * @public
+   */
+
+  modelBattery.init = function init(driver) {
+    driver = driver;
+    driver.init();
+  };
+})(window.app);
+
+/***/ }),
+
+/***/ "./src/js/model/app.model.geolocation.js":
+/*!***********************************************!*\
+  !*** ./src/js/model/app.model.geolocation.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*global window, console, navigator, setTimeout*/
+
+/**
+ * Application geolocation model module.
+ * It is responsible for providing information about user location.
+ *
+ * @module app.model.geolocation
+ * @requires {@link app.common.events}
+ * @requires {@link app.common.calculations}
+ * @namespace app.model.geolocation
+ * @memberof app.model
+ */
+// make sure that "app" namespace is created
+window.app = window.app || {};
+
+(function defineAppModelGeolocation(app) {
+  'use strict';
+  /**
+   * Geolocation checking interval (in milliseconds).
+   *
+   * @private
+   * @const {number}
+   */
+
+  var GEO_CHECKING_INTERVAL = 1000,
+
+  /**
+   * Geolocation checking counter.
+   * Defines max number of checking interval occurrences.
+   *
+   * @private
+   * @const {number}
+   */
+  GEO_CHECKING_COUNTER = 5,
+
+  /**
+   * Geolocation model module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  modelGeolocation = null,
+
+  /**
+   * Common events module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  commonEvents = app.common.events,
+
+  /**
+   * Common calculations module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  commonCalculations = app.common.calculations,
+
+  /**
+   * Geolocation API object.
+   *
+   * @private
+   * @type {object}
+   */
+  geolocation = null,
+
+  /**
+   * Current position data.
+   *
+   * @private
+   * @type {Position}
+   */
+  currentPosition = null,
+
+  /**
+   * Stores information about number of checking interval occurrences.
+   *
+   * @private
+   * @type {number}
+   */
+  checkingCounter = 0; // create namespace for the module
+
+  app.model = app.model || {};
+  app.model.geolocation = app.model.geolocation || {};
+  modelGeolocation = app.model.geolocation;
+  /**
+   * Checks if the current position is equal to the one given as parameter.
+   * Returns true if it is, false otherwise.
+   *
+   * @param {Position} position
+   * @returns {boolean}
+   */
+
+  function isPositionEqual(position) {
+    if (currentPosition && (currentPosition.coords.latitude === position.coords.latitude || currentPosition.coords.longitude === position.coords.longitude)) {
+      return true;
+    }
+
+    return false;
+  }
+  /**
+   * Performs action on get current position success.
+   *
+   * @private
+   * @param {Position} position
+   * @fires model.geolocation.current.position.changed
+   * @fires model.geolocation.current.destination.reached
+   * @fires model.geolocation.position.available
+   */
+
+
+  function onGetCurrentPositionSuccess(position) {
+    if (!isPositionEqual(position)) {
+      currentPosition = position;
+      commonEvents.dispatchEvent('model.geolocation.current.position.changed');
+    }
+
+    commonEvents.dispatchEvent('model.geolocation.position.available');
+    checkingCounter = 0; //setTimeout(getGeoPosition, GEO_CHECKING_INTERVAL);
+  }
+  /**
+   * Performs action on get current position error.
+   *
+   * @private
+   * @fires model.geolocation.position.unavailable
+   * @fires model.geolocation.position.lost
+   */
+
+
+  function onGetCurrentPositionError(error) {
+    commonEvents.dispatchEvent('model.geolocation.position.unavailable');
+    checkingCounter += 1;
+
+    if (checkingCounter === GEO_CHECKING_COUNTER) {
+      commonEvents.dispatchEvent('model.geolocation.position.lost');
+    }
+
+    console.warn(error); //setTimeout(getGeoPosition, GEO_CHECKING_INTERVAL);
+  }
+  /**
+   * Uses Geolocation API in order to obtain information
+   * about changes of the current position.
+   *
+   * @private
+   */
+
+
+  function getGeoPosition() {
+    try {
+      geolocation.watchPosition(onGetCurrentPositionSuccess, onGetCurrentPositionError, {
+        maximumAge: GEO_CHECKING_INTERVAL,
+        enableHighAccuracy: true,
+        timeout: GEO_CHECKING_INTERVAL
+      });
+    } catch (error) {
+      console.warn('Couldn\'t get geolocation position.', error);
+    }
+  }
+  /**
+   * Returns current position.
+   *
+   * @memberof app.model.geolocation
+   * @public
+   * @returns {object}
+   */
+
+
+  modelGeolocation.getCurrentPosition = function getCurrentPosition() {
+    return currentPosition;
+  };
+  /**
+   * Initializes the geolocation model module.
+   *
+   * @memberof app.model.geolocation
+   * @public
+   * @fires model.geolocation.available
+   * @fires model.geolocation.unavailable
+   */
+
+
+  modelGeolocation.init = function init() {
+    if (navigator.geolocation) {
+      geolocation = navigator.geolocation;
+      commonEvents.dispatchEvent('model.geolocation.available');
+      getGeoPosition();
+    } else {
+      commonEvents.dispatchEvent('model.geolocation.unavailable');
+    }
+  };
+})(window.app);
+
+/***/ }),
+
+/***/ "./src/js/model/app.model.network.js":
+/*!*******************************************!*\
+  !*** ./src/js/model/app.model.network.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*global window, console, tizen*/
+
+/**
+ * Application network model module.
+ * It is responsible for providing information about user location.
+ *
+ * @module app.model.network
+ * @requires {@link app.common.events}
+ * @namespace app.model.network
+ * @memberof app.model
+ */
+// make sure that "app" namespace is created
+window.app = window.app || {};
+
+(function defineAppModelNetwork(app) {
+  'use strict';
+  /**
+   * Common events module reference.
+   *
+   * @private
+   * @type {object}
+   */
+
+  var commonEvents = app.common.events,
+      modelNetwork = null; // create namespace for the module
+
+  app.model = app.model || {};
+  app.model.network = app.model.network || {};
+  modelNetwork = app.model.network;
+  modelNetwork.driver = null;
+  /**
+   * Checks available network type.
+   *
+   * @private
+   */
+
+  function checkNetworkType() {
+    return modelNetwork.driver.checkNetworkType();
+  }
+  /**
+   * Checks whether the network type has different value than 'NONE'.
+   *
+   * @memberof app.model.network
+   * @public
+   * @returns {boolean}
+   */
+
+
+  modelNetwork.isNetworkAvailable = function isNetworkAvailable() {
+    return modelNetwork.driver.isNetworkAvailable();
+  };
+  /**
+   * Returns available network type;
+   *
+   * @memberof app.model.network
+   * @public
+   * @returns {string}
+   */
+
+
+  modelNetwork.getNetworkType = function getNetworkType() {
+    return modelNetwork.driver.getNetworkType();
+  };
+  /**
+   * Initializes the network model module.
+   *
+   * @memberof app.model.network
+   * @public
+   */
+
+
+  modelNetwork.init = function init(driver) {
+    modelNetwork.driver = driver;
+    modelNetwork.driver.init();
+  };
+})(window.app);
+
+/***/ }),
+
+/***/ "./src/js/model/app.model.sync.js":
+/*!****************************************!*\
+  !*** ./src/js/model/app.model.sync.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*global window, console, geolocation, setTimeout*/
+
+/**
+ * Application sync model module.
+ * It is responsible for syncing workouts with the server.
+ *
+ * @module app.model.geolocation
+ * @requires {@link app.common.events}
+ * @requires {@link app.common.calculations}
+ * @namespace app.model.geolocation
+ * @memberof app.model
+ */
+// make sure that "app" namespace is created
+window.app = window.app || {};
+
+(function defineAppModelSync(app) {
+  'use strict';
+  /**
+   * Workout model module reference.
+   *
+   * @private
+   * @type {object}
+   */
+
+  var modelSync = null,
+
+  /**
+   * Geolocation model module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  modelWorkout = app.model.workout,
+
+  /**
+   * Common events module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  commonEvents = app.common.events,
+      modelNetwork = app.model.network,
+      syncUrls = {
+    login: '',
+    upload: ''
+  }; // create namespace for the module
+
+  app.model = app.model || {};
+  app.model.sync = app.model.sync || {};
+  modelSync = app.model.sync;
+  /**
+   * Registers event listeners.
+   *
+   * @private
+   */
+
+  function bindEvents() {
+    window.addEventListener('model.workout.getlist.successful', function (e) {
+      e.stopPropagation();
+      var workouts = e.detail;
+      uploadWorkouts(workouts);
+    }, 'model.workout.getlist.failed', function (e) {
+      e.stopPropagation();
+      commonEvents.dispatchEvent('model.sync.upload.failed');
+    });
+  }
+
+  function getToken() {
+    return localStorage.getItem('token');
+  }
+
+  function createAuthHeader() {
+    var token = getToken() || '',
+        header = {
+      key: 'Authorization',
+      value: 'Bearer ' + token
+    };
+    return token.length ? header : false;
+  }
+  /**
+   * Initializes the workout model module.
+   *
+   * @memberof app.model.workout
+   * @public
+   * @fires model.sync.login.successful
+   * @fires model.sync.login.failed
+   * @param {string} loginUrl
+   * @param {string} uploadUrl
+   */
+
+
+  modelSync.init = function init(loginUrl, uploadUrl) {
+    syncUrls.login = loginUrl;
+    syncUrls.upload = uploadUrl;
+    bindEvents();
+  };
+
+  modelSync.login = function login(email, password) {
+    var client = new XMLHttpRequest(),
+        localStorage = window.localStorage;
+    /* Check the response status */
+
+    client.onreadystatechange = function () {
+      if (client.readyState == 4) {
+        if (client.status == 200) {
+          localStorage.setItem('token', JSON.parse(client.response));
+          commonEvents.dispatchEvent('model.sync.login.successful', {
+            token: client.response
+          });
+        } else {
+          commonEvents.dispatchEvent('model.sync.login.failed');
+        }
+      }
+    };
+
+    client.onerror = function (e) {
+      console.log(e);
+    };
+
+    var data = "email=" + email + "&" + "password=" + password;
+    client.open('POST', syncUrls.login, true);
+    client.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    client.send(data);
+    /* Send to server */
+  };
+
+  modelSync.sync = function () {
+    if (modelNetwork.isNetworkAvailable()) {
+      modelWorkout.getItemsToSync();
+    }
+  };
+
+  function uploadWorkouts(workouts) {
+    var client = new XMLHttpRequest(),
+        authHeaders = createAuthHeader();
+
+    if (authHeaders === false) {
+      commonEvents.dispatchEvent('model.sync.login.required', {
+        syncAfterLogin: true
+      });
+      return false;
+    }
+    /* Check the response status */
+
+
+    client.onreadystatechange = function () {
+      if (client.readyState == 4) {
+        console.log('Response: ' + client.status);
+
+        switch (client.status) {
+          case 200:
+            modelWorkout.clear();
+            commonEvents.dispatchEvent('model.sync.upload.successful', true);
+            break;
+
+          case 401:
+            commonEvents.dispatchEvent('model.sync.login.required', {
+              syncAfterLogin: true
+            });
+            break;
+
+          default:
+            commonEvents.dispatchEvent('model.sync.upload.failed');
+            break;
+        }
+      }
+    };
+
+    client.open('POST', syncUrls.upload, true);
+    var payload = JSON.stringify({
+      data: workouts
+    });
+    client.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    client.setRequestHeader("Accept", "application/json");
+    client.setRequestHeader(authHeaders.key, authHeaders.value);
+    console.log('Sending data to the server');
+    client.send(payload);
+    /* Send to server */
+  }
+})(window.app);
+
+/***/ }),
+
+/***/ "./src/js/model/app.model.workout.js":
+/*!*******************************************!*\
+  !*** ./src/js/model/app.model.workout.js ***!
+  \*******************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _workout_app_workout_cycling_workout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../workout/app.workout.cycling_workout */ "./src/js/workout/app.workout.cycling_workout.js");
+/* harmony import */ var _workout_app_workout_running_workout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../workout/app.workout.running_workout */ "./src/js/workout/app.workout.running_workout.js");
+/* harmony import */ var _workout_app_workout_base_workout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../workout/app.workout.base_workout */ "./src/js/workout/app.workout.base_workout.js");
+
+
+
+
+var IDBStore = __webpack_require__(/*! ../../../node_modules/idb-wrapper/idbstore */ "./node_modules/idb-wrapper/idbstore.js");
+
+__webpack_require__(/*! ../common/app.common.calculations */ "./src/js/common/app.common.calculations.js");
+/*global window, console, geolocation, setTimeout*/
+
+/**
+ * Application geolocation model module.
+ * It is responsible for providing information about user location.
+ *
+ * @module app.model.geolocation
+ * @requires {@link app.common.events}
+ * @requires {@link app.common.calculations}
+ * @namespace app.model.geolocation
+ * @memberof app.model
+ */
+// make sure that "app" namespace is created
+
+
+window.app = window.app || {};
+
+(function defineAppModelWorkout(app) {
+  'use strict';
+  /**
+   * Geolocation checking interval (in milliseconds).
+   *
+   * @private
+   * @const {number}
+   */
+
+  /**
+   * Workout model module reference.
+   *
+   * @private
+   * @type {object}
+   */
+
+  var modelWorkout = null,
+
+  /**
+   * Geolocation model module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  modelGeolocation = app.model.geolocation,
+
+  /**
+   * Common events module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  commonEvents = app.common.events,
+
+  /**
+   *
+   * @type {HardwareDriver}
+   */
+  hardwareDriver = null,
+
+  /**
+   * Workout data.
+   *
+   * @private
+   * @type {BaseWorkout}
+   */
+  workout = null,
+      workoutDB = null,
+      isDBready = false; // create namespace for the module
+
+  app.model = app.model || {};
+  app.model.workout = app.model.workout || {};
+  modelWorkout = app.model.workout;
+  modelWorkout.WORKOUT_TYPE_RUNNING = 1;
+  modelWorkout.WORKOUT_TYPE_CYCLING = 2;
+  modelWorkout.WORKOUT_STATUS_UNSAVED = 0;
+  modelWorkout.WORKOUT_STATUS_SAVED = 1;
+  modelWorkout.WORKOUT_STATUS_SYNCED = 2;
+  /**
+   * Handles model.geolocation.position.available event.
+   *
+   * @private
+   * @fires model.workout.updateui
+   */
+
+  function updateUI() {
+    if (workout) {
+      commonEvents.dispatchEvent('model.workout.updateui', workout);
+    }
+  }
+  /**
+   * Handles model.geolocation.position.available event.
+   *
+   * @private
+   */
+
+
+  function onModelGeolocationPositionAvailable() {
+    var currentPosition = modelGeolocation.getCurrentPosition();
+
+    if (workout && workout.isActive()) {
+      var point = new Point(0, currentPosition.coords.latitude, currentPosition.coords.longitude, 0, currentPosition.coords.altitude || 0, currentPosition.timestamp);
+      workout.addPoint(point);
+      updateUI();
+    }
+  }
+  /**
+   * Registers event listeners.
+   *
+   * @private
+   */
+
+
+  function bindEvents() {
+    window.addEventListener('model.geolocation.position.available', onModelGeolocationPositionAvailable);
+  }
+
+  function initDatabase() {
+    workoutDB = new IDBStore({
+      dbVersion: 1,
+      storeName: 'workouts',
+      keyPath: 'id',
+      autoIncrement: true,
+      onStoreReady: function onStoreReady() {
+        commonEvents.dispatchEvent('model.workout.dbready');
+        isDBready = true;
+      }
+    });
+  }
+  /**
+   * Initializes the workout model module.
+   *
+   * @memberof app.model.workout
+   * @public
+   * @fires model.geolocation.available
+   * @fires model.geolocation.unavailable
+   */
+
+
+  modelWorkout.init = function init(driver) {
+    hardwareDriver = driver;
+    hardwareDriver.init();
+    bindEvents();
+    initDatabase();
+  };
+
+  modelWorkout.start = function start(type) {
+    switch (type) {
+      case _workout_app_workout_base_workout__WEBPACK_IMPORTED_MODULE_2__["WORKOUT_TYPE_CYCLING"]:
+        workout = new _workout_app_workout_cycling_workout__WEBPACK_IMPORTED_MODULE_0__["CyclingWorkout"]();
+        break;
+
+      case _workout_app_workout_base_workout__WEBPACK_IMPORTED_MODULE_2__["WORKOUT_TYPE_RUNNING"]:
+        workout = new _workout_app_workout_running_workout__WEBPACK_IMPORTED_MODULE_1__["RunningWorkout"]();
+        break;
+    }
+
+    workout.start();
+    updateUI();
+    hardwareDriver.backgroundRunEnable();
+  };
+  /**
+   *
+   * @fires model.workout.paused
+   */
+
+
+  modelWorkout.togglePause = function togglePause() {
+    if (!workout.isActive()) {
+      hardwareDriver.backgroundRunEnable();
+      commonEvents.dispatchEvent('model.workout.resumed');
+      workout.resume();
+    } else {
+      commonEvents.dispatchEvent('model.workout.paused');
+      workout.pause();
+      hardwareDriver.backgroundRunDisable();
+    }
+  };
+  /**
+   *
+   * @returns {boolean}
+   */
+
+
+  modelWorkout.isHeartRateAvailable = function () {
+    return hardwareDriver.isHeartRateAvailable();
+  };
+
+  modelWorkout.save = function save() {
+    workout.save();
+
+    var onsuccess = function onsuccess(id) {
+      console.log('Successfully inserted! insertId is: ' + id);
+      commonEvents.dispatchEvent('model.workout.save.successful', true);
+    };
+
+    var onerror = function onerror(error) {
+      console.log('Workout save failed!', error);
+      commonEvents.dispatchEvent('model.workout.save.failed');
+    };
+
+    workoutDB.put(workout.toObject(), onsuccess, onerror);
+    return false;
+  };
+
+  modelWorkout.clear = function clear() {
+    var onsuccess = function onsuccess() {
+      console.log('Database celared');
+      commonEvents.dispatchEvent('model.workout.clear.successful');
+    };
+
+    var onerror = function onerror(error) {
+      console.log('Database clear failed!', error);
+      commonEvents.dispatchEvent('model.workout.clear.failed');
+    };
+
+    workoutDB.clear(onsuccess, onerror);
+  };
+
+  modelWorkout.getList = function getList(status) {
+    var onsuccess = function onsuccess(data) {
+      data = data.filter(function (item) {
+        return item.status == status;
+      });
+
+      if (data.length) {
+        commonEvents.dispatchEvent('model.workout.getlist.successful', data);
+      }
+    };
+
+    var onerror = function onerror(error) {
+      console.log('Workout save failed!', error);
+      commonEvents.dispatchEvent('model.workout.getlist.failed');
+    };
+
+    workoutDB.getAll(onsuccess, onerror);
+  };
+
+  modelWorkout.getItemsToSync = function getItemsToSync() {
+    return modelWorkout.getList(modelWorkout.WORKOUT_STATUS_SAVED);
+  };
+
+  modelWorkout.getWorkout = function getWorkout() {
+    return workout;
+  };
+})(window.app);
+
+/***/ }),
+
+/***/ "./src/js/model/drivers/android/app.drivers.android.battery.js":
+/*!*********************************************************************!*\
+  !*** ./src/js/model/drivers/android/app.drivers.android.battery.js ***!
+  \*********************************************************************/
+/*! exports provided: BatteryDriverAndroid */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BatteryDriverAndroid", function() { return BatteryDriverAndroid; });
+/* harmony import */ var _app_drivers_battery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.drivers.battery */ "./src/js/model/drivers/app.drivers.battery.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var BatteryDriverAndroid =
+/*#__PURE__*/
+function (_BatteryDriver) {
+  _inherits(BatteryDriverAndroid, _BatteryDriver);
+
+  function BatteryDriverAndroid() {
+    _classCallCheck(this, BatteryDriverAndroid);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(BatteryDriverAndroid).call(this));
+  }
+
+  _createClass(BatteryDriverAndroid, [{
+    key: "bind",
+    value: function bind() {
+      var _this = this;
+
+      document.addEventListener("deviceready", function () {
+        window.addEventListener("batterystatus", onBatteryStatus, false);
+
+        function onBatteryStatus(status) {
+          _this.level = status.level;
+        }
+
+        window.addEventListener("batterylow", onBatteryLow, false);
+
+        function onBatteryLow(status) {
+          _this.commonEvents.dispatchEvent('model.battery.low');
+        }
+      }, false);
+    }
+  }]);
+
+  return BatteryDriverAndroid;
+}(_app_drivers_battery__WEBPACK_IMPORTED_MODULE_0__["BatteryDriver"]);
+
+
+
+/***/ }),
+
+/***/ "./src/js/model/drivers/android/app.drivers.android.hardware.js":
+/*!**********************************************************************!*\
+  !*** ./src/js/model/drivers/android/app.drivers.android.hardware.js ***!
+  \**********************************************************************/
+/*! exports provided: HardwareDriverAndroid */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HardwareDriverAndroid", function() { return HardwareDriverAndroid; });
+/* harmony import */ var _app_drivers_hardware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.drivers.hardware.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var HardwareDriverAndroid =
+/*#__PURE__*/
+function (_HardwareDriver) {
+  _inherits(HardwareDriverAndroid, _HardwareDriver);
+
+  function HardwareDriverAndroid() {
+    var _this;
+
+    _classCallCheck(this, HardwareDriverAndroid);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(HardwareDriverAndroid).call(this));
+    _this.commonEvents = window.app.common.events;
+    return _this;
+  }
+
+  _createClass(HardwareDriverAndroid, [{
+    key: "bind",
+    value: function bind() {
+      cordova.plugins.backgroundMode.on('activate', function () {
+        console.log('activate background mode');
+        cordova.plugins.backgroundMode.disableWebViewOptimizations();
+      });
+    }
+  }, {
+    key: "isHeartRateAvailable",
+    value: function isHeartRateAvailable() {
+      return false;
+    }
+  }, {
+    key: "backgroundRunEnable",
+    value: function backgroundRunEnable() {
+      cordova.plugins.backgroundMode.enable();
+    }
+  }, {
+    key: "backgroundRunDisable",
+    value: function backgroundRunDisable() {
+      cordova.plugins.backgroundMode.disable();
+    }
+  }, {
+    key: "exit",
+    value: function exit() {
+      try {
+        navigator.app.exitApp();
+      } catch (error) {
+        console.warn('Application exit failed.', error.message);
+      }
+    }
+  }]);
+
+  return HardwareDriverAndroid;
+}(_app_drivers_hardware__WEBPACK_IMPORTED_MODULE_0__["HardwareDriver"]);
+
+
+
+/***/ }),
+
+/***/ "./src/js/model/drivers/android/app.drivers.android.network.js":
+/*!*********************************************************************!*\
+  !*** ./src/js/model/drivers/android/app.drivers.android.network.js ***!
+  \*********************************************************************/
+/*! exports provided: NetworkDriverAndroid */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NetworkDriverAndroid", function() { return NetworkDriverAndroid; });
+/* harmony import */ var _app_drivers_network__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.drivers.network */ "./src/js/model/drivers/app.drivers.network.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var NetworkDriverAndroid =
+/*#__PURE__*/
+function (_NetworkDriver) {
+  _inherits(NetworkDriverAndroid, _NetworkDriver);
+
+  function NetworkDriverAndroid() {
+    _classCallCheck(this, NetworkDriverAndroid);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(NetworkDriverAndroid).call(this));
+  }
+
+  _createClass(NetworkDriverAndroid, [{
+    key: "bind",
+    value: function bind() {
+      var _this = this;
+
+      document.addEventListener("offline", function () {
+        _this.onNetworkTypeChange();
+      }, false);
+      document.addEventListener("online", function () {
+        _this.onNetworkTypeChange();
+      }, false);
+      setTimeout(function () {
+        _this.onGetNetworkTypeSuccess();
+      }, 500);
+    }
+  }, {
+    key: "isNetworkAvailable",
+    value: function isNetworkAvailable() {
+      return navigator.connection.type !== Connection.NONE;
+    }
+  }, {
+    key: "onNetworkTypeChange",
+    value: function onNetworkTypeChange() {
+      this.networkType = navigator.connection.type;
+      this.commonEvents.dispatchEvent('model.network.type.changed');
+    }
+  }, {
+    key: "onGetNetworkTypeSuccess",
+    value: function onGetNetworkTypeSuccess() {
+      this.networkType = navigator.connection.type;
+      this.commonEvents.dispatchEvent('model.network.initialized');
+    }
+  }]);
+
+  return NetworkDriverAndroid;
+}(_app_drivers_network__WEBPACK_IMPORTED_MODULE_0__["NetworkDriver"]);
+
+
+
+/***/ }),
+
+/***/ "./src/js/model/drivers/app.driver.factory.js":
+/*!****************************************************!*\
+  !*** ./src/js/model/drivers/app.driver.factory.js ***!
+  \****************************************************/
+/*! exports provided: DriverFactory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DriverFactory", function() { return DriverFactory; });
+/* harmony import */ var _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.drivers.platform */ "./src/js/model/drivers/app.drivers.platform.js");
+/* harmony import */ var _app_drivers_hardware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./app.drivers.hardware */ "./src/js/model/drivers/app.drivers.hardware.js");
+/* harmony import */ var _tizen_app_drivers_tizen_hardware__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tizen/app.drivers.tizen.hardware */ "./src/js/model/drivers/tizen/app.drivers.tizen.hardware.js");
+/* harmony import */ var _android_app_drivers_android_hardware__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./android/app.drivers.android.hardware */ "./src/js/model/drivers/android/app.drivers.android.hardware.js");
+/* harmony import */ var _app_drivers_battery__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.drivers.battery */ "./src/js/model/drivers/app.drivers.battery.js");
+/* harmony import */ var _tizen_app_drivers_tizen_battery__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tizen/app.drivers.tizen.battery */ "./src/js/model/drivers/tizen/app.drivers.tizen.battery.js");
+/* harmony import */ var _android_app_drivers_android_battery__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./android/app.drivers.android.battery */ "./src/js/model/drivers/android/app.drivers.android.battery.js");
+/* harmony import */ var _app_drivers_browser_network__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.drivers.browser.network */ "./src/js/model/drivers/app.drivers.browser.network.js");
+/* harmony import */ var _tizen_app_drivers_tizen_network__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tizen/app.drivers.tizen.network */ "./src/js/model/drivers/tizen/app.drivers.tizen.network.js");
+/* harmony import */ var _android_app_drivers_android_network__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./android/app.drivers.android.network */ "./src/js/model/drivers/android/app.drivers.android.network.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+
+
+
+
+
+
+
+
+
+var DriverFactory =
+/*#__PURE__*/
+function () {
+  function DriverFactory(platform) {
+    _classCallCheck(this, DriverFactory);
+
+    this.platform = platform;
+  }
+
+  _createClass(DriverFactory, [{
+    key: "buildNetworkDriver",
+    value: function buildNetworkDriver() {
+      var networkDriver = null;
+
+      switch (this.platform) {
+        case _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].TIZEN:
+          networkDriver = new _tizen_app_drivers_tizen_network__WEBPACK_IMPORTED_MODULE_8__["NetworkDriverTizen"]();
+          break;
+
+        case _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].ANDROID:
+          networkDriver = new _android_app_drivers_android_network__WEBPACK_IMPORTED_MODULE_9__["NetworkDriverAndroid"]();
+          break;
+
+        default:
+          networkDriver = new _app_drivers_browser_network__WEBPACK_IMPORTED_MODULE_7__["NetworkDriverBrowser"]();
+          break;
+      }
+
+      return networkDriver;
+    }
+  }, {
+    key: "buildBatteryDriver",
+    value: function buildBatteryDriver() {
+      var batteryDriver = new _app_drivers_battery__WEBPACK_IMPORTED_MODULE_4__["BatteryDriver"]();
+
+      switch (this.platform) {
+        case _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].TIZEN:
+          batteryDriver = new _tizen_app_drivers_tizen_battery__WEBPACK_IMPORTED_MODULE_5__["BatteryDriverTizen"]();
+          break;
+
+        case _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].ANDROID:
+          batteryDriver = new _android_app_drivers_android_battery__WEBPACK_IMPORTED_MODULE_6__["BatteryDriverAndroid"]();
+          break;
+      }
+
+      return batteryDriver;
+    }
+  }, {
+    key: "buildHardwareDriver",
+    value: function buildHardwareDriver() {
+      var hardwareDriver = new _app_drivers_hardware__WEBPACK_IMPORTED_MODULE_1__["HardwareDriver"]();
+
+      switch (this.platform) {
+        case _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].TIZEN:
+          hardwareDriver = new _tizen_app_drivers_tizen_hardware__WEBPACK_IMPORTED_MODULE_2__["HardwareDriverTizen"]();
+          break;
+
+        case _app_drivers_platform__WEBPACK_IMPORTED_MODULE_0__["PLATFORMS"].ANDROID:
+          hardwareDriver = new _android_app_drivers_android_hardware__WEBPACK_IMPORTED_MODULE_3__["HardwareDriverAndroid"]();
+          break;
+      }
+
+      return hardwareDriver;
+    }
+  }]);
+
+  return DriverFactory;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/js/model/drivers/app.drivers.battery.js":
+/*!*****************************************************!*\
+  !*** ./src/js/model/drivers/app.drivers.battery.js ***!
+  \*****************************************************/
+/*! exports provided: BatteryDriver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BatteryDriver", function() { return BatteryDriver; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var BatteryDriver =
+/*#__PURE__*/
+function () {
+  function BatteryDriver() {
+    _classCallCheck(this, BatteryDriver);
+
+    this.level = null;
+    this.commonEvents = window.app.common.events;
+  }
+
+  _createClass(BatteryDriver, [{
+    key: "init",
+    value: function init() {
+      this.bind();
+    }
+  }, {
+    key: "bind",
+    value: function bind() {}
+  }]);
+
+  return BatteryDriver;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/js/model/drivers/app.drivers.browser.network.js":
+/*!*************************************************************!*\
+  !*** ./src/js/model/drivers/app.drivers.browser.network.js ***!
+  \*************************************************************/
+/*! exports provided: NetworkDriverBrowser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NetworkDriverBrowser", function() { return NetworkDriverBrowser; });
+/* harmony import */ var _app_drivers_network__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.drivers.network */ "./src/js/model/drivers/app.drivers.network.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var NetworkDriverBrowser =
+/*#__PURE__*/
+function (_NetworkDriver) {
+  _inherits(NetworkDriverBrowser, _NetworkDriver);
+
+  function NetworkDriverBrowser() {
+    _classCallCheck(this, NetworkDriverBrowser);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(NetworkDriverBrowser).apply(this, arguments));
+  }
+
+  _createClass(NetworkDriverBrowser, [{
+    key: "init",
+    value: function init() {
+      this.bind();
+    }
+  }, {
+    key: "bind",
+    value: function bind() {}
+  }, {
+    key: "isNetworkAvailable",
+    value: function isNetworkAvailable() {
+      return true;
+    }
+  }, {
+    key: "getNetworkType",
+    value: function getNetworkType() {
+      return this.networkType;
+    }
+  }]);
+
+  return NetworkDriverBrowser;
+}(_app_drivers_network__WEBPACK_IMPORTED_MODULE_0__["NetworkDriver"]);
+
+
+
+/***/ }),
+
+/***/ "./src/js/model/drivers/app.drivers.hardware.js":
+/*!******************************************************!*\
+  !*** ./src/js/model/drivers/app.drivers.hardware.js ***!
+  \******************************************************/
+/*! exports provided: HardwareDriver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HardwareDriver", function() { return HardwareDriver; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var HardwareDriver =
+/*#__PURE__*/
+function () {
+  function HardwareDriver() {
+    _classCallCheck(this, HardwareDriver);
+
+    this.commonEvents = window.app.common.events;
+  }
+
+  _createClass(HardwareDriver, [{
+    key: "init",
+    value: function init() {
+      this.bind();
+    }
+  }, {
+    key: "bind",
+    value: function bind() {}
+    /**
+     *
+     * @returns {boolean}
+     */
+
+  }, {
+    key: "isHeartRateAvailable",
+    value: function isHeartRateAvailable() {
+      return false;
+    }
+  }, {
+    key: "backgroundRunEnable",
+    value: function backgroundRunEnable() {}
+  }, {
+    key: "backgroundRunDisable",
+    value: function backgroundRunDisable() {}
+  }, {
+    key: "exit",
+    value: function exit() {}
+  }]);
+
+  return HardwareDriver;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/js/model/drivers/app.drivers.network.js":
+/*!*****************************************************!*\
+  !*** ./src/js/model/drivers/app.drivers.network.js ***!
+  \*****************************************************/
+/*! exports provided: NetworkDriver */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NetworkDriver", function() { return NetworkDriver; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var NETWORKS = ['2G', '2.5G', '3G', '4G', 'WIFI', 'ETHERNET', 'UNKNOWN'];
+
+var NetworkDriver =
+/*#__PURE__*/
+function () {
+  function NetworkDriver() {
+    _classCallCheck(this, NetworkDriver);
+
+    this.commonEvents = window.app.common.events;
+    this.networkType = 'NONE';
+  }
+
+  _createClass(NetworkDriver, [{
+    key: "init",
+    value: function init() {
+      this.bind();
+    }
+  }, {
+    key: "bind",
+    value: function bind() {}
+  }, {
+    key: "isNetworkAvailable",
+    value: function isNetworkAvailable() {
+      return NETWORKS.indexOf(this.networkType) !== -1;
+    }
+  }, {
+    key: "getNetworkType",
+    value: function getNetworkType() {
+      return this.networkType;
+    }
+  }]);
+
+  return NetworkDriver;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/js/model/drivers/app.drivers.platform.js":
+/*!******************************************************!*\
+  !*** ./src/js/model/drivers/app.drivers.platform.js ***!
+  \******************************************************/
+/*! exports provided: Platform, PLATFORMS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Platform", function() { return Platform; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PLATFORMS", function() { return PLATFORMS; });
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var PLATFORMS = {
+  TIZEN: 'tizen',
+  ANDROID: 'android',
+  BROWSER: 'browser'
+};
+
+var Platform =
+/*#__PURE__*/
+function () {
+  function Platform() {
+    _classCallCheck(this, Platform);
+  }
+
+  _createClass(Platform, null, [{
+    key: "get",
+    value: function get() {
+      var platform = PLATFORMS.BROWSER;
+
+      if ((typeof tizen === "undefined" ? "undefined" : _typeof(tizen)) === 'object' && _typeof(tizen.systeminfo) === 'object') {
+        platform = PLATFORMS.TIZEN;
+      } else if ((typeof device === "undefined" ? "undefined" : _typeof(device)) === 'object' && device.platform === 'Android') {
+        platform = PLATFORMS.ANDROID;
+      }
+
+      return platform;
+    }
+  }]);
+
+  return Platform;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/js/model/drivers/tizen/app.drivers.tizen.battery.js":
+/*!*****************************************************************!*\
+  !*** ./src/js/model/drivers/tizen/app.drivers.tizen.battery.js ***!
+  \*****************************************************************/
+/*! exports provided: BatteryDriverTizen */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BatteryDriverTizen", function() { return BatteryDriverTizen; });
+/* harmony import */ var _app_drivers_battery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.drivers.battery */ "./src/js/model/drivers/app.drivers.battery.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var BatteryDriverTizen =
+/*#__PURE__*/
+function (_BatteryDriver) {
+  _inherits(BatteryDriverTizen, _BatteryDriver);
+
+  function BatteryDriverTizen() {
+    _classCallCheck(this, BatteryDriverTizen);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(BatteryDriverTizen).apply(this, arguments));
+  }
+
+  _createClass(BatteryDriverTizen, [{
+    key: "bind",
+    value: function bind() {
+      var _this = this,
+          systeminfo = null;
+
+      if ((typeof tizen === "undefined" ? "undefined" : _typeof(tizen)) === 'object' && _typeof(tizen.systeminfo) === 'object') {
+        var systeminfo = tizen.systeminfo;
+      } else {
+        console.warn('tizen.systeminfo not available');
+      }
+
+      try {
+        systeminfo.addPropertyValueChangeListener('BATTERY', function change(battery) {
+          _this.level = battery.level;
+
+          if (!battery.isCharging && battery.level < _this.LOW_BATTERY) {
+            _this.commonEvents.dispatchEvent('model.battery.low');
+          }
+        }, null, function errorCallback(error) {
+          console.warn('Battery state listener was not set.', error);
+        });
+      } catch (error) {
+        console.warn('Battery state listener was not set.', error);
+      }
+    }
+  }]);
+
+  return BatteryDriverTizen;
+}(_app_drivers_battery__WEBPACK_IMPORTED_MODULE_0__["BatteryDriver"]);
+
+
+
+/***/ }),
+
+/***/ "./src/js/model/drivers/tizen/app.drivers.tizen.hardware.js":
+/*!******************************************************************!*\
+  !*** ./src/js/model/drivers/tizen/app.drivers.tizen.hardware.js ***!
+  \******************************************************************/
+/*! exports provided: HardwareDriverTizen */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HardwareDriverTizen", function() { return HardwareDriverTizen; });
+/* harmony import */ var _app_drivers_hardware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.drivers.hardware */ "./src/js/model/drivers/app.drivers.hardware.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var HardwareDriverTizen =
+/*#__PURE__*/
+function (_HardwareDriver) {
+  _inherits(HardwareDriverTizen, _HardwareDriver);
+
+  function HardwareDriverTizen() {
+    var _this;
+
+    _classCallCheck(this, HardwareDriverTizen);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(HardwareDriverTizen).call(this));
+    _this.commonEvents = window.app.common.events;
+    return _this;
+  }
+
+  _createClass(HardwareDriverTizen, [{
+    key: "bind",
+    value: function bind() {}
+  }, {
+    key: "isHeartRateAvailable",
+    value: function isHeartRateAvailable() {
+      return true;
+    }
+  }, {
+    key: "backgroundRunEnable",
+    value: function backgroundRunEnable() {
+      tizen.power.request("CPU", "CPU_AWAKE");
+      tizen.power.request('SCREEN', 'SCREEN_NORMAL');
+    }
+  }, {
+    key: "backgroundRunDisable",
+    value: function backgroundRunDisable() {
+      tizen.power.release("CPU");
+      tizen.power.release('SCREEN');
+    }
+  }, {
+    key: "exit",
+    value: function exit() {
+      try {
+        tizen.application.getCurrentApplication().exit();
+      } catch (error) {
+        console.warn('Application exit failed.', error.message);
+      }
+    }
+  }]);
+
+  return HardwareDriverTizen;
+}(_app_drivers_hardware__WEBPACK_IMPORTED_MODULE_0__["HardwareDriver"]);
+
+
+
+/***/ }),
+
+/***/ "./src/js/model/drivers/tizen/app.drivers.tizen.network.js":
+/*!*****************************************************************!*\
+  !*** ./src/js/model/drivers/tizen/app.drivers.tizen.network.js ***!
+  \*****************************************************************/
+/*! exports provided: NetworkDriverTizen */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NetworkDriverTizen", function() { return NetworkDriverTizen; });
+/* harmony import */ var _app_drivers_network__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.drivers.network */ "./src/js/model/drivers/app.drivers.network.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var NetworkDriverTizen =
+/*#__PURE__*/
+function (_NetworkDriver) {
+  _inherits(NetworkDriverTizen, _NetworkDriver);
+
+  function NetworkDriverTizen() {
+    _classCallCheck(this, NetworkDriverTizen);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(NetworkDriverTizen).call(this));
+  }
+
+  _createClass(NetworkDriverTizen, [{
+    key: "bind",
+    value: function bind() {
+      var _this = this,
+          systeminfo = null;
+
+      if ((typeof tizen === "undefined" ? "undefined" : _typeof(tizen)) === 'object' && _typeof(tizen.systeminfo) === 'object') {
+        var systeminfo = tizen.systeminfo;
+      } else {
+        console.warn('tizen.systeminfo not available');
+      }
+
+      try {
+        systeminfo.getPropertyValue('NETWORK', function (network) {
+          _this.onGetNetworkTypeSuccess(network);
+        }, function onGetPropertyValueError(error) {
+          console.warn('Couldn\'t get network type value.', error);
+        });
+      } catch (error) {
+        console.warn('Couldn\'t get network type value.', error);
+      }
+
+      try {
+        systeminfo.addPropertyValueChangeListener('NETWORK', function (network) {
+          _this.onNetworkTypeChange(network);
+        });
+      } catch (error) {
+        console.warn('Network change listener was not set.', error);
+      }
+    }
+  }, {
+    key: "onNetworkTypeChange",
+    value: function onNetworkTypeChange(network) {
+      this.networkType = network.networkType;
+      this.commonEvents.dispatchEvent('model.network.type.changed');
+    }
+  }, {
+    key: "onGetNetworkTypeSuccess",
+    value: function onGetNetworkTypeSuccess(network) {
+      this.networkType = network.networkType;
+      this.commonEvents.dispatchEvent('model.network.initialized');
+    }
+  }]);
+
+  return NetworkDriverTizen;
+}(_app_drivers_network__WEBPACK_IMPORTED_MODULE_0__["NetworkDriver"]);
+
+
+
+/***/ }),
+
+/***/ "./src/js/model/models.js":
+/*!********************************!*\
+  !*** ./src/js/model/models.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ../common/app.common.events */ "./src/js/common/app.common.events.js");
+
+__webpack_require__(/*! ./app.model.battery */ "./src/js/model/app.model.battery.js");
+
+__webpack_require__(/*! ./app.model.network */ "./src/js/model/app.model.network.js");
+
+__webpack_require__(/*! ./app.model.geolocation */ "./src/js/model/app.model.geolocation.js");
+
+__webpack_require__(/*! ./app.model.workout */ "./src/js/model/app.model.workout.js");
+
+__webpack_require__(/*! ./app.model.sync */ "./src/js/model/app.model.sync.js");
+
+/***/ }),
+
+/***/ "./src/js/ui/app.ui.info.js":
+/*!**********************************!*\
+  !*** ./src/js/ui/app.ui.info.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*global window, tau, document*/
+
+/**
+ * Application info popup module.
+ * It is responsible showing info popup.
+ *
+ * @module app.ui.info
+ * @memberof app.ui
+ */
+// make sure that "app" namespace is created
+window.app = window.app || {};
+
+(function defineAppUiLogin(app) {
+  'use strict';
+  /**
+   * Page Id.
+   *
+   * @private
+   * @const {string}
+   */
+
+  var PAGE_ID = 'info-popup',
+
+  /**
+   * Page element.
+   *
+   * @private
+   * @type {HTMLElement}
+   */
+  page = null,
+
+  /**
+   * UI navigation module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  uiInfo = null,
+
+  /**
+   * Popup shown when the workout is paused
+   *
+   * @type {HTMLElement}
+   */
+  infoPopup = null,
+      infoPopupContent = null; // create namespace for the module
+
+  app.ui = app.ui || {};
+  app.ui.info = app.ui.info || {};
+  uiInfo = app.ui.info;
+  /**
+   * Updates UI.
+   *
+   * @private
+   */
+
+  function updateUI(data) {}
+  /**
+   * Handles pagebeforeshow event.
+   *
+   * @private
+   */
+
+
+  function onPageBeforeShow() {}
+  /**
+   * Handles model.workout.updateui event.
+   *
+   * Updates workout page ui
+   * according to the values provided by the workout model module.
+   *
+   * @private
+   */
+
+
+  function onInfoShowHandler(e) {
+    infoPopupContent.innerHTML = e.detail;
+    tau.openPopup(infoPopup);
+  }
+  /**
+   * Registers event listeners.
+   *
+   * @private
+   */
+
+
+  function bindEvents() {
+    page.addEventListener('pagebeforeshow', onPageBeforeShow);
+    window.addEventListener('ui.info.show', onInfoShowHandler);
+  }
+  /**
+   * Shows the navigation page.
+   *
+   * @memberof app.ui.navigation
+   * @public
+   */
+
+
+  uiInfo.show = function show() {
+    tau.changePage('#' + PAGE_ID);
+  };
+  /**
+   * Initializes the ui navigation module.
+   *
+   * @memberof app.ui.navigation
+   * @public
+   */
+
+
+  uiInfo.init = function init() {
+    page = document.getElementById(PAGE_ID);
+    infoPopup = document.getElementById('info-popup');
+    infoPopupContent = document.getElementById('info-content');
+    bindEvents();
+  };
+})(window.app);
+
+/***/ }),
+
+/***/ "./src/js/ui/app.ui.intro.js":
+/*!***********************************!*\
+  !*** ./src/js/ui/app.ui.intro.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*global window, tau, setTimeout, document*/
+
+/**
+ * Application waiting page module.
+ * It is responsible for waiting page layout and logic.
+ *
+ * @module app.ui.waiting
+ * @requires {@link app.ui.destination}
+ * @namespace app.ui.waiting
+ * @memberof app.ui
+ */
+// make sure that "app" namespace is created
+window.app = window.app || {};
+
+(function defineAppUiIntro(app) {
+  'use strict';
+  /**
+   * Page Id.
+   *
+   * @private
+   * @const {string}
+   */
+
+  var PAGE_ID = 'intro',
+
+  /**
+   * Lost connection message string.
+   *
+   * @private
+   * @const {string}
+   */
+  LOST_CONNECTION_MESSAGE = 'LOST\nCONNECTION',
+
+  /**
+   * Waiting for GPS data message string.
+   *
+   * @private
+   * @const {string}
+   */
+  WAITING_FOR_GPS_DATA_MESSAGE = 'WAITING FOR\nGPS DATA',
+
+  /**
+   * Lost CSS class.
+   *
+   * @private
+   * @const {string}
+   */
+  LOST_CLASS = 'lost',
+
+  /**
+   * Lost connection timeout.
+   *
+   * @private
+   * @const {number}
+   */
+  LOST_CONNECTION_TIMEOUT = 3000,
+
+  /**
+   * UiWaiting module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  uiIntro = null,
+
+  /**
+   * UI destination module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  uiMain = null,
+
+  /**
+   * Page element.
+   *
+   * @private
+   * @type {HTMLElement}
+   */
+  page = null,
+
+  /**
+   * Waiting message element.
+   *
+   * @private
+   * @type {HTMLElement}
+   */
+  waitingMessage = null,
+
+  /**
+   * Stores information about the reason of displaying the waiting page.
+   *
+   * @type {boolean}
+   */
+  isConnectionLost = false; // create namespace for the module
+
+  app.ui = app.ui || {};
+  app.ui.intro = app.ui.intro || {};
+  uiIntro = app.ui.intro;
+  /**
+   * Handles model.geolocation.position.available event.
+   *
+   * @private
+   */
+
+  function onModelGeolocationPositionAvailable() {
+    if (tau.activePage.id === PAGE_ID) {
+      if (isConnectionLost) {
+        tau.back();
+      } else {
+        uiMain.show();
+      }
+    }
+  }
+  /**
+   * Sets waiting for GPS data message.
+   *
+   * @private
+   */
+
+
+  function setWaitingMessage() {
+    waitingMessage.classList.remove(LOST_CLASS);
+    waitingMessage.innerText = WAITING_FOR_GPS_DATA_MESSAGE;
+  }
+  /**
+   * Sets lost connection message.
+   *
+   * @private
+   */
+
+
+  function setLostMessage() {
+    waitingMessage.classList.add(LOST_CLASS);
+    waitingMessage.innerText = LOST_CONNECTION_MESSAGE;
+  }
+  /**
+   * Handles pagebeforeshow event.
+   *
+   * @private
+   */
+
+
+  function onPageBeforeShow() {
+    setLostMessage();
+    setTimeout(function onTimeout() {
+      setWaitingMessage();
+    }, LOST_CONNECTION_TIMEOUT);
+  }
+  /**
+   * Registers event listeners.
+   *
+   * @private
+   */
+
+
+  function bindEvents() {
+    page.addEventListener('pagebeforeshow', onPageBeforeShow);
+    window.addEventListener('model.geolocation.position.available', onModelGeolocationPositionAvailable);
+  }
+  /**
+   * Shows the waiting page.
+   *
+   * @memberof app.ui.waiting
+   * @public
+   */
+
+
+  uiIntro.show = function show() {
+    isConnectionLost = true;
+    tau.changePage('#' + PAGE_ID);
+  };
+  /**
+   * Initializes the ui waiting module.
+   *
+   * @memberof app.ui.waiting
+   * @public
+   */
+
+
+  uiIntro.init = function init() {
+    uiMain = app.ui.main;
+    uiIntro = app.ui.intro;
+    page = document.getElementById(PAGE_ID);
+    waitingMessage = page.querySelector('#waiting-message');
+    setWaitingMessage();
+    bindEvents();
+  };
+})(window.app);
+
+/***/ }),
+
+/***/ "./src/js/ui/app.ui.js":
+/*!*****************************!*\
+  !*** ./src/js/ui/app.ui.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! ./app.ui.workout */ "./src/js/ui/app.ui.workout.js");
+
+__webpack_require__(/*! ./app.ui.login */ "./src/js/ui/app.ui.login.js");
+
+__webpack_require__(/*! ./app.ui.main */ "./src/js/ui/app.ui.main.js");
+
+__webpack_require__(/*! ./app.ui.intro */ "./src/js/ui/app.ui.intro.js");
+
+__webpack_require__(/*! ./app.ui.info */ "./src/js/ui/app.ui.info.js");
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*global window, document, tau*/
+
+/**
+ * Application ui module.
+ * It is responsible for the application ui initialization.
+ *
+ * @module app.ui
+ * @requires {@link app.model.geolocation}
+ * @requires {@link app.model.network}
+ * @requires {@link app.ui.waiting}
+ * @requires {@link app.ui.destination}
+ * @requires {@link app.ui.navigation}
+ * @requires {@link app.ui.finish}
+ * @namespace app.ui
+ * @memberof app
+ */
+// make sure that "app" namespace is created
+
+
+window.app = window.app || {};
+
+(function defineAppUi(app) {
+  'use strict';
+  /**
+   * Google maps API key.
+   *
+   * @private
+   * @const {string}
+   */
+
+  var API_KEY = '',
+
+  /**
+   * UI module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  ui = null,
+
+  /**
+   * Geolocation model module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  modelGeolocation = null,
+
+  /**
+   * Network model module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  modelNetwork = null,
+
+  /**
+   * Compass model module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  modelWorkout = null,
+
+  /**
+   * Compass model module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  modelSync = null,
+
+  /**
+   * UI waiting module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  uiIntro = null,
+
+  /**
+   * UI destination module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  uiMain = null,
+
+  /**
+   * UI navigation module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  uiWorkout = null,
+
+  /**
+   * UI login reference.
+   *
+   * @private
+   * @type {object}
+   */
+  uiLogin = null,
+
+  /**
+   * UI info reference.
+   *
+   * @private
+   * @type {object}
+   */
+  uiInfo = null,
+
+  /**
+   * Close popup element.
+   *
+   * @private
+   * @type {HTMLElement}
+   */
+  closePopup = null,
+
+  /**
+   * Close popup yes button element.
+   *
+   * @private
+   * @type {HTMLElement}
+   */
+  closePopupYesBtn = null,
+
+  /**
+   * Gps status indicator.
+   *
+   * @private
+   * @type {HTMLElement}
+   */
+  gpsStatusIndicators = null,
+
+  /**
+   * Network status indicator.
+   *
+   * @private
+   * @type {HTMLElement}
+   */
+  networkStatusIndicators = null,
+      commonEvents = null; // create namespace for the module
+
+  app.ui = app.ui || {};
+  ui = app.ui;
+  /**
+   * Handles model.network.initialized event.
+   *
+   * @private
+   */
+
+  function onModelNetworkInitialized() {
+    onModelNetworkTypeChanged();
+  }
+  /**
+   * Handles model.network.type.changed event.
+   *
+   * @private
+   */
+
+
+  function onModelNetworkTypeChanged() {
+    for (var i = 0; i < networkStatusIndicators.length; ++i) {
+      var networkStatusIndicator = networkStatusIndicators[i];
+
+      if (networkStatusIndicator.classList.contains('network-status-active')) {
+        networkStatusIndicator.classList.remove('network-status-active');
+      }
+
+      if (modelNetwork.isNetworkAvailable() && !networkStatusIndicator.classList.contains('network-status-active')) {
+        networkStatusIndicator.classList.add('network-status-active');
+      }
+    }
+
+    ;
+  }
+  /**
+   * Handles model.geolocation.position.available event.
+   *
+   * @private
+   */
+
+
+  function onModelGeolocationPositionAvailable() {
+    for (var i = 0; i < gpsStatusIndicators.length; ++i) {
+      var gpsStatusIndicator = gpsStatusIndicators[i];
+
+      if (!gpsStatusIndicator.classList.contains('gps-status-active')) {
+        gpsStatusIndicator.classList.add('gps-status-active');
+      }
+    }
+
+    ;
+  }
+  /**
+   * Handles model.geolocation.position.unavailable
+   * and model.geolocation.position.lost events.
+   *
+   * @private
+   */
+
+
+  function onModelGeolocationPositionUnAvailable() {
+    for (var i = 0; i < gpsStatusIndicators.length; ++i) {
+      var gpsStatusIndicator = gpsStatusIndicators[i];
+
+      if (gpsStatusIndicator.classList.contains('gps-status-active')) {
+        gpsStatusIndicator.classList.remove('gps-status-active');
+      }
+    }
+  }
+  /**
+   * Handles click event on close popup yes button click.
+   *
+   * @private
+   */
+
+
+  function onClosePopupYesBtnClick() {
+    app.exit();
+  }
+  /**
+   * Registers event listeners.
+   *
+   * @private
+   */
+
+
+  function bindEvents() {
+    closePopupYesBtn.addEventListener('click', onClosePopupYesBtnClick);
+    window.addEventListener('model.network.initialized', onModelNetworkInitialized);
+    window.addEventListener('model.network.type.changed', onModelNetworkTypeChanged);
+    window.addEventListener('model.geolocation.position.available', onModelGeolocationPositionAvailable);
+    window.addEventListener('model.geolocation.position.unavailable', onModelGeolocationPositionUnAvailable);
+    window.addEventListener('model.geolocation.position.lost', onModelGeolocationPositionUnAvailable);
+  }
+  /**
+   * Toggles close popup.
+   *
+   * @memberof app.ui
+   * @public
+   */
+
+
+  ui.toggleClosePopup = function toggleClosePopup() {
+    if (closePopup.classList.contains('ui-popup-active')) {
+      tau.closePopup(closePopup);
+    } else {
+      tau.openPopup(closePopup);
+    }
+  };
+  /**
+   * Initializes the ui module.
+   *
+   * @memberof app.ui
+   * @public
+   */
+
+
+  ui.init = function init() {
+    modelGeolocation = app.model.geolocation;
+    modelNetwork = app.model.network;
+    modelWorkout = app.model.workout;
+    modelSync = app.model.sync;
+    uiIntro = app.ui.intro;
+    uiMain = app.ui.main;
+    uiWorkout = app.ui.workout;
+    uiLogin = app.ui.login;
+    uiInfo = app.ui.info;
+    commonEvents = app.common.events;
+    closePopup = document.getElementById('close-popup');
+    closePopupYesBtn = closePopup.querySelector('#close-popup-yes-btn');
+    gpsStatusIndicators = document.querySelectorAll('.gps-status');
+    networkStatusIndicators = document.querySelectorAll('.network-status');
+    bindEvents();
+    uiInfo.init();
+    uiIntro.init();
+    uiMain.init();
+    uiWorkout.init();
+    uiLogin.init();
+    modelGeolocation.init();
+    modelSync.init('https://tracy.wernerd.info/api/login', 'https://tracy.wernerd.info/api/workouts');
+    window.addEventListener('model.workout.dbready', function (e) {
+      modelSync.sync();
+    });
+    window.addEventListener('model.workout.save.successful', function (e) {
+      modelSync.sync();
+    });
+    window.addEventListener('model.sync.upload.successful', function (e) {
+      commonEvents.dispatchEvent('ui.info.show', 'Workouts synced successfully!');
+    });
+    window.addEventListener('model.sync.upload.failed', function (e) {
+      commonEvents.dispatchEvent('ui.info.show', 'Workout sync failed!');
+    });
+  };
+})(window.app);
+
+/***/ }),
+
+/***/ "./src/js/ui/app.ui.login.js":
+/*!***********************************!*\
+  !*** ./src/js/ui/app.ui.login.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*global window, tau, document*/
+
+/**
+ * Application navigation page module.
+ * It is responsible for navigation page layout and logic.
+ *
+ * @module app.ui.navigation
+ * @requires {@link app.common.calculations}
+ * @requires {@link app.model.geolocation}
+ * @requires {@link app.ui.waiting}
+ * @requires {@link app.ui.destination}
+ * @requires {@link app.ui.finish}
+ * @namespace app.ui.navigation
+ * @memberof app.ui
+ */
+// make sure that "app" namespace is created
+window.app = window.app || {};
+
+(function defineAppUiLogin(app) {
+  'use strict';
+  /**
+   * Page Id.
+   *
+   * @private
+   * @const {string}
+   */
+
+  var PAGE_ID = 'login-popup',
+
+  /**
+   * Page element.
+   *
+   * @private
+   * @type {HTMLElement}
+   */
+  page = null,
+
+  /**
+   * Sync model module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  modelSync = null,
+
+  /**
+   * UI navigation module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  uiLogin = null,
+
+  /**
+   * Common events module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  commonEvents = app.common.events,
+      syncAfterLogin = false,
+
+  /**
+   * Popup shown when the workout is paused
+   *
+   * @type {HTMLElement}
+   */
+  loginPopup = null,
+      loginPopupLoginButton = null,
+      loginPopupCancelButton = null; // create namespace for the module
+
+  app.ui = app.ui || {};
+  app.ui.login = app.ui.login || {};
+  uiLogin = app.ui.login;
+  /**
+   * Updates UI.
+   *
+   * @private
+   */
+
+  function updateUI(data) {}
+  /**
+   * Handles pagebeforeshow event.
+   *
+   * @private
+   */
+
+
+  function onPageBeforeShow() {}
+  /**
+   * Handles model.workout.updateui event.
+   *
+   * Updates workout page ui
+   * according to the values provided by the workout model module.
+   *
+   * @private
+   */
+
+
+  function onModelWorkoutUpdateUI(e) {
+    if (tau.activePage.id === PAGE_ID) {
+      updateUI(e.detail);
+    }
+  }
+  /**
+   * Handles click event on pause popup finish button click.
+   *
+   * @private
+   */
+
+
+  function onLoginPopupLoginBtnClick() {
+    var email = loginPopup.querySelector('#login-email').value,
+        password = loginPopup.querySelector('#login-password').value;
+    modelSync.login(email, password);
+  }
+  /**
+   * Handles click event on pause popup resume button click.
+   *
+   * @private
+   */
+
+
+  function onLoginPopupCancelBtnClick() {}
+
+  function onLoginSuccessful() {
+    commonEvents.dispatchEvent('ui.info.show', 'Successful login!');
+
+    if (syncAfterLogin) {
+      syncAfterLogin = false;
+      modelSync.sync();
+    }
+  }
+
+  function onLoginFail() {
+    commonEvents.dispatchEvent('ui.info.show', 'Login failed!');
+  }
+
+  function onLoginRequired(e) {
+    var data = e.detail || null;
+
+    if (data && data.hasOwnProperty('syncAfterLogin') && data.syncAfterLogin) {
+      syncAfterLogin = data.syncAfterLogin;
+    }
+
+    tau.openPopup(loginPopup);
+  }
+  /**
+   * Registers event listeners.
+   *
+   * @private
+   */
+
+
+  function bindEvents() {
+    page.addEventListener('pagebeforeshow', onPageBeforeShow);
+    loginPopupLoginButton.addEventListener('click', onLoginPopupLoginBtnClick);
+    loginPopupCancelButton.addEventListener('click', onLoginPopupCancelBtnClick);
+    window.addEventListener('model.sync.login.successful', onLoginSuccessful);
+    window.addEventListener('model.sync.login.failed', onLoginFail);
+    window.addEventListener('model.sync.login.required', onLoginRequired);
+  }
+  /**
+   * Shows the navigation page.
+   *
+   * @memberof app.ui.navigation
+   * @public
+   */
+
+
+  uiLogin.show = function show() {
+    tau.changePage('#' + PAGE_ID);
+  };
+  /**
+   * Initializes the ui navigation module.
+   *
+   * @memberof app.ui.navigation
+   * @public
+   */
+
+
+  uiLogin.init = function init() {
+    modelSync = app.model.sync;
+    page = document.getElementById(PAGE_ID);
+    loginPopup = document.getElementById('login-popup');
+    loginPopupLoginButton = loginPopup.querySelector('#login-popup-login-btn');
+    loginPopupCancelButton = loginPopup.querySelector('#login-popup-cancel-btn'); //tau.openPopup(loginPopup);
+
+    bindEvents();
+  };
+})(window.app);
+
+/***/ }),
+
+/***/ "./src/js/ui/app.ui.main.js":
+/*!**********************************!*\
+  !*** ./src/js/ui/app.ui.main.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*global window, tau, google, document*/
+
+/**
+ * Application destination page module.
+ * It is responsible for destination page layout and logic.
+ *
+ * @module app.ui.destinaton
+ * @requires {@link app.model.geolocation}
+ * @requires {@link app.model.network}
+ * @requires {@link app.ui.navigation}
+ * @requires {@link app.ui.waiting}
+ * @namespace app.ui.destinaton
+ * @memberof app.ui
+ */
+// make sure that "app" namespace is created
+window.app = window.app || {};
+
+(function defineAppUiMain(app) {
+  'use strict';
+  /**
+   * Page Id.
+   *
+   * @private
+   * @const {string}
+   */
+
+  var PAGE_ID = 'main',
+
+  /**
+  * Page element.
+  *
+  * @private
+  * @type {HTMLElement}
+  */
+  page = null,
+
+  /**
+   * Geolocation model module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  modelGeolocation = null,
+
+  /**
+   * Network model module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  modelNetwork = null,
+      modelWorkout = null,
+
+  /**
+  * Ui waiting module reference.
+  *
+  * @private
+  * @type {object}
+  */
+  uiWaiting = null,
+
+  /**
+   * UI destination module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  uiMain = null,
+      workoutStartCyclingButton = null,
+      workoutStartRunningButton = null; // create namespace for the module
+
+  app.ui = app.ui || {};
+  app.ui.main = app.ui.main || {};
+  uiMain = app.ui.main;
+  /**
+   * Handles pagebeforeshow event.
+   *
+   * @private
+   */
+
+  function onPageBeforeShow() {}
+
+  function onWorkoutStartCycling() {
+    modelWorkout.start(modelWorkout.WORKOUT_TYPE_CYCLING);
+    tau.changePage('#workout');
+  }
+
+  function onWorkoutStartRunning() {
+    modelWorkout.start(modelWorkout.WORKOUT_TYPE_RUNNING);
+    tau.changePage('#workout');
+  }
+  /**
+   * Registers event listeners.
+   *
+   * @private
+   */
+
+
+  function bindEvents() {
+    page.addEventListener('pagebeforeshow', onPageBeforeShow);
+    workoutStartCyclingButton.addEventListener('click', onWorkoutStartCycling);
+    workoutStartRunningButton.addEventListener('click', onWorkoutStartRunning);
+  }
+  /**
+   * Shows the destination page.
+   *
+   * @memberof app.ui.destination
+   * @public
+   * @param {object} data
+   */
+
+
+  uiMain.show = function show(data) {
+    tau.changePage('#' + PAGE_ID);
+  };
+  /**
+   * Initializes the ui destination module.
+   *
+   * @memberof app.ui.destination
+   * @public
+   */
+
+
+  uiMain.init = function init() {
+    modelGeolocation = app.model.geolocation;
+    modelNetwork = app.model.network;
+    modelWorkout = app.model.workout;
+    uiWaiting = app.ui.waiting;
+    page = document.getElementById(PAGE_ID);
+    workoutStartCyclingButton = page.querySelector('.workout-start-cycling');
+    workoutStartRunningButton = page.querySelector('.workout-start-running');
+    bindEvents();
+  };
+})(window.app);
+
+/***/ }),
+
+/***/ "./src/js/ui/app.ui.workout.js":
+/*!*************************************!*\
+  !*** ./src/js/ui/app.ui.workout.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+ * Copyright (c) 2015 Samsung Electronics Co., Ltd. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/*global window, tau, document*/
+
+/**
+ * Application navigation page module.
+ * It is responsible for navigation page layout and logic.
+ *
+ * @module app.ui.navigation
+ * @requires {@link app.common.calculations}
+ * @requires {@link app.model.geolocation}
+ * @requires {@link app.ui.waiting}
+ * @requires {@link app.ui.destination}
+ * @requires {@link app.ui.finish}
+ * @namespace app.ui.navigation
+ * @memberof app.ui
+ */
+// make sure that "app" namespace is created
+window.app = window.app || {};
+
+(function defineAppUiWorkout(app) {
+  'use strict';
+  /**
+   * Page Id.
+   *
+   * @private
+   * @const {string}
+   */
+
+  var PAGE_ID = 'workout',
+
+  /**
+   * Navigation path angle.
+   *
+   * @private
+   * @const {number}
+   */
+  PATH_ANGLE = 60,
+
+  /**
+   * Page element.
+   *
+   * @private
+   * @type {HTMLElement}
+   */
+  page = null,
+
+  /**
+   * Common calculations module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  commonCalculations = null,
+
+  /**
+   * Geolocation model module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  modelWorkout = null,
+
+  /**
+   * Ui waiting module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  uiWaiting = null,
+
+  /**
+   * UI destination module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  uiDestination = null,
+
+  /**
+   * UI finish module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  uiFinish = null,
+
+  /**
+   * UI navigation module reference.
+   *
+   * @private
+   * @type {object}
+   */
+  uiWorkout = null,
+
+  /**
+   * Total distance.
+   *
+   * @private
+   * @type {number}
+   */
+  totalDistance = 0,
+
+  /**
+   * HTML elements to update during workout
+   *
+   * @type {HTMLElement}
+   */
+  workoutStatus = null,
+      workoutSpeed = null,
+      workoutSpeedLabel = null,
+      workoutSpeedUnit = null,
+      workoutDistance = null,
+      workoutHr = null,
+      workoutAltitude = null,
+      workoutPauseButton = null,
+
+  /**
+   *
+   * @type {BaseWorkout}
+   */
+  workout = null,
+
+  /**
+   * Popup shown when the workout is paused
+   *
+   * @type {HTMLElement}
+   */
+  pausePopup = null,
+      pausePopupFinishButton = null,
+      pausePopupResumeButton = null,
+
+  /**
+   * Popup shown when the workout is finished
+   *
+   * @type {HTMLElement}
+   */
+  savePopup = null,
+      savePopupDiscardButton = null,
+      savePopupSaveButton = null,
+      commonEvents = null; // create namespace for the module
+
+  app.ui = app.ui || {};
+  app.ui.workout = app.ui.workout || {};
+  uiWorkout = app.ui.workout;
+  /**
+   * Updates UI.
+   *
+   * @private
+   */
+
+  function updateUI(data) {
+    workoutSpeed.innerText = Math.round(data.speed * 10) / 10;
+    workoutSpeedLabel.innerText = data.speedLabel;
+    workoutSpeedUnit.innerText = data.speedUnit;
+    workoutDistance.innerText = Math.round(data.distance * 10) / 10;
+    workoutHr.innerText = Math.round(data.heartRate);
+    workoutAltitude.innerText = Math.round(data.altitude);
+  }
+  /**
+   * Handles pagebeforeshow event.
+   *
+   * @private
+   */
+
+
+  function onPageBeforeShow() {
+    if (workout) {
+      updateUI(workout);
+    }
+
+    if (!modelWorkout.isHeartRateAvailable()) {
+      workoutHr.style.display = 'none';
+    }
+
+    workoutStatus.style.display = 'none';
+  }
+  /**
+   * Handles model.workout.uidateui event.
+   *
+   * Updates workout page ui
+   * according to the values provided by the workout model module.
+   *
+   * @private
+   */
+
+
+  function onModelWorkoutUpdateUI(e) {
+    workout = e.detail;
+
+    if (tau.activePage.id === PAGE_ID) {
+      updateUI(workout);
+    }
+  }
+  /**
+   * Handles tizenhwkey event.
+   *
+   * Closes application if the back device button is pressed.
+   *
+   * @private
+   * @param {Event} e
+   */
+
+
+  function onHwKeyEvent(e) {
+    if (tau.activePage.id === PAGE_ID) {
+      if (e.keyName === 'back') {
+        modelWorkout.togglePause();
+        e.stopPropagation();
+      }
+    }
+  }
+  /**
+   * Handles model.workout.paused event.
+   *
+   *
+   * @private
+   */
+
+
+  function onModelWorkoutPaused(e) {
+    if (tau.activePage.id === PAGE_ID) {
+      workoutStatus.style.display = 'inline';
+      tau.openPopup(pausePopup);
+    }
+  }
+  /**
+   * Handles model.workout.resumed event.
+   *
+   *
+   * @private
+   */
+
+
+  function onModelWorkoutResumed(e) {
+    if (tau.activePage.id === PAGE_ID) {
+      workoutStatus.style.display = 'none';
+      tau.closePopup(pausePopup);
+    }
+  }
+  /**
+   * Handles click event on pause popup finish button click.
+   *
+   * @private
+   */
+
+
+  function onPausePopupFinishBtnClick() {
+    tau.openPopup(savePopup);
+  }
+  /**
+   * Handles click event on pause button button click.
+   *
+   * @private
+   */
+
+
+  function onPauseBtnClick(e) {
+    modelWorkout.togglePause();
+  }
+  /**
+   * Handles click event on pause popup resume button click.
+   *
+   * @private
+   */
+
+
+  function onPausePopupResumeBtnClick() {
+    modelWorkout.togglePause();
+  }
+  /**
+   * Handles click event on save popup save button click.
+   *
+   * @private
+   */
+
+
+  function onSavePopupSaveBtnClick() {
+    modelWorkout.save();
+    tau.changePage('#main');
+  }
+  /**
+   * Handles click event on save popup discard button click.
+   *
+   * @private
+   */
+
+
+  function onSavePopupDiscardBtnClick() {
+    tau.changePage('#main');
+  }
+
+  function onModelWorkoutSaveSuccess() {
+    commonEvents.dispatchEvent('ui.info.show', 'Workout saved sucessfully!');
+  }
+
+  function onModelWorkoutSaveFailed() {
+    commonEvents.dispatchEvent('ui.info.show', 'Workout saved failed!');
+  }
+  /**
+   * Registers event listeners.
+   *
+   * @private
+   */
+
+
+  function bindEvents() {
+    page.addEventListener('pagebeforeshow', onPageBeforeShow);
+    document.addEventListener('tizenhwkey', onHwKeyEvent);
+    window.addEventListener('model.workout.updateui', onModelWorkoutUpdateUI);
+    window.addEventListener('model.workout.paused', onModelWorkoutPaused);
+    window.addEventListener('model.workout.resumed', onModelWorkoutResumed);
+    window.addEventListener('model.workout.save.successful', onModelWorkoutSaveSuccess);
+    window.addEventListener('model.workout.save.failed', onModelWorkoutSaveFailed);
+    workoutPauseButton.addEventListener('click', onPauseBtnClick);
+    pausePopupFinishButton.addEventListener('click', onPausePopupFinishBtnClick);
+    pausePopupResumeButton.addEventListener('click', onPausePopupResumeBtnClick);
+    savePopupSaveButton.addEventListener('click', onSavePopupSaveBtnClick);
+    savePopupDiscardButton.addEventListener('click', onSavePopupDiscardBtnClick);
+  }
+  /**
+   * Shows the navigation page.
+   *
+   * @memberof app.ui.navigation
+   * @public
+   */
+
+
+  uiWorkout.show = function show() {
+    tau.changePage('#' + PAGE_ID);
+  };
+  /**
+   * Initializes the ui navigation module.
+   *
+   * @memberof app.ui.navigation
+   * @public
+   */
+
+
+  uiWorkout.init = function init() {
+    commonCalculations = app.common.calculations;
+    commonEvents = app.common.events;
+    modelWorkout = app.model.workout;
+    page = document.getElementById(PAGE_ID);
+    workoutStatus = page.querySelector('.workout-status');
+    workoutSpeed = page.querySelector('.workout-speed');
+    workoutSpeedLabel = page.querySelector('.workout-speed-label');
+    workoutSpeedUnit = page.querySelector('.workout-speed-unit');
+    workoutDistance = page.querySelector('.workout-distance');
+    workoutHr = page.querySelector('.workout-hr');
+    workoutAltitude = page.querySelector('.workout-altitude');
+    workoutPauseButton = page.querySelector('#workout-pause-btn');
+    pausePopup = document.getElementById('pause-popup');
+    pausePopupFinishButton = pausePopup.querySelector('#pause-popup-yes-btn');
+    pausePopupResumeButton = pausePopup.querySelector('#pause-popup-no-btn');
+    savePopup = document.getElementById('save-popup');
+    savePopupSaveButton = savePopup.querySelector('#save-popup-yes-btn');
+    savePopupDiscardButton = savePopup.querySelector('#save-popup-no-btn');
+    bindEvents();
+  };
+})(window.app);
+
+/***/ }),
+
+/***/ "./src/js/workout/app.workout.base_workout.js":
+/*!****************************************************!*\
+  !*** ./src/js/workout/app.workout.base_workout.js ***!
+  \****************************************************/
+/*! exports provided: WORKOUT_TYPE_RUNNING, WORKOUT_TYPE_CYCLING, BaseWorkout */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WORKOUT_TYPE_RUNNING", function() { return WORKOUT_TYPE_RUNNING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WORKOUT_TYPE_CYCLING", function() { return WORKOUT_TYPE_CYCLING; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BaseWorkout", function() { return BaseWorkout; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+__webpack_require__(/*! ./app.workout.point */ "./src/js/workout/app.workout.point.js");
+
+__webpack_require__(/*! ../common/app.common.calculations */ "./src/js/common/app.common.calculations.js");
+
+var WORKOUT_STATUS_UNSAVED = 0,
+    WORKOUT_STATUS_SAVED = 1,
+    WORKOUT_STATE_STOPPED = 0,
+    WORKOUT_STATE_RUNNING = 1,
+    WORKOUT_STATE_PAUSED = 2,
+    WORKOUT_STATE_AUTOPAUSED = 3;
+var WORKOUT_TYPE_RUNNING = 1;
+var WORKOUT_TYPE_CYCLING = 2;
+/**
+ * @class BaseWorkout
+ * @constructor
+ */
+
+var BaseWorkout =
+/*#__PURE__*/
+function () {
+  function BaseWorkout() {
+    _classCallCheck(this, BaseWorkout);
+
+    this.type = null;
+    this.status = WORKOUT_STATUS_UNSAVED;
+    /** @member {Point[]} **/
+
+    this._points = [];
+    this._distance = 0;
+    this._segmentIndex = 0;
+    this._state = WORKOUT_STATE_STOPPED;
+  }
+
+  _createClass(BaseWorkout, [{
+    key: "init",
+    value: function init() {}
+  }, {
+    key: "start",
+    value: function start() {
+      this._state = WORKOUT_STATE_RUNNING;
+    }
+  }, {
+    key: "pause",
+    value: function pause() {
+      this._state = WORKOUT_STATE_PAUSED;
+      this._segmentIndex++;
+    }
+  }, {
+    key: "save",
+    value: function save() {
+      this.status = WORKOUT_STATUS_SAVED;
+    }
+  }, {
+    key: "resume",
+    value: function resume() {
+      this._state = WORKOUT_STATE_RUNNING;
+    }
+    /**
+     *
+     * @returns {boolean}
+     */
+
+  }, {
+    key: "isActive",
+    value: function isActive() {
+      return this._state === WORKOUT_STATE_RUNNING;
+    }
+    /**
+     *
+     * @param {Point} point
+     */
+
+  }, {
+    key: "addPoint",
+    value: function addPoint(point) {
+      point.segment_index = this._segmentIndex;
+
+      this._points.push(point);
+
+      var points = this._getCalculationPoints();
+
+      if (points) {
+        this.calculate(points.pointA, points.pointB);
+      }
+    }
+    /**
+     *
+     * @private
+     *
+     * @returns {?{pointA: Point, pointB: Point}}
+     */
+
+  }, {
+    key: "_getCalculationPoints",
+    value: function _getCalculationPoints() {
+      var calculationPoints = null;
+
+      if (this._points.length >= 2) {
+        calculationPoints = {
+          pointA: this._points[this._points.length - 2],
+          pointB: this._points[this._points.length - 1]
+        };
+      }
+
+      return calculationPoints;
+    }
+    /**
+     *
+     * @param {Point} pointA
+     * @param {Point} pointB
+     * @returns {number}
+     */
+
+  }, {
+    key: "_calculateDistance",
+    value: function _calculateDistance(pointA, pointB) {
+      var distance = window.app.common.calculations.calculateDistance({
+        latitude: pointA.lat,
+        longitude: pointA.lng
+      }, {
+        latitude: pointB.lat,
+        longitude: pointB.lng
+      });
+      this._distance += distance.raw;
+      return distance.raw;
+    }
+    /**
+     * Calculate the params such as distance, speed, etc
+     *
+     * @param {Point} pointA
+     * @param {Point} pointB
+     */
+
+  }, {
+    key: "calculate",
+    value: function calculate(pointA, pointB) {}
+    /**
+     *
+     * @returns {string}
+     */
+
+  }, {
+    key: "toObject",
+
+    /**
+     *
+     * @returns {{type: int, status: int, points: Point[]}}
+     */
+    value: function toObject() {
+      return {
+        type: this.type,
+        status: this.status,
+        points: this._points
+      };
+    }
+  }, {
+    key: "speedUnit",
+    get: function get() {
+      return 'km/h';
+    }
+    /**
+     *
+     * @returns {string}
+     */
+
+  }, {
+    key: "speedLabel",
+    get: function get() {
+      return 'Speed';
+    }
+    /**
+     *
+     * @returns {number}
+     */
+
+  }, {
+    key: "speed",
+    get: function get() {
+      return 0;
+    }
+    /**
+     *
+     * @returns {number}
+     */
+
+  }, {
+    key: "distance",
+    get: function get() {
+      return this._distance / 1000;
+    }
+    /**
+     *
+     * @param {number} distance
+     */
+    ,
+    set: function set(distance) {
+      this._distance = distance;
+    }
+    /**
+     *
+     * @returns {Point[]}
+     */
+
+  }, {
+    key: "points",
+    get: function get() {
+      return this._points;
+    }
+    /**
+     *
+     * @returns {int|number}
+     */
+
+  }, {
+    key: "heartRate",
+    get: function get() {
+      return this._points.length ? this._points[this._points.length - 1].heart_rate : 0;
+    }
+    /**
+     *
+     * @returns {number}
+     */
+
+  }, {
+    key: "altitude",
+    get: function get() {
+      return this._points.length ? this._points[this._points.length - 1].elevation : 0;
+    }
+  }]);
+
+  return BaseWorkout;
+}();
+
+;
+
+
+/***/ }),
+
+/***/ "./src/js/workout/app.workout.cycling_workout.js":
+/*!*******************************************************!*\
+  !*** ./src/js/workout/app.workout.cycling_workout.js ***!
+  \*******************************************************/
+/*! exports provided: CyclingWorkout */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CyclingWorkout", function() { return CyclingWorkout; });
+/* harmony import */ var _app_workout_base_workout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.workout.base_workout */ "./src/js/workout/app.workout.base_workout.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+ // Milliseconds per meter to kilometers per hour
+
+var MPS_TO_KMH = 3600; // hour = 3600 * 1000 milliseconds / kilometer = 1000 meters
+
+var CyclingWorkout =
+/*#__PURE__*/
+function (_BaseWorkout) {
+  _inherits(CyclingWorkout, _BaseWorkout);
+
+  function CyclingWorkout() {
+    var _this;
+
+    _classCallCheck(this, CyclingWorkout);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CyclingWorkout).call(this));
+    _this.type = _app_workout_base_workout__WEBPACK_IMPORTED_MODULE_0__["WORKOUT_TYPE_CYCLING"];
+    _this._speed = 0;
+    return _this;
+  }
+  /**
+   *
+   * @param {Point} pointA
+   * @param {Point} pointB
+   * @returns {number}
+   */
+
+
+  _createClass(CyclingWorkout, [{
+    key: "_calculateSpeed",
+    value: function _calculateSpeed(pointA, pointB) {
+      var distance = this._calculateDistance(pointA, pointB),
+          timeDiff = pointB.time - pointA.time;
+
+      if (distance > 0.5 && timeDiff > 0) {
+        this._speed = timeDiff ? MPS_TO_KMH * distance / timeDiff : 0;
+      } else {
+        this._speed = 0;
+      }
+
+      return this._speed;
+    }
+    /**
+     * Calculate the params such as distance, speed, etc
+     *
+     * @param {Point} pointA
+     * @param {Point} pointB
+     */
+
+  }, {
+    key: "calculate",
+    value: function calculate(pointA, pointB) {
+      this._calculateSpeed(pointA, pointB);
+    }
+    /**
+     *
+     * @returns {number}
+     */
+
+  }, {
+    key: "speed",
+    get: function get() {
+      return this._speed;
+    }
+  }]);
+
+  return CyclingWorkout;
+}(_app_workout_base_workout__WEBPACK_IMPORTED_MODULE_0__["BaseWorkout"]);
+
+
+
+/***/ }),
+
+/***/ "./src/js/workout/app.workout.point.js":
+/*!*********************************************!*\
+  !*** ./src/js/workout/app.workout.point.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+;
+
+(function (root) {
+  /**
+   *
+   * @param {int} segmentIndex
+   * @param {number} lat
+   * @param {number} lng
+   * @param {int} heartRate
+   * @param {number} elevation
+   * @param {int} time
+   * @constructor
+   */
+  var Point = function Point(segmentIndex, lat, lng, heartRate, elevation, time) {
+    this.segment_index = segmentIndex;
+    this.lat = lat;
+    this.lng = lng;
+    this.heart_rate = heartRate;
+    this.elevation = elevation;
+    this.time = time;
+  };
+
+  Point.prototype = {
+    init: function init() {}
+  };
+  root.Point = Point;
+})(window);
+
+/***/ }),
+
+/***/ "./src/js/workout/app.workout.running_workout.js":
+/*!*******************************************************!*\
+  !*** ./src/js/workout/app.workout.running_workout.js ***!
+  \*******************************************************/
+/*! exports provided: RunningWorkout */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RunningWorkout", function() { return RunningWorkout; });
+/* harmony import */ var _app_workout_base_workout__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.workout.base_workout */ "./src/js/workout/app.workout.base_workout.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+ // Milliseconds per meter to minutes per kilometer
+
+var MSEC_PER_METER_TO_MIN_PER_KM = 60; // Minute = 60 * 1000  millisecond / kilometer = 1000 meters
+
+var RunningWorkout =
+/*#__PURE__*/
+function (_BaseWorkout) {
+  _inherits(RunningWorkout, _BaseWorkout);
+
+  function RunningWorkout() {
+    var _this;
+
+    _classCallCheck(this, RunningWorkout);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(RunningWorkout).call(this));
+    _this.type = _app_workout_base_workout__WEBPACK_IMPORTED_MODULE_0__["WORKOUT_TYPE_RUNNING"];
+    _this._pace = 0;
+    return _this;
+  }
+  /**
+   *
+   * @param {Point} pointA
+   * @param {Point} pointB
+   * @returns {number}
+   */
+
+
+  _createClass(RunningWorkout, [{
+    key: "_calculatePace",
+    value: function _calculatePace(pointA, pointB) {
+      var distance = this._calculateDistance(pointA, pointB),
+          timeDiff = pointB.time - pointA.time;
+
+      if (distance > 0.5 && timeDiff > 0) {
+        this._pace = timeDiff / distance / MSEC_PER_METER_TO_MIN_PER_KM;
+      } else {
+        this._speed = 0;
+      }
+
+      return this._pace;
+    }
+    /**
+     * Calculate the params such as distance, speed, etc
+     *
+     * @param {Point} pointA
+     * @param {Point} pointB
+     */
+
+  }, {
+    key: "calculate",
+    value: function calculate(pointA, pointB) {
+      this._calculatePace(pointA, pointB);
+    }
+    /**
+     *
+     * @returns {string}
+     */
+
+  }, {
+    key: "speedUnit",
+    get: function get() {
+      return 'min/km';
+    }
+    /**
+     *
+     * @returns {string}
+     */
+
+  }, {
+    key: "speedLabel",
+    get: function get() {
+      return 'Pace';
+    }
+    /**
+     *
+     * @returns {number}
+     */
+
+  }, {
+    key: "speed",
+    get: function get() {
+      return this._pace;
+    }
+  }]);
+
+  return RunningWorkout;
+}(_app_workout_base_workout__WEBPACK_IMPORTED_MODULE_0__["BaseWorkout"]);
+
+
+
+/***/ }),
+
+/***/ 0:
+/*!*****************************!*\
+  !*** multi ./src/js/app.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /Users/vernerd/www/tracy-app/src/js/app.js */"./src/js/app.js");
+
+
+/***/ })
+
+/******/ });
 //# sourceMappingURL=app.js.map
