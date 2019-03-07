@@ -8,7 +8,7 @@ import {BatteryDriver} from "./app.drivers.battery";
 import {BatteryDriverTizen} from "./tizen/app.drivers.tizen.battery";
 import {BatteryDriverAndroid} from "./android/app.drivers.android.battery";
 
-import {NetworkDriver} from "./app.drivers.network";
+import {NetworkDriverBrowser} from "./app.drivers.browser.network";
 import {NetworkDriverTizen} from "./tizen/app.drivers.tizen.network";
 import {NetworkDriverAndroid} from "./android/app.drivers.android.network";
 
@@ -18,7 +18,7 @@ class DriverFactory {
     }
 
     buildNetworkDriver() {
-        var networkDriver = new NetworkDriver();
+        var networkDriver = null;
 
         switch (this.platform) {
             case PLATFORMS.TIZEN:
@@ -26,6 +26,9 @@ class DriverFactory {
                 break;
             case PLATFORMS.ANDROID:
                 networkDriver = new NetworkDriverAndroid();
+                break;
+            default:
+                networkDriver = new NetworkDriverBrowser();
                 break;
         }
 
