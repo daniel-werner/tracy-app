@@ -1,3 +1,0 @@
-[submodule "tests/lib/geomock"]
-	path = tests/lib/geomock
-	url = https://github.com/daniel-werner/GeoMock.git
