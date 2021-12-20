@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'header.dart';
 import 'colors.dart';
@@ -17,7 +19,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: Header(),
+        appBar: Header(title: Text('Tracy')),
         body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           bool useVerticalLayout = constraints.maxWidth < 400.0;

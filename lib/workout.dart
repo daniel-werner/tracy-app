@@ -12,10 +12,7 @@ class Workout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: Header(
-          title: const Text('Workout'),
-          wifiActive: true,
-        ),
+        appBar: Header(title: Text('Workout')),
         body: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
           bool useVerticalLayout = constraints.maxWidth < 400.0;
